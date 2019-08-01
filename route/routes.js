@@ -137,6 +137,7 @@ router.post("/questionPost", (req, res, next) => {
   let newQuestion = new questions({
     question: req.body.question,
     responseType: req.body.responseType,
+    type: req.body.type,
     count: req.body.count
   });
 
