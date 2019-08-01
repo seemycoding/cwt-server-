@@ -49,8 +49,8 @@ router.get("/news", (req, res, next) => {
   });
 });
 //get knowldege
-router.get("/knowledge", (req, res, next) => {
-  questions.find(function(err, questions) {
+router.get("/knowledge/:id", (req, res, next) => {
+  questions.find({ type: req.params.id }, (err, questions) => {
     if (err) {
       res.json(err);
     } else {

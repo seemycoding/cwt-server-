@@ -7,6 +7,9 @@ const knowledgeSchema = mongoose.Schema({
   responseType: {
     type: String
   },
+  type: {
+    type: String
+  },
   count: {
     type: Number
   }
