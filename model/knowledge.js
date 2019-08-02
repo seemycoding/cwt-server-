@@ -12,6 +12,12 @@ const knowledgeSchema = mongoose.Schema({
   },
   count: {
     type: Number
+  },
+  image: {
+    type: String
+  },
+  option: {
+    type: String
   }
 });
 
