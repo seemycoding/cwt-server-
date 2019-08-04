@@ -13,12 +13,16 @@ const knowledgeSchema = mongoose.Schema({
   count: {
     type: Number
   },
-  image: {
-    type: String
-  },
-  option: {
-    type: String
-  }
+  image: [
+    {
+      type: String
+    }
+  ],
+  option: [
+    {
+      type: String
+    }
+  ]
 });
 
 const knowledge = (module.exports = mongoose.model(

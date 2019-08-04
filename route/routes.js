@@ -133,12 +133,21 @@ router.post("/NewsPost", (req, res, next) => {
 });
 
 //insert knowledge question
-router.post("/questionPost", (req, res, next) => {
+
+router.post("/questionPost", upload.array("image", 3), (req, res, next) => {
+  let imagePath = [];
+  if (req.files != null) {
+    for (let i = 0; i < req.files.length; i++) {
+      imagePath.push(req.files[i].path.replace("\\", "/"));
+    }
+  }
   let newQuestion = new questions({
     question: req.body.question,
     responseType: req.body.responseType,
     type: req.body.type,
-    count: req.body.count
+    count: req.body.count,
+    image: imagePath,
+    option: req.body.option
   });
 
   newQuestion.save((err, newQuestion) => {
