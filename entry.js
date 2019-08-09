@@ -21,6 +21,7 @@ mongoose.connection.on("error", err => {
 const PORT = 3000;
 
 //middleware
+
 app.use("/uploads", express.static("uploads"));
 //app.use("/uploads", route);
 app.use(cors());
