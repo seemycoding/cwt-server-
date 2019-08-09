@@ -15,6 +15,9 @@ const articleSchema = mongoose.Schema({
   },
   expert: {
     type: Boolean
+  },
+  image: {
+    type: String
   }
 });
 

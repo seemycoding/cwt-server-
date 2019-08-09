@@ -69,8 +69,6 @@ router.get("/getHighlights", (req, res, next) => {
   });
 });
 
-//get image path
-
 //insert new highlights
 router.post("/highlights", upload.single("image"), (req, res, next) => {
   let story = new highlights({
@@ -90,13 +88,14 @@ router.post("/highlights", upload.single("image"), (req, res, next) => {
 });
 
 //insert new article
-router.post("/ArticlePost", (req, res, next) => {
+router.post("/ArticlePost", upload.single("image"), (req, res, next) => {
   let newArticle = new article({
     name: req.body.name,
     profession: req.body.profession,
     title: req.body.title,
     detail: req.body.detail,
-    expert: req.body.expert
+    expert: req.body.expert,
+    image: req.file.path.replace("\\", "/")
   });
 
   newArticle.save((err, article) => {
@@ -112,12 +111,13 @@ router.post("/ArticlePost", (req, res, next) => {
 });
 
 //insert news
-router.post("/NewsPost", (req, res, next) => {
+router.post("/NewsPost", upload.single("image"), (req, res, next) => {
   let newNews = new news({
     source: req.body.source,
     date: new Date(),
     title: req.body.title,
-    detail: req.body.detail
+    detail: req.body.detail,
+    image: req.file.path.replace("\\", "/")
   });
 
   newNews.save((err, newNews) => {
