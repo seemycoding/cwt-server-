@@ -22,8 +22,8 @@ mongoose.connection.on("error", err => {
 const PORT = 3000;
 
 //middleware
-const directory = path.join(__dirname, "/uploads");
-app.use("/static", express.static(directory));
+const directory = path.join(__dirname, "/route");
+app.use("/route", express.static(directory));
 //app.use("/uploads", express.static("uploads"));
 app.use(cors());
 app.use(bodyparser.json());
