@@ -49,14 +49,15 @@ router.get("/news", (req, res, next) => {
     });
 });
 
-router.get('/getQuestionCountOf', (req, res, next) => {
-    res.end('ok this work');
-})
+router.get("/getQuestionCountOf", (req, res, next) => {
+    res.end("ok this work");
+});
 
 
 router.get('/getQuestionCountOf/:type', (req, res, next) => {
     res.end(JSON.stringify(questions.count({ type: req.params.type })));
 })
+
 
 //get knowldege
 router.get("/knowledge/:id", (req, res, next) => {
@@ -140,7 +141,6 @@ router.post("/NewsPost", upload.single("image"), (req, res, next) => {
             });
         }
     });
-
 });
 
 //insert knowledge question
