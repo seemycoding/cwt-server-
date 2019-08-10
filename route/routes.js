@@ -8,6 +8,7 @@ const article = require("../model/article");
 const news = require("../model/news");
 const questions = require("../model/knowledge");
 const highlights = require("../model/highlights");
+//storage defination
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, "./uploads");
@@ -52,7 +53,6 @@ router.get("/news", (req, res, next) => {
 router.get("/getQuestionCountOf", (req, res, next) => {
     res.end("ok this work");
 });
-
 
 router.get('/getQuestionCountOf/:type', (req, res, next) => {
     questions.count({ type: 'bathroom' }, (err, count) => {
