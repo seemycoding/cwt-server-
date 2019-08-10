@@ -8,185 +8,184 @@ const article = require("../model/article");
 const news = require("../model/news");
 const questions = require("../model/knowledge");
 const highlights = require("../model/highlights");
+//storage defination
 const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, "./uploads");
-    },
-    filename: function(req, file, cb) {
-        cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);
-    }
+  destination: function(req, file, cb) {
+    cb(null, "./uploads");
+  },
+  filename: function(req, file, cb) {
+    cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);
+  }
 });
 
 const filefilter = (req, file, cb) => {
-    if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
-        cb(null, true);
-    } else {
-        cb(null, false);
-    }
+  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
 };
 const upload = multer({
-    storage: storage,
-    fileFilter: filefilter
+  storage: storage,
+  fileFilter: filefilter
 });
 //get articles
 router.get("/articles", (req, res, next) => {
-    article.find(function(err, articles) {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(articles);
-        }
-    });
+  article.find(function(err, articles) {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json(articles);
+    }
+  });
 });
 //get news
 router.get("/news", (req, res, next) => {
-    news.find(function(err, news) {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(news);
-        }
-    });
+  news.find(function(err, news) {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json(news);
+    }
+  });
 });
 
 router.get("/getQuestionCountOf", (req, res, next) => {
-    res.end("ok this work");
+  res.end("ok this work");
 });
 
-
-router.get('/getQuestionCountOf/:type', (req, res, next) => {
-    res.json(questions.find({ type: 'bathroom' }))
-})
-
+router.get("/getQuestionCountOf/:type", (req, res, next) => {
+  res.json(questions.find({ type: "bathroom" }));
+});
 
 //get knowldege
 router.get("/knowledge/:id", (req, res, next) => {
-    questions.find({ type: req.params.id }, (err, questions) => {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(questions);
-        }
-    });
+  questions.find({ type: req.params.id }, (err, questions) => {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json(questions);
+    }
+  });
 });
 //get highlights
 router.get("/getHighlights", (req, res, next) => {
-    highlights.find(function(err, highlights) {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(highlights);
-        }
-    });
+  highlights.find(function(err, highlights) {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json(highlights);
+    }
+  });
 });
 
 //insert new highlights
 router.post("/highlights", upload.single("image"), (req, res, next) => {
-    let story = new highlights({
-        image: req.file.path.replace("\\", "/"),
-        title: req.body.title
-    });
-    story.save((err, highlights) => {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json({
-                message: "File uploaded successfully",
-                story
-            });
-        }
-    });
+  let story = new highlights({
+    image: req.file.path.replace("\\", "/"),
+    title: req.body.title
+  });
+  story.save((err, highlights) => {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json({
+        message: "File uploaded successfully",
+        story
+      });
+    }
+  });
 });
 
 //insert new article
 router.post("/ArticlePost", upload.single("image"), (req, res, next) => {
-    let newArticle = new article({
-        name: req.body.name,
-        profession: req.body.profession,
-        title: req.body.title,
-        detail: req.body.detail,
-        expert: req.body.expert,
-        image: req.file.path.replace("\\", "/")
-    });
+  let newArticle = new article({
+    name: req.body.name,
+    profession: req.body.profession,
+    title: req.body.title,
+    detail: req.body.detail,
+    expert: req.body.expert,
+    image: req.file.path.replace("\\", "/")
+  });
 
-    newArticle.save((err, article) => {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json({
-                message: "Article has been added",
-                newArticle
-            });
-        }
-    });
+  newArticle.save((err, article) => {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json({
+        message: "Article has been added",
+        newArticle
+      });
+    }
+  });
 });
 
 //insert news
 router.post("/NewsPost", upload.single("image"), (req, res, next) => {
-    let newNews = new news({
-        source: req.body.source,
-        date: new Date(),
-        title: req.body.title,
-        detail: req.body.detail,
-        image: req.file.path.replace("\\", "/")
-    });
+  let newNews = new news({
+    source: req.body.source,
+    date: new Date(),
+    title: req.body.title,
+    detail: req.body.detail,
+    image: req.file.path.replace("\\", "/")
+  });
 
-    newNews.save((err, newNews) => {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json({
-                message: "News has been added",
-                newNews
-            });
-        }
-    });
+  newNews.save((err, newNews) => {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json({
+        message: "News has been added",
+        newNews
+      });
+    }
+  });
 });
 
 //insert knowledge question
 
 router.post("/questionPost", upload.array("image", 3), (req, res, next) => {
-    let imagePath = [];
-    if (req.files != null) {
-        for (let i = 0; i < req.files.length; i++) {
-            imagePath.push(req.files[i].path.replace("\\", "/"));
-        }
+  let imagePath = [];
+  if (req.files != null) {
+    for (let i = 0; i < req.files.length; i++) {
+      imagePath.push(req.files[i].path.replace("\\", "/"));
     }
-    let newQuestion = new questions({
-        question: req.body.question,
-        responseType: req.body.responseType,
-        type: req.body.type,
-        count: req.body.count,
-        image: imagePath,
-        option: req.body.option
-    });
+  }
+  let newQuestion = new questions({
+    question: req.body.question,
+    responseType: req.body.responseType,
+    type: req.body.type,
+    count: req.body.count,
+    image: imagePath,
+    option: req.body.option
+  });
 
-    newQuestion.save((err, newQuestion) => {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json({
-                message: "Question has been added",
-                newQuestion
-            });
-        }
-    });
+  newQuestion.save((err, newQuestion) => {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json({
+        message: "Question has been added",
+        newQuestion
+      });
+    }
+  });
 });
 
 router.post("/response", (req, res, next) => {
-    res.json({
-        message: "Response recieved",
-        response: req.body.response
-    });
+  res.json({
+    message: "Response recieved",
+    response: req.body.response
+  });
 });
 
 //updating data
 router.put("/put_route", (req, res, next) => {
-    //to do later
+  //to do later
 });
 
 //deleting data
 router.delete("/delete_route", (req, res, next) => {
-    //to do later
+  //to do later
 });
 module.exports = router;
