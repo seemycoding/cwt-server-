@@ -14,8 +14,7 @@ const newsSchema = mongoose.Schema({
     type: String
   },
   image: {
-    Data: Buffer,
-    contentType: String
+    type: String
   }
 });
 
