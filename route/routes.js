@@ -55,8 +55,8 @@ router.get("/getQuestionCountOf", (req, res, next) => {
 });
 
 router.get('/getQuestionCountOf/:type', (req, res, next) => {
-    questions.find({ type: 'bathroom' }).count((err, count) => {
-        console.log(count)
+    questions.find({ type: req.params.type }).count((err, count) => {
+        res.json(count)
     })
 })
 
