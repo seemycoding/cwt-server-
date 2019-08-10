@@ -23,7 +23,7 @@ const PORT = 3000;
 
 //middleware
 const directory = path.join(__dirname, "/uploads");
-app.use("/uploads", express.static(directory));
+app.use("/static", express.static(directory));
 //app.use("/uploads", express.static("uploads"));
 app.use(cors());
 app.use(bodyparser.json());
