@@ -55,7 +55,7 @@ router.get("/getQuestionCountOf", (req, res, next) => {
 
 
 router.get('/getQuestionCountOf/:type', (req, res, next) => {
-    res.end(JSON.stringify(questions.count({ type: req.params.type })));
+    res.json(questions.find({ type: 'bathroom' }))
 })
 
 
