@@ -49,6 +49,11 @@ router.get("/news", (req, res, next) => {
     });
 });
 
+router.get('/getQuestionCountOf', (req, res, next) => {
+    res.end('ok this work');
+})
+
+
 router.get('/getQuestionCountOf/:type', (req, res, next) => {
     res.end(questions.count({ type: req.params.type }));
 })
