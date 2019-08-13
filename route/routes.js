@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var multer = require("multer");
+
 //retrieving data from database;
 
 //import schema
@@ -11,7 +12,7 @@ const highlights = require("../model/highlights");
 //storage defination
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, "./uploads");
+        cb(null, "./public/images");
     },
     filename: function(req, file, cb) {
         cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);
@@ -53,13 +54,6 @@ router.get("/news", (req, res, next) => {
 router.get("/getQuestionCountOf", (req, res, next) => {
     res.end("ok this work");
 });
-
-router.get('/getQuestionCountOf/:type', (req, res, next) => {
-    questions.find({ type: req.params.type }).count((err, count) => {
-        res.end(JSON.stringify({ 'count': count }))
-    })
-})
-
 
 //get knowldege
 router.get("/knowledge/:id", (req, res, next) => {
@@ -170,6 +164,28 @@ router.post("/questionPost", upload.array("image", 3), (req, res, next) => {
             res.json({
                 message: "Question has been added",
                 newQuestion
+            });
+        }
+    });
+});
+
+//insert uypcoming event
+
+router.post("/PostupcomingEvent", upload.single("image"), (req, res, next) => {
+    let upcomingEvent = new ucuevent({
+        title: req.body.title,
+        date: new Date(),
+        place: req.body.title,
+        image: req.file.path.replace("\\", "/")
+    });
+
+    upcomingEvent.save((err, upcomingEvent) => {
+        if (err) {
+            res.json(err);
+        } else {
+            res.json({
+                message: "Upcoming event has been added",
+                upcomingEvent
             });
         }
     });
