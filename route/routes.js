@@ -175,6 +175,28 @@ router.post("/questionPost", upload.array("image", 3), (req, res, next) => {
   });
 });
 
+//insert uypcoming event
+
+router.post("/PostupcomingEvent", upload.single("image"), (req, res, next) => {
+  let upcomingEvent = new ucuevent({
+    title: req.body.title,
+    date: new Date(),
+    place: req.body.title,
+    image: req.file.path.replace("\\", "/")
+  });
+
+  upcomingEvent.save((err, upcomingEvent) => {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json({
+        message: "Upcoming event has been added",
+        upcomingEvent
+      });
+    }
+  });
+});
+
 router.post("/response", (req, res, next) => {
   res.json({
     message: "Response recieved",
