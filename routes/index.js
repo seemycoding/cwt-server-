@@ -14,7 +14,6 @@ const WaterDataController = require('../controllers/WaterData')
 const KnowlegdeController = require('../controllers/Knowledge')
 const UpComingEventController = require('../controllers/UpComingEvent')
 
-///DFDDGDFGDFGDF
 router.get('/Article', ArticleController.index)
 router.get('/Article/:id', ArticleController.byId)
 router.post('/Article', fileUpload.single('image'), ArticleController.create)
