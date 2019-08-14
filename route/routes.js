@@ -40,6 +40,24 @@ router.get("/articles", (req, res, next) => {
         }
     });
 });
+//get article by id
+router.get('/articles/:id', (req, res, next) => {
+  article.findById(req.params.id).then(article => {
+    console.log(article);
+    if(article) { // if exists
+      res.status(200).json(article);
+    } else { // if it doesn't, then...
+      res.status(404).json({
+        message: 'Article not found'
+      });
+    }
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: 'Fetching article failed!'
+    });
+  });
+})
 //get news
 router.get("/news", (req, res, next) => {
     news.find(function(err, news) {
