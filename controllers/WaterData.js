@@ -4,6 +4,7 @@ const WaterDataController = {
         let waterData = await WaterData.find({ state: req.params.state })
         res.json(waterData);
     },
+
     create: async(req, res, next) => {
 
         let stateCode = req.body.state || ''

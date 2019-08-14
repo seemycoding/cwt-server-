@@ -5,8 +5,8 @@ const KnowledgeController = {
         knowledgeQuestions = await Knowledge.find({ type: req.paras.type })
         res.json(knowledgeQuestions)
     },
-    create: async(req, res, next) => {
 
+    create: async(req, res, next) => {
         let imagePath = [];
         if (req.files != null) {
             for (let i = 0; i < req.files.length; i++) {
