@@ -1,3 +1,3 @@
 const mongoose = require('mongoose')
-const dbConnetion = mongoose.createConnection('mongodb://localhost/new_cwt')
+const dbConnetion = mongoose.createConnection('mongodb://localhost/cwt')
 module.exports = dbConnetion;
