@@ -2,7 +2,7 @@ const Knowledge = require('../models/Knowledge')
 
 const KnowledgeController = {
     byType: async(req, res, next) => {
-        knowledgeQuestions = await Knowledge.find({ type: req.paras.type })
+        knowledgeQuestions = await Knowledge.find({ type: req.params.type })
         res.json(knowledgeQuestions)
     },
 
