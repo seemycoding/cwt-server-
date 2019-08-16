@@ -1,12 +1,12 @@
-const Schema = require('mongoose').Schema
-const dbConnection = require('../config/database')
+const Schema = require("mongoose").Schema;
+const dbConnection = require("../config/database");
 const articleSchema = new Schema({
-    auther: { type: String },
-    profession: { type: String },
-    title: { type: String },
-    detail: { type: String },
-    expert: { type: Boolean },
-    image: { type: String }, //path of image
-})
+  author: { type: String },
+  profession: { type: String },
+  title: { type: String },
+  detail: { type: String },
+  expert: { type: Boolean },
+  image: { type: String } //path of image
+});
 
-module.exports = dbConnection.model('Article', articleSchema);
+module.exports = dbConnection.model("Article", articleSchema);
