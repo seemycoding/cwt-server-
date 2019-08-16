@@ -26,7 +26,7 @@ router.get('/WaterData/:state', WaterDataController.byState)
 router.post('/WaterData', WaterDataController.create)
 
 router.get('/Knowledge/:type', KnowlegdeController.byType)
-router.post('/Knowledge', upload.array("image", 3), KnowlegdeController.create)
+router.post('/Knowledge', fileUpload.array("image", 3), KnowlegdeController.create)
 
 router.get('/UpComingEvent', UpComingEventController.index)
 router.post('/UpComingEvent', UpComingEventController.create)

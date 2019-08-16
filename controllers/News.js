@@ -7,6 +7,7 @@ const NewsController = {
     },
     byId: async(req, res, next) => {
         let news = await News.findById(req.params.id)
+        res.json(news)
     },
     create: async(req, res, next) => {
         let source = req.body.source || ''

@@ -1,5 +1,5 @@
-const Schema = require('mongoose').Schema
-const dbConnection = require('../config/database')
+const Schema = require("mongoose").Schema;
+const dbConnection = require("../config/database");
 const articleSchema = new Schema({
     author: { type: String },
     profession: { type: String },
@@ -9,4 +9,4 @@ const articleSchema = new Schema({
     image: { type: String }, //path of image
 })
 
-module.exports = dbConnection.model('Article', articleSchema);
+module.exports = dbConnection.model("Article", articleSchema);
