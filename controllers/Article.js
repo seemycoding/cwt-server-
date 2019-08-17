@@ -27,6 +27,7 @@ const ArticleController = {
             title: articleTitle,
             expert: expert,
             image: image,
+            detail: detail
         })
         res.json(article);
     }
