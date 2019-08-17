@@ -1,4 +1,4 @@
-const Article = require('../models/Artice');
+const Article = require('../models/Article');
 const fileUpload = require('../config/fileUpload')
 
 const ArticleController = {

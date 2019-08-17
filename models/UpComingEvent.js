@@ -2,7 +2,7 @@ const Schema = require("mongoose").Schema;
 const dbConnection = require('../config/database')
 const upcomingEvent = new Schema({
     datetime: {
-        type: Date
+        type: String
     },
     title: {
         type: String
