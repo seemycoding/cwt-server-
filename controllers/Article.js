@@ -12,7 +12,11 @@ const ArticleController = {
         let article = await Article.findById(req.params.id)
         res.json(article);
     },
-
+    deleteById: (req, res, next) => {
+        let article = await Article.findById(req.params.id)
+        let isDeleted = await article.remove();
+        res.json(isDeleted);
+    },
     create: async(req, res, next) => {
         let name = req.body.auther || '';
         let profession = req.body.profession || '';
