@@ -14,14 +14,14 @@ const ArticleController = {
     },
 
     create: async(req, res, next) => {
-        let auther = req.body.auther || '';
+        let name = req.body.auther || '';
         let profession = req.body.profession || '';
         let articleTitle = req.body.title || '';
         let expert = req.body.expert || '';
         let image = (req.file && req.file.filename) || '';
 
         let article = await Article.create({
-            auther: auther,
+            name: name,
             profession: profession,
             title: articleTitle,
             expert: expert,
