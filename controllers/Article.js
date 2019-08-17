@@ -18,6 +18,7 @@ const ArticleController = {
         let profession = req.body.profession || '';
         let articleTitle = req.body.title || '';
         let expert = req.body.expert || '';
+        let detail = req.body.detail || '';
         let image = (req.file && req.file.filename) || '';
 
         let article = await Article.create({
