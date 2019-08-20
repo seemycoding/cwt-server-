@@ -11,7 +11,7 @@ const fileUpload = require('../config/fileUpload')
 const ArticleController = require('../controllers/Article')
 const NewsController = require('../controllers/News')
 const WaterDataController = require('../controllers/WaterData')
-const ContactController = require('../controllers/Contact');
+const ContactController = require('../controllers/ContactUs');
 const KnowlegdeController = require('../controllers/Knowledge')
 const UpComingEventController = require('../controllers/UpComingEvent')
 
