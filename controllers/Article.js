@@ -1,5 +1,4 @@
 const Article = require("../models/Article");
-const fileUpload = require("../config/fileUpload").default;
 
 const ArticleController = {
   index: async (req, res, next) => {
@@ -22,14 +21,14 @@ const ArticleController = {
     let articleTitle = req.body.title || "";
     let expert = req.body.expert || "";
     let detail = req.body.detail || "";
-    let image = (req.file && req.file.filename) || "";
+    let image = (req.file && req.file.path.replace("\\", "/")) || "";
 
     let article = await Article.create({
       name: name,
       profession: profession,
       title: articleTitle,
       expert: expert,
-      image: image,
+      image: image.replace("\\", "/"),
       detail: detail
     });
     res.json(article);
