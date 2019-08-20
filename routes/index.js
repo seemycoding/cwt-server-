@@ -17,6 +17,7 @@ const UpComingEventController = require('../controllers/UpComingEvent')
 router.get('/Article', ArticleController.index)
 router.get('/Article/:id', ArticleController.byId)
 router.post('/Article', fileUpload.single('image'), ArticleController.create)
+router.delete('/Article/:id', ArticleController.deleteById)
 
 router.get('/News', NewsController.index)
 router.get('/News/:id', NewsController.byId)
