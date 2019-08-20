@@ -6,13 +6,13 @@ const ContactController = {
         let subject = req.body.subject || ''
         let additional = req.body.additional || ''
         //console.log(req.body);
-        let Contact = await Contact.create({
+        let ContactData = await Contact.create({
             name: name,
             mail: mail,
             subject: subject,
             additional: additional
         })
-        res.json(Contact);
+        res.json(ContactData);
 
     }
 }
