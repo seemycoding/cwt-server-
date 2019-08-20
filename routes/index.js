@@ -21,7 +21,7 @@ router.delete('/Article/:id', ArticleController.deleteById)
 
 router.get('/News', NewsController.index)
 router.get('/News/:id', NewsController.byId)
-router.post('/News', NewsController.create)
+router.post('/News', fileUpload.single('image'), NewsController.create)
 
 router.get('/WaterData/:state', WaterDataController.byState)
 router.post('/WaterData', WaterDataController.create)
