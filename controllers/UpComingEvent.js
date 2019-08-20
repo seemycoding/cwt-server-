@@ -4,8 +4,8 @@ const UpComingEventController = {
 
 
     index: async(req, res, next) => {
-        const events = await upComingEvent.find();
-        return events;
+        const events = await UpComingEvent.find();
+        res.json(events);
     },
 
     create: async(req, res, next) => {

@@ -7,8 +7,11 @@ const NewsController = {
     },
     byId: async(req, res, next) => {
         let news = await News.findById(req.params.id)
+        res.json(news)
     },
     create: async(req, res, next) => {
+        // console.log("request data",req)
+        // return false
         let source = req.body.source || ''
         let date = req.body.date || ''
         let title = req.body.title || ''
