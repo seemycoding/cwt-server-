@@ -5,12 +5,16 @@ const ContactController = {
         let mail = req.body.mail || ''
         let subject = req.body.subject || ''
         let additional = req.body.additional || ''
+        let organisation = req.body.organisation || ''
+        let type = req.body.type || ''
         //console.log(req.body);
         let ContactData = await Contact.create({
             name: name,
             mail: mail,
             subject: subject,
-            additional: additional
+            additional: additional,
+            organisation: organisation,
+            type:type
         })
         res.json(ContactData);
 
