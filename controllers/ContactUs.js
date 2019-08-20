@@ -16,8 +16,7 @@ const ContactController = {
             organisation: organisation,
             type:type
         })
-        res.json(ContactData);
-
+        res.json(ContactData)
     }
 }
 
