@@ -11,6 +11,7 @@ const fileUpload = require('../config/fileUpload')
 const ArticleController = require('../controllers/Article')
 const NewsController = require('../controllers/News')
 const WaterDataController = require('../controllers/WaterData')
+const ContactController = require('../controllers/Contact');
 const KnowlegdeController = require('../controllers/Knowledge')
 const UpComingEventController = require('../controllers/UpComingEvent')
 
@@ -18,7 +19,7 @@ router.get('/Article', ArticleController.index)
 router.get('/Article/:id', ArticleController.byId)
 router.post('/Article', fileUpload.single('image'), ArticleController.create)
 router.delete('/Article/:id', ArticleController.deleteById)
-
+router.post('/Contact',ContactController.create)
 router.get('/News', NewsController.index)
 router.get('/News/:id', NewsController.byId)
 router.post('/News', fileUpload.single('image'), NewsController.create)
