@@ -2,7 +2,6 @@ const multer = require('multer')
 
 const storage = multer.diskStorage({
     destination: async(req, file, callback) => {
-        console.log(file);
         callback(null, '../public/uploads')
     },
 })

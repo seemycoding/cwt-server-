@@ -10,6 +10,8 @@ const NewsController = {
         res.json(news)
     },
     create: async(req, res, next) => {
+        console.log("request data",req.body);
+        return false;
         let source = req.body.source || ''
         let date = req.body.date || ''
         let title = req.body.title || ''
