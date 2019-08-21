@@ -10,11 +10,25 @@ const ArticleController = {
     let article = await Article.findById(req.params.id);
     res.json(article);
   },
+
   deleteById: async (req, res, next) => {
-    let article = await Article.findById(req.params.id);
-    let isDeleted = await article.remove();
-    res.json(isDeleted);
+    Article.deleteOne({
+      _id: req.params.id
+    }).then(result => {
+      console.log(result);
+      if(result.n > 0) {
+        res.status(200).json({
+          message: 'Article Deleted!'
+        });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Could not delete article'
+      });
+    });
   },
+  
   create: async (req, res, next) => {
     let name = req.body.auther || "";
     let profession = req.body.profession || "";

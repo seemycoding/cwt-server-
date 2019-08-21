@@ -20,7 +20,25 @@ const HighlightController = {
             imagePath: receivedImagePath
         })
         res.json(highlight);
-    }
+    },
+
+    deleteById: async (req, res, next) => {
+        Highlight.deleteOne({
+          _id: req.params.id
+        }).then(result => {
+          console.log(result);
+          if(result.n > 0) {
+            res.status(200).json({
+              message: 'Highlight Deleted!'
+            });
+          }
+        })
+        .catch(error => {
+          res.status(500).json({
+            message: 'Could not delete highlight'
+          });
+        });
+      }
 }
 
 module.exports = HighlightController;

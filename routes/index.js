@@ -24,6 +24,7 @@ router.delete("/Article/:id", ArticleController.deleteById);
 router.get("/News", NewsController.index);
 router.get("/News/:id", NewsController.byId);
 router.post("/News", fileUpload.single("image"), NewsController.create);
+router.delete('/News/:id', NewsController.deleteById);
 
 router.get("/WaterData/:state", WaterDataController.byState);
 router.post("/WaterData", WaterDataController.create);
@@ -33,10 +34,12 @@ router.post("/Knowledge", fileUpload.array("image", 3), KnowlegdeController.crea
 
 router.get("/UpComingEvent", UpComingEventController.index);
 router.post("/UpComingEvent", UpComingEventController.create);
+router.delete("/UpcomingEvent/:id", UpComingEventController.deleteById);
 
 router.post("/Contact", ContactController.create);
 
 router.get('/Highlights', HighlightController.index);
 router.post('/Highlights', HighlightController.create);
+router.delete('/Highlight/:id', HighlightController.deleteById);
 
 module.exports = router;
