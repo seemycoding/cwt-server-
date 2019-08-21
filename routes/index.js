@@ -13,6 +13,7 @@ const NewsController = require('../controllers/News')
 const WaterDataController = require('../controllers/WaterData')
 const KnowlegdeController = require('../controllers/Knowledge')
 const UpComingEventController = require('../controllers/UpComingEvent')
+const HighlightController = require('../controllers/Highlights')
 
 router.get('/Article', ArticleController.index)
 router.get('/Article/:id', ArticleController.byId)
@@ -30,5 +31,8 @@ router.post('/Knowledge', fileUpload.array("image", 3), KnowlegdeController.crea
 
 router.get('/UpComingEvent', UpComingEventController.index)
 router.post('/UpComingEvent', UpComingEventController.create)
+
+router.get('/Highlights', HighlightController.index);
+router.post('/Highlights', HighlightController.create);
 
 module.exports = router;
