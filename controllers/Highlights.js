@@ -12,7 +12,7 @@ const HighlightController = {
 
         let receivedTitle = req.body.title || '';
         let receivedLink = req.body.link || '';
-        let receivedImagePath = req.body.image || '';
+        let receivedImagePath = req.body.imagePath || '';
 
         let highlight = await Highlight.create({
             title: receivedTitle,
