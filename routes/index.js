@@ -17,8 +17,8 @@ const UpComingEventController = require("../controllers/UpComingEvent");
 const HighlightController = require('../controllers/Highlights');
 const GalleryController = require('../controllers/Gallery');
 
-router.get("/Articles/Expert", ArticleController.expertArticles);
-router.get("/Articles/Blogger", ArticleController.bloggerArticles);
+router.get("/ExpertArticles", ArticleController.expertArticles);
+router.get("/BloggerArticles", ArticleController.bloggerArticles);
 router.get("/Article/:id", ArticleController.byId);
 router.post("/Article", fileUpload.single("image"), ArticleController.create);
 router.delete("/Article/:id", ArticleController.deleteById);
