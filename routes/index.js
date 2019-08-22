@@ -15,7 +15,7 @@ const ContactController = require("../controllers/ContactUs");
 const KnowlegdeController = require("../controllers/Knowledge");
 const UpComingEventController = require("../controllers/UpComingEvent");
 const HighlightController = require('../controllers/Highlights');
-
+const GalleryController = require('../controllers/Gallery');
 router.get("/Article", ArticleController.index);
 router.get("/Article/:id", ArticleController.byId);
 router.post("/Article", fileUpload.single("image"), ArticleController.create);
@@ -42,4 +42,7 @@ router.get('/Highlights', HighlightController.index);
 router.post('/Highlights', HighlightController.create);
 router.delete('/Highlight/:id', HighlightController.deleteById);
 
+router.get('/Gallery', GalleryController.index);
+router.post('/Gallery', fileUpload.single("image"),GalleryController.create);
+router.delete('/Gallery/:id', GalleryController.deleteById);
 module.exports = router;
