@@ -2,13 +2,25 @@ const Article = require("../models/Article");
 
 const ArticleController = {
   expertArticles: async (req, res, next) => {
-    let articles = await Article.find({ expert: true });
-    res.json(articles);
+    Article.find({ expert: true }).then(articles => {
+      if(!articles) {
+        return res.status(401).json({
+          message: "Fetching Articles failed"
+        });
+      }
+      return res.status(200).json(articles);
+    });
   },
 
   bloggerArticles: async (req, res, next) => {
-    let articles = await Article.find({ expert: false });
-    res.json(articles);
+    Article.find({ expert: false }).then(articles => {
+      if(!articles) {
+        return res.status(401).json({
+          message: "Fetching Articles failed"
+        });
+      }
+      return res.status(200).json(articles);
+    });
   },
 
   byId: async (req, res, next) => {
