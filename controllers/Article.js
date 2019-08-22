@@ -1,39 +1,51 @@
-const Article = require('../models/Article');
-const fileUpload = require('../config/fileUpload')
+const Article = require("../models/Article");
 
 const ArticleController = {
+  index: async (req, res, next) => {
+    let articles = await Article.find();
+    res.json(articles);
+  },
 
-    index: async(req, res, next) => {
-        let articles = await Article.find();
-        res.json(articles);
-    },
+  byId: async (req, res, next) => {
+    let article = await Article.findById(req.params.id);
+    res.json(article);
+  },
 
-    byId: async(req, res, next) => {
-        let article = await Article.findById(req.params.id)
-        res.json(article);
-    },
-    deleteById: async(req, res, next) => {
-        let article = await Article.findById(req.params.id)
-        let isDeleted = await article.remove();
-        res.json(isDeleted);
-    },
-    create: async(req, res, next) => {
-        let name = req.body.auther || '';
-        let profession = req.body.profession || '';
-        let articleTitle = req.body.title || '';
-        let expert = req.body.expert || '';
-        let detail = req.body.detail || '';
-        let image = (req.file && req.file.filename) || '';
+  deleteById: async (req, res, next) => {
+    Article.deleteOne({
+      _id: req.params.id
+    }).then(result => {
+      console.log(result);
+      if(result.n > 0) {
+        res.status(200).json({
+          message: 'Article Deleted!'
+        });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Could not delete article'
+      });
+    });
+  },
+  
+  create: async (req, res, next) => {
+    let name = req.body.auther || "";
+    let profession = req.body.profession || "";
+    let articleTitle = req.body.title || "";
+    let expert = req.body.expert || "";
+    let detail = req.body.detail || "";
+    let image = (req.file && req.file.path.replace("\\", "/")) || "";
 
-        let article = await Article.create({
-            name: name,
-            profession: profession,
-            title: articleTitle,
-            expert: expert,
-            image: image,
-            detail: detail
-        })
-        res.json(article);
-    }
-}
+    let article = await Article.create({
+      name: name,
+      profession: profession,
+      title: articleTitle,
+      expert: expert,
+      image: image.replace("\\", "/"),
+      detail: detail
+    });
+    res.json(article);
+  }
+};
 module.exports = ArticleController;
