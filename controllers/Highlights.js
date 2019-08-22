@@ -12,12 +12,12 @@ const HighlightController = {
 
         let receivedTitle = req.body.title || '';
         let receivedLink = req.body.link || '';
-        let receivedImagePath = req.body.imagePath || '';
+        let image = (req.file && req.file.path.replace("\\", "/")) || "";
 
         let highlight = await Highlight.create({
             title: receivedTitle,
             link: receivedLink,
-            imagePath: receivedImagePath
+            image: image.replace("\\", "/"),
         })
         res.json(highlight);
     },

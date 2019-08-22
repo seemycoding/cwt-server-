@@ -39,7 +39,7 @@ router.delete("/UpcomingEvent/:id", UpComingEventController.deleteById);
 router.post("/Contact", ContactController.create);
 
 router.get('/Highlights', HighlightController.index);
-router.post('/Highlights', HighlightController.create);
+router.post('/Highlight', fileUpload.single("image"), HighlightController.create);
 router.delete('/Highlight/:id', HighlightController.deleteById);
 
 router.get('/Gallery', GalleryController.index);
