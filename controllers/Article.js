@@ -1,8 +1,13 @@
 const Article = require("../models/Article");
 
 const ArticleController = {
-  index: async (req, res, next) => {
-    let articles = await Article.find();
+  expertArticles: async (req, res, next) => {
+    let articles = await Article.find({ expert: true });
+    res.json(articles);
+  },
+
+  bloggerArticles: async (req, res, next) => {
+    let articles = await Article.find({ expert: false });
     res.json(articles);
   },
 
