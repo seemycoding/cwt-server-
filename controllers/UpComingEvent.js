@@ -6,7 +6,7 @@ const UpComingEventController = {
   },
 
   create: async (req, res, next) => {
-    const datetime = req.body.datetime;
+    const datetime = req.body.date;
     const title = req.body.title;
     const place = req.body.place;
     let image = (req.file && req.file.path.replace("\\", "/")) || "";
