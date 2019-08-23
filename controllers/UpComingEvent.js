@@ -9,7 +9,7 @@ const UpComingEventController = {
     const datetime = req.body.datetime;
     const title = req.body.title;
     const place = req.body.place;
-    const image = req.file.path.replace("\\", "/");
+    let image = (req.file && req.file.path.replace("\\", "/")) || "";
 
     const event = await UpComingEvent.create({
       datetime: datetime,
