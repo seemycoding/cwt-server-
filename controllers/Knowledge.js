@@ -19,6 +19,7 @@ const KnowledgeController = {
     let questionType = req.body.type || "";
     let count = req.body.count || "";
     let option = req.body.option || "";
+    let score = req.body.score || "";
 
     let knowledge = await Knowledge.create({
       question: question,
@@ -26,7 +27,8 @@ const KnowledgeController = {
       questionType: questionType,
       count: count,
       image: imagePath,
-      option: option
+      option: option,
+      score: score
     });
     res.json(knowledge);
   }

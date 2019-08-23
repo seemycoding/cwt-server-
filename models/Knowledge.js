@@ -1,12 +1,13 @@
-const Schema = require('mongoose').Schema;
-const dbConnection = require('../config/database')
+const Schema = require("mongoose").Schema;
+const dbConnection = require("../config/database");
 const knwoledgeSchema = new Schema({
-    question: { type: String },
-    responseType: { type: String },
-    questionType: { type: String },
-    count: { type: Number },
-    option: [{ type: String }],
-    image: [{ type: String }]
-})
+  question: { type: String },
+  responseType: { type: String },
+  questionType: { type: String },
+  count: { type: Number },
+  option: [{ type: String }],
+  image: [{ type: String }],
+  score: [{ type: Number }]
+});
 
-module.exports = dbConnection.model('Knowledge', knwoledgeSchema)
+module.exports = dbConnection.model("Knowledge", knwoledgeSchema);
