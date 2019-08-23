@@ -6,6 +6,7 @@ const HighlightController = {
     res.json(highlights);
   },
 
+<<<<<<< HEAD
   create: async (req, res, next) => {
     let receivedTitle = req.body.title || "";
     let receivedLink = req.body.link || "";
@@ -18,6 +19,19 @@ const HighlightController = {
     });
     res.json(highlight);
   },
+=======
+        let receivedTitle = req.body.title || '';
+        let receivedLink = req.body.link || '';
+        let image = (req.file && req.file.path.replace("\\", "/")) || "";
+
+        let highlight = await Highlight.create({
+            title: receivedTitle,
+            link: receivedLink,
+            image: image.replace("\\", "/"),
+        })
+        res.json(highlight);
+    },
+>>>>>>> d5f16222ad5a073490ab91fa53d34196d3eb4600
 
   deleteById: async (req, res, next) => {
     Highlight.deleteOne({

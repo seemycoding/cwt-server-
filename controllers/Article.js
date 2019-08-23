@@ -1,8 +1,13 @@
 const Article = require("../models/Article");
 
 const ArticleController = {
-  index: async (req, res, next) => {
-    let articles = await Article.find();
+  expertArticles: async (req, res, next) => {
+    let articles = await Article.find({expert:true});
+    res.json(articles);
+  },
+
+  bloggerArticles: async (req, res, next) => {
+    let articles = await Article.find({expert:false});
     res.json(articles);
   },
 
@@ -28,9 +33,9 @@ const ArticleController = {
       });
     });
   },
-  
+
   create: async (req, res, next) => {
-    let name = req.body.auther || "";
+    let author = req.body.author || "";
     let profession = req.body.profession || "";
     let articleTitle = req.body.title || "";
     let expert = req.body.expert || "";
@@ -38,7 +43,7 @@ const ArticleController = {
     let image = (req.file && req.file.path.replace("\\", "/")) || "";
 
     let article = await Article.create({
-      name: name,
+      author: author,
       profession: profession,
       title: articleTitle,
       expert: expert,

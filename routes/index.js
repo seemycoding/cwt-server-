@@ -14,9 +14,15 @@ const WaterDataController = require("../controllers/WaterData");
 const ContactController = require("../controllers/ContactUs");
 const KnowlegdeController = require("../controllers/Knowledge");
 const UpComingEventController = require("../controllers/UpComingEvent");
+<<<<<<< HEAD
 const HighlightController = require("../controllers/Highlights");
+=======
+const HighlightController = require('../controllers/Highlights');
+const GalleryController = require('../controllers/Gallery');
+>>>>>>> d5f16222ad5a073490ab91fa53d34196d3eb4600
 
-router.get("/Article", ArticleController.index);
+router.get("/ExpertArticles", ArticleController.expertArticles);
+router.get("/BloggerArticles", ArticleController.bloggerArticles);
 router.get("/Article/:id", ArticleController.byId);
 router.post("/Article", fileUpload.single("image"), ArticleController.create);
 router.delete("/Article/:id", ArticleController.deleteById);
@@ -42,6 +48,7 @@ router.delete("/UpcomingEvent/:id", UpComingEventController.deleteById);
 
 router.post("/Contact", ContactController.create);
 
+<<<<<<< HEAD
 router.get("/Highlights", HighlightController.index);
 router.post(
   "/Highlights",
@@ -49,5 +56,13 @@ router.post(
   HighlightController.create
 );
 router.delete("/Highlight/:id", HighlightController.deleteById);
+=======
+router.get('/Highlights', HighlightController.index);
+router.post('/Highlight', fileUpload.single("image"), HighlightController.create);
+router.delete('/Highlight/:id', HighlightController.deleteById);
+>>>>>>> d5f16222ad5a073490ab91fa53d34196d3eb4600
 
+router.get('/Gallery', GalleryController.index);
+router.post('/Gallery', fileUpload.single("image"),GalleryController.create);
+router.delete('/Gallery/:id', GalleryController.deleteById);
 module.exports = router;
