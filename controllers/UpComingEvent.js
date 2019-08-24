@@ -6,15 +6,15 @@ const UpComingEventController = {
   },
 
   create: async (req, res, next) => {
-    const datetime = req.body.datetime;
-    const title = req.body.title;
-    const place = req.body.place;
-    const image = req.file.path.replace("\\", "/");
+    let receivedDate = req.body.date || '';
+    let receivedTitle = req.body.title || '';
+    let receivedPlace = req.body.place || '';
+    let image = (req.file && req.file.path.replace("\\", "/")) || "";
 
     const event = await UpComingEvent.create({
-      datetime: datetime,
-      title: title,
-      place: place,
+      date: receivedDate,
+      title: receivedTitle,
+      place: receivedPlace,
       image: image.replace("\\", "/")
     });
 

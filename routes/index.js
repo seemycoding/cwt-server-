@@ -39,14 +39,18 @@ router.post(
 );
 
 router.get("/UpComingEvent", UpComingEventController.index);
-router.post("/UpComingEvent", UpComingEventController.create);
+router.post(
+  "/UpComingEvent",
+  fileUpload.single("image"),
+  UpComingEventController.create
+);
 router.delete("/UpcomingEvent/:id", UpComingEventController.deleteById);
 
 router.post("/Contact", ContactController.create);
 
 router.get("/Highlights", HighlightController.index);
 router.post(
-  "/Highlight",
+  "/Highlights",
   fileUpload.single("image"),
   HighlightController.create
 );
