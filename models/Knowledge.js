@@ -3,7 +3,7 @@ const dbConnection = require("../config/database");
 const knwoledgeSchema = new Schema({
   question: { type: String },
   responseType: { type: String },
-  questionType: { type: String },
+  type: { type: String },
   count: { type: Number },
   option: [{ type: String }],
   image: [{ type: String }],
