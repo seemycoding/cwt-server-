@@ -9,12 +9,14 @@ const UpComingEventController = {
     let receivedDate = req.body.date || '';
     let receivedTitle = req.body.title || '';
     let receivedPlace = req.body.place || '';
+    let receivedDetail = req.body.detail || '';
     let image = (req.file && req.file.path.replace("\\", "/")) || "";
 
     const event = await UpComingEvent.create({
       date: receivedDate,
       title: receivedTitle,
       place: receivedPlace,
+      detail: receivedDetail,
       image: image.replace("\\", "/")
     });
 

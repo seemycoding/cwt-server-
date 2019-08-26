@@ -12,6 +12,9 @@ const upcomingEvent = new Schema({
     },
     image: {
         type: String
+    },
+    detail: {
+        type: String
     }
 });
 
