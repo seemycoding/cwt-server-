@@ -54,7 +54,8 @@ router.post(
   fileUpload.single("image"),
   HighlightController.create
 );
-router.delete("/Highlight/:id", HighlightController.deleteById);
+router.put("/Highlight/:id", HighlightController.updateById);
+router.delete("/Highlight/:id", fileUpload.single("image"), HighlightController.deleteById);
 
 router.get("/Gallery", GalleryController.index);
 router.post("/Gallery", fileUpload.single("image"), GalleryController.create);
