@@ -52,7 +52,8 @@ const HighlightController = {
     })
     .catch(error => {
       res.status(500).json({
-        message: 'Could not update highlight'
+        message: 'Could not update highlight',
+        error: error
       })
     });
   },
@@ -71,7 +72,8 @@ const HighlightController = {
       })
       .catch(error => {
         res.status(500).json({
-          message: "Could not delete highlight"
+          message: "Could not delete highlight",
+          error: error
         });
       });
   }
