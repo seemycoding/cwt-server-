@@ -17,13 +17,14 @@ const NewsController = {
     let title = req.body.title || "";
     let detail = req.body.detail || "";
     let image = (req.file && req.file.path.replace("\\", "/")) || "";
-
+    let link = req.body.link || "";
     let news = await News.create({
       source: source,
       date: date,
       title: title,
       detail: detail,
-      image: image.replace("\\", "/")
+      image: image.replace("\\", "/"),
+      link: link
     });
     res.json(news);
   },
