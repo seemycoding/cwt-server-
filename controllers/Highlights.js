@@ -28,7 +28,7 @@ const HighlightController = {
     var highlight;
     if(image) {
       highlight = new Highlight({
-        id: req.body.id,
+        _id: req.body.id,
         title: req.body.title,
         link: req.body.link,
         image: image,
@@ -37,7 +37,7 @@ const HighlightController = {
       });
     } else {
       highlight = new Highlight({
-        id: req.body.id,
+        _id: req.body.id,
         title: req.body.title,
         link: req.body.link,
         sortOrder: req.body.sortOrder,
