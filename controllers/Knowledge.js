@@ -16,17 +16,19 @@ const KnowledgeController = {
 
     let question = req.body.question || "";
     let responseType = req.body.responseType || "";
-    let questionType = req.body.type || "";
+    let type = req.body.type || "";
     let count = req.body.count || "";
     let option = req.body.option || "";
+    let score = req.body.score || "";
 
     let knowledge = await Knowledge.create({
       question: question,
       responseType: responseType,
-      questionType: questionType,
+      type: type,
       count: count,
       image: imagePath,
-      option: option
+      option: option,
+      score: score
     });
     res.json(knowledge);
   }

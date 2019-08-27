@@ -16,6 +16,7 @@ const NewsController = {
     let date = req.body.date || "";
     let title = req.body.title || "";
     let detail = req.body.detail || "";
+    let receivedLink = req.body.link || "";
     let image = (req.file && req.file.path.replace("\\", "/")) || "";
     let link = req.body.link || "";
     let news = await News.create({
@@ -23,8 +24,8 @@ const NewsController = {
       date: date,
       title: title,
       detail: detail,
-      image: image.replace("\\", "/"),
-      link: link
+      link: receivedLink,
+      image: image.replace("\\", "/")
     });
     res.json(news);
   },

@@ -14,9 +14,11 @@ const WaterDataController = require("../controllers/WaterData");
 const ContactController = require("../controllers/ContactUs");
 const KnowlegdeController = require("../controllers/Knowledge");
 const UpComingEventController = require("../controllers/UpComingEvent");
-const HighlightController = require('../controllers/Highlights');
-const GalleryController = require('../controllers/Gallery');
-router.get("/Article", ArticleController.index);
+const HighlightController = require("../controllers/Highlights");
+const GalleryController = require("../controllers/Gallery");
+
+router.get("/ExpertArticles", ArticleController.expertArticles);
+router.get("/BloggerArticles", ArticleController.bloggerArticles);
 router.get("/Article/:id", ArticleController.byId);
 router.post("/Article", fileUpload.single("image"), ArticleController.create);
 router.delete("/Article/:id", ArticleController.deleteById);
@@ -24,25 +26,38 @@ router.delete("/Article/:id", ArticleController.deleteById);
 router.get("/News", NewsController.index);
 router.get("/News/:id", NewsController.byId);
 router.post("/News", fileUpload.single("image"), NewsController.create);
-router.delete('/News/:id', NewsController.deleteById);
+router.delete("/News/:id", NewsController.deleteById);
 
 router.get("/WaterData/:state", WaterDataController.byState);
 router.post("/WaterData", WaterDataController.create);
 
 router.get("/Knowledge/:type", KnowlegdeController.byType);
-router.post("/Knowledge", fileUpload.array("image", 3), KnowlegdeController.create);
+router.post(
+  "/Knowledge",
+  fileUpload.array("image", 3),
+  KnowlegdeController.create
+);
 
 router.get("/UpComingEvent", UpComingEventController.index);
-router.post("/UpComingEvent", UpComingEventController.create);
+router.post(
+  "/UpComingEvent",
+  fileUpload.single("image"),
+  UpComingEventController.create
+);
 router.delete("/UpcomingEvent/:id", UpComingEventController.deleteById);
 
 router.post("/Contact", ContactController.create);
 
-router.get('/Highlights', HighlightController.index);
-router.post('/Highlights', HighlightController.create);
-router.delete('/Highlight/:id', HighlightController.deleteById);
+router.get("/Highlights", HighlightController.index);
+router.post(
+  "/Highlights",
+  fileUpload.single("image"),
+  HighlightController.create
+);
+router.put("/Highlight/:id", fileUpload.single("image"), HighlightController.updateById);
+router.delete("/Highlight/:id", HighlightController.deleteById);
 
-router.get('/Gallery', GalleryController.index);
-router.post('/Gallery', fileUpload.single("image"),GalleryController.create);
-router.delete('/Gallery/:id', GalleryController.deleteById);
+router.get("/Gallery", GalleryController.index);
+router.post("/Gallery", fileUpload.single("image"), GalleryController.create);
+router.delete("/Gallery/:id", GalleryController.deleteById);
 module.exports = router;
