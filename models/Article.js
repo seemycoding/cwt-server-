@@ -7,6 +7,10 @@ const articleSchema = new Schema({
     detail: { type: String },
     expert: { type: Boolean },
     image: { type: String }, //path of image
+    link: { type: String },
+    sortOrder : { type: Number },
+    dateAdded : { type: Date },
+    dateModified : { type: Date }
 })
 
 module.exports = dbConnection.model("Article", articleSchema);

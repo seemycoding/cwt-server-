@@ -48,9 +48,56 @@ const ArticleController = {
       title: articleTitle,
       expert: expert,
       image: image.replace("\\", "/"),
-      detail: detail
+      detail: detail,
+      link: req.body.link,
+      sortOrder: req.body.sortOrder,
+      dateAdded: Date.now(),
+      dateModified: Date.now()
     });
     res.json(article);
+  },
+  
+  updateById: async (req, res, next) => {
+    let image = (req.file && req.file.path.replace("\\", "/"));
+    var article;
+    if(image) {
+      article = new Article({
+        _id: req.body.id,
+        author: req.body.author,
+        profession: req.body.profession,
+        title: req.body.title,
+        detail: req.body.detail,
+        expert: req.body.expert,
+        image: image,
+        link: req.body.link,
+        sortOrder: req.body.sortOrder,
+        dateUpdated: Date.now()
+      });
+    } else {
+      article = new Article({
+        _id: req.body.id,
+        author: req.body.author,
+        profession: req.body.profession,
+        title: req.body.title,
+        detail: req.body.detail,
+        expert: req.body.expert,
+        link: req.body.link,
+        sortOrder: req.body.sortOrder,
+        dateUpdated: Date.now()
+      });
+    }
+    Article.updateOne({ _id: req.params.id }, article).then(result => {
+      console.log(result);
+      if(result.n > 0) {
+        res.status(200).json({ message: "Article updated Successfully!"});
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Could not update article',
+        error: error
+      })
+    });
   }
 };
 module.exports = ArticleController;

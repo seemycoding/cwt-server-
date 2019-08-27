@@ -21,6 +21,7 @@ router.get("/ExpertArticles", ArticleController.expertArticles);
 router.get("/BloggerArticles", ArticleController.bloggerArticles);
 router.get("/Article/:id", ArticleController.byId);
 router.post("/Article", fileUpload.single("image"), ArticleController.create);
+router.put("/Article/:id", fileUpload.single("image"), ArticleController.updateById);
 router.delete("/Article/:id", ArticleController.deleteById);
 
 router.get("/News", NewsController.index);
