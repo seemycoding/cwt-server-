@@ -10,8 +10,8 @@ const GalleryController = {
 
     create: async(req, res, next) => {
 
-        let receivedTitle = req.body.title || '';
-        let receivedContent = req.body.content || '';
+        let receivedTitle = req.body.title || "";
+        let receivedContent = req.body.content || "";
         let receivedImagePath = (req.file && req.file.path.replace("\\", "/")) || "";
 
         let image = await Gallery.create({

@@ -6,8 +6,8 @@ const newsSchema = new Schema({
     date: { type: String },
     title: { type: String },
     detail: { type: String },
-    link: { type: String },
-    image: { type: String }
+    image: { type: String },
+    link: { type: String}
 })
 
 module.exports = dbConnection.model('News', newsSchema)

@@ -18,7 +18,7 @@ const NewsController = {
     let detail = req.body.detail || "";
     let receivedLink = req.body.link || "";
     let image = (req.file && req.file.path.replace("\\", "/")) || "";
-
+    let link = req.body.link || "";
     let news = await News.create({
       source: source,
       date: date,
