@@ -25,9 +25,10 @@ const HighlightController = {
 
   updateById: async (req, res, next) => {
     let image = (req.file && req.file.path.replace("\\", "/"));
-    var highlight;
+    const highlight;
     if(image) {
       highlight = new Highlight({
+        _id: req.body.id,
         title: req.body.title,
         link: req.body.link,
         image: image,
@@ -36,6 +37,7 @@ const HighlightController = {
       });
     } else {
       highlight = new Highlight({
+        _id: req.body.id,
         title: req.body.title,
         link: req.body.link,
         sortOrder: req.body.sortOrder,
