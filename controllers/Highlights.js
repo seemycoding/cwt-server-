@@ -25,7 +25,7 @@ const HighlightController = {
 
   updateById: async (req, res, next) => {
     let image = (req.file && req.file.path.replace("\\", "/"));
-    const highlight;
+    var highlight;
     if(image) {
       highlight = new Highlight({
         _id: req.body.id,
