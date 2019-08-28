@@ -7,7 +7,10 @@ const newsSchema = new Schema({
     title: { type: String },
     detail: { type: String },
     image: { type: String },
-    link: { type: String}
+    link: { type: String},
+    sortOrder : { type: Number },
+    dateAdded : { type: Date },
+    dateModified : { type: Date }
 })
 
 module.exports = dbConnection.model('News', newsSchema)

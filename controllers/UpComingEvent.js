@@ -17,7 +17,10 @@ const UpComingEventController = {
       title: receivedTitle,
       place: receivedPlace,
       detail: receivedDetail,
-      image: image.replace("\\", "/")
+      image: image.replace("\\", "/"),
+      sortOrder: req.body.sortOrder,
+      dateAdded: Date.now(),
+      dateModified: Date.now()
     });
 
     res.json(event);

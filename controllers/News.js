@@ -25,7 +25,10 @@ const NewsController = {
       title: title,
       detail: detail,
       link: receivedLink,
-      image: image.replace("\\", "/")
+      image: image.replace("\\", "/"),
+      sortOrder: req.body.sortOrder,
+      dateAdded: Date.now(),
+      dateModified: Date.now()
     });
     res.json(news);
   },
@@ -46,6 +49,36 @@ const NewsController = {
         message: 'Could not delete news'
       });
     });
+  },
+
+  updateById: async (req, res, next) => {
+    let image = (req.file && req.file.path.replace("\\", "/"));
+    if(image) {
+      image = image.replace("\\", "/");
+    }
+    var news = new News({
+      _id: req.body.id,
+      source: req.body.source,
+      date: req.body.date,
+      title: req.body.title,
+      detail: req.body.detail,
+      link: req.body.link,
+      image: image,
+      sortOrder: req.body.sortOrder,
+      dateModified: Date.now()
+    });
+    News.updateOne({ _id: req.params.id }, news).then(result => {
+      console.log(result);
+      if(result.n > 0) {
+        res.status(200).json({ message: "News updated Successfully!"});
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Could not update news',
+        error: error
+      })
+    }); 
   }
 };
 module.exports = NewsController;

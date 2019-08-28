@@ -27,6 +27,7 @@ router.delete("/Article/:id", ArticleController.deleteById);
 router.get("/News", NewsController.index);
 router.get("/News/:id", NewsController.byId);
 router.post("/News", fileUpload.single("image"), NewsController.create);
+router.put("/News/:id", fileUpload.single("image"), NewsController.updateById);
 router.delete("/News/:id", NewsController.deleteById);
 
 router.get("/WaterData/:state", WaterDataController.byState);

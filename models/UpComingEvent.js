@@ -15,7 +15,10 @@ const upcomingEvent = new Schema({
     },
     detail: {
         type: String
-    }
+    },
+    sortOrder : { type: Number },
+    dateAdded : { type: Date },
+    dateModified : { type: Date }
 });
 
 module.exports = dbConnection.model("upcoming_event", upcomingEvent)
