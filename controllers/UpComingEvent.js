@@ -26,6 +26,35 @@ const UpComingEventController = {
     res.json(event);
   },
 
+  updateById = async (req, res, next) => {
+    let image = (req.file && req.file.path.replace("\\", "/"));
+    if(image) {
+      image = image.replace("\\", "/");
+    }
+    var event = new UpComingEvent({
+      _id: req.body.id,
+      date: req.body.date,
+      title: req.body.title,
+      place: req.body.place,
+      detail: req.body.detail,
+      image: image,
+      sortOrder: req.body.sortOrder,
+      dateModified: Date.now()
+    });
+    UpComingEvent.updateOne({ _id: req.params.id }, event).then(result => {
+      console.log(result);
+      if(result.n > 0) {
+        res.status(200).json({ message: "Event updated Successfully!"});
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Could not update event',
+        error: error
+      })
+    }); 
+  },
+
   deleteById: async (req, res, next) => {
     UpComingEvent.deleteOne({
       _id: req.params.id

@@ -59,33 +59,21 @@ const ArticleController = {
 
   updateById: async (req, res, next) => {
     let image = (req.file && req.file.path.replace("\\", "/"));
-    var article;
     if(image) {
-      article = new Article({
-        _id: req.body.id,
-        author: req.body.author,
-        profession: req.body.profession,
-        title: req.body.title,
-        detail: req.body.detail,
-        expert: req.body.expert,
-        image: image,
-        link: req.body.link,
-        sortOrder: req.body.sortOrder,
-        dateModified: Date.now()
-      });
-    } else {
-      article = new Article({
-        _id: req.body.id,
-        author: req.body.author,
-        profession: req.body.profession,
-        title: req.body.title,
-        detail: req.body.detail,
-        expert: req.body.expert,
-        link: req.body.link,
-        sortOrder: req.body.sortOrder,
-        dateModified: Date.now()
-      });
+      image = image.replace("\\", "/");
     }
+    var article = new Article({
+      _id: req.body.id,
+      author: req.body.author,
+      profession: req.body.profession,
+      title: req.body.title,
+      detail: req.body.detail,
+      expert: req.body.expert,
+      image: image,
+      link: req.body.link,
+      sortOrder: req.body.sortOrder,
+      dateModified: Date.now()   
+    });
     Article.updateOne({ _id: req.params.id }, article).then(result => {
       console.log(result);
       if(result.n > 0) {

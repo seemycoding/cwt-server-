@@ -46,6 +46,7 @@ router.post(
   fileUpload.single("image"),
   UpComingEventController.create
 );
+router.put("/UpcomingEvent/:id", fileUpload.single("image"), UpComingEventController.updateById);
 router.delete("/UpcomingEvent/:id", UpComingEventController.deleteById);
 
 router.post("/Contact", ContactController.create);
@@ -62,4 +63,5 @@ router.delete("/Highlight/:id", HighlightController.deleteById);
 router.get("/Gallery", GalleryController.index);
 router.post("/Gallery", fileUpload.single("image"), GalleryController.create);
 router.delete("/Gallery/:id", GalleryController.deleteById);
+
 module.exports = router;

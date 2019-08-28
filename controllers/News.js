@@ -33,24 +33,6 @@ const NewsController = {
     res.json(news);
   },
   
-  deleteById: async (req, res, next) => {
-    News.deleteOne({
-      _id: req.params.id
-    }).then(result => {
-      console.log(result);
-      if(result.n > 0) {
-        res.status(200).json({
-          message: 'News Deleted!'
-        });
-      }
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: 'Could not delete news'
-      });
-    });
-  },
-
   updateById: async (req, res, next) => {
     let image = (req.file && req.file.path.replace("\\", "/"));
     if(image) {
@@ -79,6 +61,24 @@ const NewsController = {
         error: error
       })
     }); 
+  },
+  
+  deleteById: async (req, res, next) => {
+    News.deleteOne({
+      _id: req.params.id
+    }).then(result => {
+      console.log(result);
+      if(result.n > 0) {
+        res.status(200).json({
+          message: 'News Deleted!'
+        });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Could not delete news'
+      });
+    });
   }
 };
 module.exports = NewsController;

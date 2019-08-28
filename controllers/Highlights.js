@@ -25,25 +25,17 @@ const HighlightController = {
 
   updateById: async (req, res, next) => {
     let image = (req.file && req.file.path.replace("\\", "/"));
-    var highlight;
     if(image) {
-      highlight = new Highlight({
-        _id: req.body.id,
-        title: req.body.title,
-        link: req.body.link,
-        image: image,
-        sortOrder: req.body.sortOrder,
-        dateModified: Date.now()
-      });
-    } else {
-      highlight = new Highlight({
-        _id: req.body.id,
-        title: req.body.title,
-        link: req.body.link,
-        sortOrder: req.body.sortOrder,
-        dateModified: Date.now()
-      });
+      image = image.replace("\\", "/");
     }
+    var highlight = new Highlight({
+      _id: req.body.id,
+      title: req.body.title,
+      link: req.body.link,
+      image: image,
+      sortOrder: req.body.sortOrder,
+      dateModified: Date.now()
+    });
     Highlight.updateOne({ _id: req.params.id }, highlight).then(result => {
       console.log(result);
       if(result.n > 0) {
