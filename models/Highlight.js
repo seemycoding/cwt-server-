@@ -6,7 +6,7 @@ const highlightSchema = new Schema({
     image: { type: String, required: true },
     sortOrder : { type: Number },
     dateAdded : { type: Date },
-    dateUpdated : { type: Date }
+    dateModified : { type: Date }
 })
 
 module.exports = dbConnection.model("Highlight", highlightSchema);

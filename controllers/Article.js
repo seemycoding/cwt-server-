@@ -56,7 +56,7 @@ const ArticleController = {
     });
     res.json(article);
   },
-  
+
   updateById: async (req, res, next) => {
     let image = (req.file && req.file.path.replace("\\", "/"));
     var article;
@@ -71,7 +71,7 @@ const ArticleController = {
         image: image,
         link: req.body.link,
         sortOrder: req.body.sortOrder,
-        dateUpdated: Date.now()
+        dateModified: Date.now()
       });
     } else {
       article = new Article({
@@ -83,7 +83,7 @@ const ArticleController = {
         expert: req.body.expert,
         link: req.body.link,
         sortOrder: req.body.sortOrder,
-        dateUpdated: Date.now()
+        dateModified: Date.now()
       });
     }
     Article.updateOne({ _id: req.params.id }, article).then(result => {

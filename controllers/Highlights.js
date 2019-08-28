@@ -17,7 +17,7 @@ const HighlightController = {
       link: receivedLink,
       image: image.replace("\\", "/"),
       dateAdded: Date.now(),
-      dateUpdated: Date.now(),
+      dateModified: Date.now(),
       sortOrder: receivedSortOrder
     });
     res.json(highlight);
@@ -33,7 +33,7 @@ const HighlightController = {
         link: req.body.link,
         image: image,
         sortOrder: req.body.sortOrder,
-        dateUpdated: Date.now()
+        dateModified: Date.now()
       });
     } else {
       highlight = new Highlight({
@@ -41,7 +41,7 @@ const HighlightController = {
         title: req.body.title,
         link: req.body.link,
         sortOrder: req.body.sortOrder,
-        dateUpdated: Date.now()
+        dateModified: Date.now()
       });
     }
     Highlight.updateOne({ _id: req.params.id }, highlight).then(result => {
