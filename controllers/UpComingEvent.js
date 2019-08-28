@@ -26,7 +26,7 @@ const UpComingEventController = {
     res.json(event);
   },
 
-  updateById = async (req, res, next) => {
+  updateById: async (req, res, next) => {
     let image = (req.file && req.file.path.replace("\\", "/"));
     if(image) {
       image = image.replace("\\", "/");
