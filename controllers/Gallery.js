@@ -28,7 +28,8 @@ const GalleryController = {
         image = image.replace("\\", "/");
       }
 
-      var galleryItem = new Gallery ({
+      var galleryItem = new Gallery({
+            _id: req.body.id,
             title: req.body.title,
             content: req.body.content,
             imagePath: image,
