@@ -62,6 +62,7 @@ router.delete("/Highlight/:id", HighlightController.deleteById);
 
 router.get("/Gallery", GalleryController.index);
 router.post("/Gallery", fileUpload.single("image"), GalleryController.create);
+router.put("/Gallery/:id", fileUpload.single("image"), GalleryController.updateById);
 router.delete("/Gallery/:id", GalleryController.deleteById);
 
 module.exports = router;

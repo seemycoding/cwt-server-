@@ -50,6 +50,7 @@ const ArticleController = {
       image: image.replace("\\", "/"),
       detail: detail,
       link: req.body.link,
+      videoPath: req.body.videoPath,
       sortOrder: req.body.sortOrder,
       dateAdded: Date.now(),
       dateModified: Date.now()
@@ -71,6 +72,7 @@ const ArticleController = {
       expert: req.body.expert,
       image: image,
       link: req.body.link,
+      videoPath: req.body.videoPath,
       sortOrder: req.body.sortOrder,
       dateModified: Date.now()   
     });

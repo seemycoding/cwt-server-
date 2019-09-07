@@ -6,8 +6,9 @@ const articleSchema = new Schema({
     title: { type: String },
     detail: { type: String },
     expert: { type: Boolean },
-    image: { type: String }, //path of image
+    image: { type: String }, // path of image
     link: { type: String },
+    videoPath: { type: String }, // path to the video, if any
     sortOrder : { type: Number },
     dateAdded : { type: Date },
     dateModified : { type: Date }
