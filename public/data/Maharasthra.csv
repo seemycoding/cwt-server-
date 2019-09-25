@@ -1,0 +1,21 @@
+district,parameter.ph,parameter.tds,parameter.no3,parameter.flouride,cordinates.latitude,cordinates.longitude,state
+Ahmadnagar,8,552,25,0,19.083333,74.733333,IN-MH
+Akola,8,778,36,0,24.766667,74,IN-MH
+Amravati,8,565,31,0,20.933333,78,IN-MH
+Aurangabad,8,737,33,0,26.596,79.9701,IN-MH
+Bid,8,505,32,0,,,IN-MH
+Bhandara,8,539,28,1,,,IN-MH
+Buldana,8,647,38,0,,,IN-MH
+Chandrapur,8,615,34,0,19.6,84,IN-MH
+Dadra & Nagar,8,280,7,0,,,IN-MH
+Dhule,8,735,35,0,20.9,75,IN-MH
+Garhchiroli,8,516,32,0,,,IN-MH
+Gondiya,8,409,27,0,,,IN-MH
+Hingoli,8,358,33,0,,,IN-MH
+Jalgaon,8,513,32,0,21.048611,77,IN-MH
+Jalna,8,1382,46,1,24,79,IN-MH
+Kolhapur,8,242,15,0,17,74,IN-MH
+Latur,8,638,35,0,18,77,IN-MH
+Mumbai City,8,306,11,0,18.975,73,IN-MH
+Nagpur,8,503,25,0,23,82,IN-MH
+Grand Total,8,551,30,0,,,
