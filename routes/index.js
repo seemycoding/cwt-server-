@@ -21,7 +21,11 @@ router.get("/ExpertArticles", ArticleController.expertArticles);
 router.get("/BloggerArticles", ArticleController.bloggerArticles);
 router.get("/Article/:id", ArticleController.byId);
 router.post("/Article", fileUpload.single("image"), ArticleController.create);
-router.put("/Article/:id", fileUpload.single("image"), ArticleController.updateById);
+router.put(
+  "/Article/:id",
+  fileUpload.single("image"),
+  ArticleController.updateById
+);
 router.delete("/Article/:id", ArticleController.deleteById);
 
 router.get("/News", NewsController.index);
@@ -46,7 +50,11 @@ router.post(
   fileUpload.single("image"),
   UpComingEventController.create
 );
-router.put("/UpcomingEvent/:id", fileUpload.single("image"), UpComingEventController.updateById);
+router.put(
+  "/UpcomingEvent/:id",
+  fileUpload.single("image"),
+  UpComingEventController.updateById
+);
 router.delete("/UpcomingEvent/:id", UpComingEventController.deleteById);
 
 router.post("/Contact", ContactController.create);
@@ -57,12 +65,20 @@ router.post(
   fileUpload.single("image"),
   HighlightController.create
 );
-router.put("/Highlight/:id", fileUpload.single("image"), HighlightController.updateById);
+router.put(
+  "/Highlight/:id",
+  fileUpload.single("image"),
+  HighlightController.updateById
+);
 router.delete("/Highlight/:id", HighlightController.deleteById);
 
 router.get("/Gallery", GalleryController.index);
 router.post("/Gallery", fileUpload.single("image"), GalleryController.create);
-router.put("/Gallery/:id", fileUpload.single("image"), GalleryController.updateById);
+router.put(
+  "/Gallery/:id",
+  fileUpload.single("image"),
+  GalleryController.updateById
+);
 router.delete("/Gallery/:id", GalleryController.deleteById);
 
 module.exports = router;
