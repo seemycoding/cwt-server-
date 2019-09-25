@@ -1,4 +1,4 @@
-district, parameter.pH, parameter.TDS, parameter.NO3, parameter.Flouride, cordinates.longitude, cordinates.latitude,state
+district, parameter.ph, parameter.tds, parameter.no3, parameter.flouride, cordinates.longitude, cordinates.latitude,state
 Balod,7.84,361.4,18.61,0.29,81.40467834,20.5495491,IN-CT
 Baloda Bazar,8.05,422.1428571,8.128571429,0.285714286,82.68270111,21.47879028,IN-CT
 Balrampur,8.036363636,220.8181818,13.34545455,0.3,83.21080017,23.21936035,IN-CT
