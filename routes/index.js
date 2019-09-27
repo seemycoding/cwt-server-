@@ -66,7 +66,7 @@ router.post(
   HighlightController.create
 );
 router.put(
-  "/Highlight/:id",
+  "/Highlights/:id",
   fileUpload.single("image"),
   HighlightController.updateById
 );
