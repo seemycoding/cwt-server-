@@ -24,6 +24,7 @@ router.get("/addnews", function(req, res, next) {
 router.get("/know", function(req, res, next) {
   res.render("pages/know");
 });
+//comment
 
 router.get("/about", function(req, res, next) {
   res.render("pages/404");
