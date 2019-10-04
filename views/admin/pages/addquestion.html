@@ -1,0 +1,173 @@
+<% include ../widgets/layout %>
+
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-12">
+        <h4 class="page-title">Knowledge</h4>
+        <ol class="breadcrumb">
+          <li><a href="#">Dashboard</a></li>
+          <li class="active">Add knowledge questions</li>
+        </ol>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+    <!-- row -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="white-box">
+          <form action="/Knowledge/1" method="POST">
+            <div class="form-group">
+              <label for="title">Questions</label>
+              <input
+                type="text"
+                name="question"
+                class="form-control"
+                id="title"
+                placeholder="name@example.com"
+              />
+            </div>
+            <div class="form-group">
+              <label for="type">Response type</label>
+              <select
+                class="form-control form-control-sm"
+                name="responseType"
+                id="exp"
+              >
+                <option value="text">Text</option>
+                <option value="numeric">Number</option>
+                <option value="image">Image</option>
+                <option value="yes/no">Yes/No</option>
+              </select>
+            </div>
+            <div class="form-group" id="cfield">
+              <label for="title">Count</label>
+              <input
+                type="number"
+                name="count"
+                class="form-control"
+                id="count"
+                placeholder="name@example.com"
+              />
+            </div>
+            <div class="form-group " id="option1">
+              <div class="row">
+                <div class="col-sm-6">
+                  <label for="title">Option 1</label>
+                  <input
+                    type="text"
+                    name="option"
+                    class="form-control"
+                    placeholder="name@example.com"
+                  />
+                  <label for="title">Option 2</label>
+                  <input
+                    type="text"
+                    name="option"
+                    class="form-control"
+                    placeholder="name@example.com"
+                  />
+                  <label for="title">Option 3</label>
+                  <input
+                    type="text"
+                    name="option"
+                    class="form-control"
+                    placeholder="name@example.com"
+                  />
+                </div>
+                <div class="col-sm-6" id="scr"></div>
+                <div class="col-sm-6">
+                  <label for="score">Score 1</label>
+                  <input
+                    type="number"
+                    name="score"
+                    class="form-control"
+                    placeholder="name@example.com"
+                  />
+                  <label for="score">Score 2</label>
+                  <input
+                    type="number"
+                    name="score"
+                    class="form-control"
+                    placeholder="name@example.com"
+                  />
+                  <label for="score">Score 3</label>
+                  <input
+                    type="number"
+                    name="score"
+                    class="form-control"
+                    placeholder="name@example.com"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <button type="button" onclick="getOption();">Enter options</button>
+
+            <div class="form-group">
+              <label for="qtype">Question type</label>
+              <select class="form-control form-control-sm" name="type">
+                <option>Select Type</option>
+                <option value="kitchen">Kitchen</option>
+                <option value="bathroom">Bathroom</option>
+                <option value="garden">Garden</option>
+                <option value="laundry">Laundry</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="image">Image</label>
+              <input
+                type="file"
+                name="image"
+                class="form-control-file"
+                id="image"
+                multiple="multiple"
+              />
+            </div>
+
+            <input type="submit" class="btn btn-primary" value="Add question" />
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+</div>
+<script>
+  let value;
+
+  // let data = selectele.options[selectele.selectedIndex];
+  function getOption() {
+    var html =
+      "<label for='score'>Score 1</label><input type='number'name='score'class='form-control'placeholder='name@example.com'/>";
+    var selectele = document.querySelector("#exp");
+    value = selectele.value;
+
+    console.log(selectele.value);
+
+    if (value === "numeric") {
+      // for (let index = 0; index < 2; index++) {}
+      var select = document.getElementById("cfield");
+      select.style.display = "block";
+      var select1 = document.getElementById("option1");
+
+      select1.style.display = "none";
+    }
+    if (value === "text") {
+      var select1 = document.getElementById("option1");
+
+      select1.style.display = "block";
+      var select = document.getElementById("cfield");
+      select.style.display = "none";
+    }
+  }
+  // if (value == "numeric") {
+  //   console.log("daf");
+  //   // var select = document.getElementById("cfield");
+  //   // select.style.display = "block";
+  // }
+  // var ele = document.getElementById("cfield");
+  // ele.style.display = "none";
+</script>
+<% include ../widgets/footer %>

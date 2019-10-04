@@ -1,0 +1,56 @@
+<% include ../widgets/layout %>
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-12">
+        <h4 class="page-title">Articles</h4>
+        <ol class="breadcrumb">
+          <li><a href="#">Dashboard</a></li>
+          <li class="active">Articles posted</li>
+        </ol>
+        <a href="/addarticle" class="btn btn-primary">Add Article</a>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+    <!-- row -->
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="white-box">
+          <h3>Articles Posted</h3>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Article</th>
+                  <th>Date Added</th>
+                  <th>Date modified</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% data.forEach(function(dat,i) { %>
+                <tr>
+                  <td><%= i+1 %></td>
+                  <td><%= dat.title %></td>
+                  <td><%= dat.dateAdded %></td>
+                  <td><%= dat.dateModified %></td>
+                  <form action="">
+                    <td><button class="btn btn-danger">Delete</button></td>
+                  </form>
+                  <form>
+                    <td><button class="btn btn-primary">Edit</button></td>
+                  </form>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</div>
+<% include ../widgets/footer %>

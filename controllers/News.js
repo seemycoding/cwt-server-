@@ -1,9 +1,14 @@
 const News = require("../models/News");
-
+let newsdata;
 const NewsController = {
   index: async (req, res, next) => {
     let news = await News.find();
-    res.json(news);
+    if (req.params.id == 1) {
+      newsdata = news;
+      res.render("pages/News", { data: news });
+    } else {
+      res.json(news);
+    }
   },
 
   byId: async (req, res, next) => {
@@ -30,12 +35,15 @@ const NewsController = {
       dateAdded: Date.now(),
       dateModified: Date.now()
     });
+    if (req.params.id == 1) {
+      res.render("pages/News", { data: newsdata });
+    }
     res.json(news);
   },
-  
+
   updateById: async (req, res, next) => {
-    let image = (req.file && req.file.path.replace("\\", "/"));
-    if(image) {
+    let image = req.file && req.file.path.replace("\\", "/");
+    if (image) {
       image = image.replace("\\", "/");
     }
     var news = new News({
@@ -49,36 +57,38 @@ const NewsController = {
       sortOrder: req.body.sortOrder,
       dateModified: Date.now()
     });
-    News.updateOne({ _id: req.params.id }, news).then(result => {
-      console.log(result);
-      if(result.n > 0) {
-        res.status(200).json({ message: "News updated Successfully!"});
-      }
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: 'Could not update news',
-        error: error
+    News.updateOne({ _id: req.params.id }, news)
+      .then(result => {
+        console.log(result);
+        if (result.n > 0) {
+          res.status(200).json({ message: "News updated Successfully!" });
+        }
       })
-    }); 
+      .catch(error => {
+        res.status(500).json({
+          message: "Could not update news",
+          error: error
+        });
+      });
   },
-  
+
   deleteById: async (req, res, next) => {
     News.deleteOne({
       _id: req.params.id
-    }).then(result => {
-      console.log(result);
-      if(result.n > 0) {
-        res.status(200).json({
-          message: 'News Deleted!'
-        });
-      }
     })
-    .catch(error => {
-      res.status(500).json({
-        message: 'Could not delete news'
+      .then(result => {
+        console.log(result);
+        if (result.n > 0) {
+          res.status(200).json({
+            message: "News Deleted!"
+          });
+        }
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: "Could not delete news"
+        });
       });
-    });
   }
 };
 module.exports = NewsController;

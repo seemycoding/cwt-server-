@@ -1,13 +1,20 @@
 const Article = require("../models/Article");
-
+let art;
 const ArticleController = {
   expertArticles: async (req, res, next) => {
-    let articles = await Article.find({expert:true});
-    res.json(articles);
+    let articles = await Article.find({ expert: true });
+    if (req.params.id == 1) {
+      //console.log(articles[0].title);
+      art = articles;
+      res.render("pages/Article", { data: articles });
+    } else {
+      res.json(articles);
+    }
   },
 
   bloggerArticles: async (req, res, next) => {
-    let articles = await Article.find({expert:false});
+    let articles = await Article.find({ expert: false });
+
     res.json(articles);
   },
 
@@ -19,19 +26,20 @@ const ArticleController = {
   deleteById: async (req, res, next) => {
     Article.deleteOne({
       _id: req.params.id
-    }).then(result => {
-      console.log(result);
-      if(result.n > 0) {
-        res.status(200).json({
-          message: 'Article Deleted!'
-        });
-      }
     })
-    .catch(error => {
-      res.status(500).json({
-        message: 'Could not delete article'
+      .then(result => {
+        console.log(result);
+        if (result.n > 0) {
+          res.status(200).json({
+            message: "Article Deleted!"
+          });
+        }
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: "Could not delete article"
+        });
       });
-    });
   },
 
   create: async (req, res, next) => {
@@ -55,39 +63,49 @@ const ArticleController = {
       dateAdded: Date.now(),
       dateModified: Date.now()
     });
-    res.json(article);
+    if (req.params.id == 1) {
+      res.render("pages/Article", { data: art });
+    } else {
+      res.json(article);
+    }
   },
 
   updateById: async (req, res, next) => {
-    let image = (req.file && req.file.path.replace("\\", "/"));
-    if(image) {
+    let image = req.file && req.file.path.replace("\\", "/");
+    if (image) {
       image = image.replace("\\", "/");
     }
     var article = new Article({
       _id: req.body.id,
       author: req.body.author,
+      author2: req.body.author2,
       profession: req.body.profession,
+      profession2: req.body.profession2,
       title: req.body.title,
+      title2: req.body.title2,
       detail: req.body.detail,
+      detail2: req.body.detail2,
       expert: req.body.expert,
       image: image,
+      image2: image,
       link: req.body.link,
       videoPath: req.body.videoPath,
       sortOrder: req.body.sortOrder,
-      dateModified: Date.now()   
+      dateModified: Date.now()
     });
-    Article.updateOne({ _id: req.params.id }, article).then(result => {
-      console.log(result);
-      if(result.n > 0) {
-        res.status(200).json({ message: "Article updated Successfully!"});
-      }
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: 'Could not update article',
-        error: error
+    Article.updateOne({ _id: req.params.id }, article)
+      .then(result => {
+        console.log(result);
+        if (result.n > 0) {
+          res.status(200).json({ message: "Article updated Successfully!" });
+        }
       })
-    });
+      .catch(error => {
+        res.status(500).json({
+          message: "Could not update article",
+          error: error
+        });
+      });
   }
 };
 module.exports = ArticleController;

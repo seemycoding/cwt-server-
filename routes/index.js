@@ -6,6 +6,33 @@ router.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
 });
 
+router.get("/adminpanel", function(req, res, next) {
+  res.render("pages/home", { title: "Clean Water together Admin panel" });
+});
+
+router.get("/addarticle", function(req, res, next) {
+  res.render("pages/addarticle");
+});
+router.get("/addquestion", function(req, res, next) {
+  res.render("pages/addquestion");
+});
+
+router.get("/addnews", function(req, res, next) {
+  res.render("pages/addnews");
+});
+
+router.get("/know", function(req, res, next) {
+  res.render("pages/know");
+});
+
+router.get("/about", function(req, res, next) {
+  res.render("pages/404");
+});
+
+router.get("/users", function(req, res, next) {
+  res.render("pages/users");
+});
+
 const fileUpload = require("../config/fileUpload");
 
 const ArticleController = require("../controllers/Article");
@@ -18,9 +45,23 @@ const HighlightController = require("../controllers/Highlights");
 const GalleryController = require("../controllers/Gallery");
 
 router.get("/ExpertArticles", ArticleController.expertArticles);
+//adminpanel
+router.get("/adminarticle/:id", ArticleController.expertArticles);
 router.get("/BloggerArticles", ArticleController.bloggerArticles);
 router.get("/Article/:id", ArticleController.byId);
 router.post("/Article", fileUpload.single("image"), ArticleController.create);
+//adminpanel
+router.post(
+  "/adminArticle/:id",
+  fileUpload.single("image"),
+  ArticleController.create
+);
+router.post(
+  "/adminNews/:id",
+  fileUpload.single("image"),
+  NewsController.create
+);
+//
 router.put(
   "/Article/:id",
   fileUpload.single("image"),
@@ -29,6 +70,9 @@ router.put(
 router.delete("/Article/:id", ArticleController.deleteById);
 
 router.get("/News", NewsController.index);
+//adminpanel
+router.get("/adminnews/:id", NewsController.index);
+//
 router.get("/News/:id", NewsController.byId);
 router.post("/News", fileUpload.single("image"), NewsController.create);
 router.put("/News/:id", fileUpload.single("image"), NewsController.updateById);
@@ -36,10 +80,17 @@ router.delete("/News/:id", NewsController.deleteById);
 
 router.get("/WaterData/:state", WaterDataController.byState);
 router.post("/WaterData", WaterDataController.create);
-
+//adminpanel
+router.get("/adminKnowledge/:id", KnowlegdeController.index);
+//
 router.get("/Knowledge/:type", KnowlegdeController.byType);
 router.post(
   "/Knowledge",
+  fileUpload.array("image", 3),
+  KnowlegdeController.create
+);
+router.post(
+  "/Knowledge/:id",
   fileUpload.array("image", 3),
   KnowlegdeController.create
 );

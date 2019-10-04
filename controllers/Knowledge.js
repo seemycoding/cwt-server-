@@ -1,6 +1,16 @@
 const Knowledge = require("../models/Knowledge");
-
+let knowledgeq;
 const KnowledgeController = {
+  index: async (req, res, next) => {
+    let knowledge = await Knowledge.find();
+    if (req.params.id == 1) {
+      knowledgeq = knowledge;
+      res.render("pages/know", { data: knowledgeq });
+    } else {
+      res.json(knowledgeq);
+    }
+  },
+
   byType: async (req, res, next) => {
     knowledgeQuestions = await Knowledge.find({ type: req.params.type });
     res.json(knowledgeQuestions);
@@ -30,6 +40,9 @@ const KnowledgeController = {
       option: option,
       score: score
     });
+    if (req.params.id == 1) {
+      res.render("pages/know", { data: knowledgeq });
+    }
     res.json(knowledge);
   }
 };

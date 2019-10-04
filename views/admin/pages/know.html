@@ -1,0 +1,57 @@
+<% include ../widgets/layout %>
+
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-12">
+        <h4 class="page-title">Knowledge</h4>
+        <ol class="breadcrumb">
+          <li><a href="#">Dashboard</a></li>
+          <li class="active">knowledge questions</li>
+        </ol>
+        <a href="/addquestion" class="btn btn-primary">Add Questions</a>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+    <!-- row -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="white-box">
+          <h3>Questions</h3>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Questions</th>
+                  <th>Type</th>
+                  <th>Response Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% data.forEach(function(dat,i) { %>
+                <tr>
+                  <td><%= i+1 %></td>
+                  <td><%= dat.question %></td>
+                  <td><%= dat.type %></td>
+                  <td><%= dat.responseType %></td>
+                  <form action="">
+                    <td><button class="btn btn-danger">Delete</button></td>
+                  </form>
+                  <form>
+                    <td><button class="btn btn-primary">Edit</button></td>
+                  </form>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+</div>
+
+<% include ../widgets/footer %>
