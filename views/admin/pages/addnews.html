@@ -15,14 +15,17 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="white-box">
-          <form action="/adminNews/1" method="POST">
+          <form action="<%= url  %>" method="POST" enctype="multipart/form-data">
             <div class="form-group">
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="id" value="<%= dat._id %>">
               <label for="title">Title</label>
               <input
                 type="text"
                 name="title"
                 class="form-control"
                 id="title"
+                value="<%= dat.title %>"
                 placeholder="name@example.com"
               />
             </div>
@@ -33,6 +36,7 @@
                 name="source"
                 class="form-control"
                 id="source"
+                value="<%= dat.source %>"
                 placeholder="name@example.com"
               />
             </div>
@@ -44,6 +48,7 @@
                 name="link"
                 class="form-control"
                 id="link"
+                value="<%= dat.link %>"
                 placeholder="name@example.com"
               />
             </div>
@@ -64,7 +69,7 @@
                 name="detail"
                 id="newsdetail"
                 rows="7"
-              ></textarea>
+              ><%= dat.detail %></textarea>
             </div>
             <div class="form-group">
               <label for="image">Image</label>

@@ -1,41 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const methodOverride = require("method-override");
 
 /* GET home page. */
-router.get("/", function(req, res, next) {
-  res.render("index", { title: "Express" });
-});
-
-router.get("/adminpanel", function(req, res, next) {
-  res.render("pages/home", { title: "Clean Water together Admin panel" });
-});
-
-router.get("/addarticle", function(req, res, next) {
-  res.render("pages/addarticle");
-});
-router.get("/addquestion", function(req, res, next) {
-  res.render("pages/addquestion");
-});
-
-router.get("/addnews", function(req, res, next) {
-  res.render("pages/addnews");
-});
-
-router.get("/know", function(req, res, next) {
-  res.render("pages/know");
-});
-//comment
-
-router.get("/about", function(req, res, next) {
-  res.render("pages/404");
-});
-
-router.get("/users", function(req, res, next) {
-  res.render("pages/users");
-});
-
+const UserController = require("../controllers/users.controller");
 const fileUpload = require("../config/fileUpload");
-
 const ArticleController = require("../controllers/Article");
 const NewsController = require("../controllers/News");
 const WaterDataController = require("../controllers/WaterData");
@@ -44,58 +13,30 @@ const KnowlegdeController = require("../controllers/Knowledge");
 const UpComingEventController = require("../controllers/UpComingEvent");
 const HighlightController = require("../controllers/Highlights");
 const GalleryController = require("../controllers/Gallery");
-
+router.use(methodOverride("_method"));
 router.get("/ExpertArticles", ArticleController.expertArticles);
-//adminpanel
-router.get("/adminarticle/:id", ArticleController.expertArticles);
 router.get("/BloggerArticles", ArticleController.bloggerArticles);
 router.get("/Article/:id", ArticleController.byId);
 router.post("/Article", fileUpload.single("image"), ArticleController.create);
-//adminpanel
-router.post(
-  "/adminArticle/:id",
-  fileUpload.single("image"),
-  ArticleController.create
-);
-router.post(
-  "/adminNews/:id",
-  fileUpload.single("image"),
-  NewsController.create
-);
-//
 router.put(
   "/Article/:id",
   fileUpload.single("image"),
   ArticleController.updateById
 );
 router.delete("/Article/:id", ArticleController.deleteById);
-
 router.get("/News", NewsController.index);
-//adminpanel
-router.get("/adminnews/:id", NewsController.index);
-//
 router.get("/News/:id", NewsController.byId);
 router.post("/News", fileUpload.single("image"), NewsController.create);
 router.put("/News/:id", fileUpload.single("image"), NewsController.updateById);
 router.delete("/News/:id", NewsController.deleteById);
-
 router.get("/WaterData/:state", WaterDataController.byState);
 router.post("/WaterData", WaterDataController.create);
-//adminpanel
-router.get("/adminKnowledge/:id", KnowlegdeController.index);
-//
 router.get("/Knowledge/:type", KnowlegdeController.byType);
 router.post(
   "/Knowledge",
   fileUpload.array("image", 3),
   KnowlegdeController.create
 );
-router.post(
-  "/Knowledge/:id",
-  fileUpload.array("image", 3),
-  KnowlegdeController.create
-);
-
 router.get("/UpComingEvent", UpComingEventController.index);
 router.post(
   "/UpComingEvent",
@@ -108,9 +49,7 @@ router.put(
   UpComingEventController.updateById
 );
 router.delete("/UpcomingEvent/:id", UpComingEventController.deleteById);
-
 router.post("/Contact", ContactController.create);
-
 router.get("/Highlights", HighlightController.index);
 router.post(
   "/Highlights",
@@ -123,7 +62,6 @@ router.put(
   HighlightController.updateById
 );
 router.delete("/Highlight/:id", HighlightController.deleteById);
-
 router.get("/Gallery", GalleryController.index);
 router.post("/Gallery", fileUpload.single("image"), GalleryController.create);
 router.put(
@@ -132,5 +70,119 @@ router.put(
   GalleryController.updateById
 );
 router.delete("/Gallery/:id", GalleryController.deleteById);
+
+//adminpanel
+router.get("/", function(req, res, next) {
+  res.render("index", { title: "Express" });
+});
+
+router.get("/home", function(req, res, next) {
+  res.render("pages/home");
+});
+
+router.get("/profile", function(req, res, next) {
+  res.render("pages/profile");
+});
+router.get("/users", UserController.getAll);
+router.get("/adduser", function(req, res, next) {
+  res.render("pages/adduser");
+});
+router.get("/adminpanel", function(req, res, next) {
+  res.render("pages/login", { title: "Clean Water together Admin panel" });
+});
+
+router.get("/addarticle", function(req, res, next) {
+  res.render("pages/addarticle", { dat: "", url: "/adminArticle/1" });
+});
+
+router.get("/addquestion", function(req, res, next) {
+  res.render("pages/addquestion");
+});
+
+router.get("/addnews", function(req, res, next) {
+  res.render("pages/addnews", { dat: "", url: "/adminArticle/1" });
+});
+router.get("/addevent", function(req, res, next) {
+  res.render("pages/addevent");
+});
+router.get("/addhighlights", HighlightController.selectdata);
+
+router.get("/know", function(req, res, next) {
+  res.render("pages/know");
+});
+router.get("/events/:id", UpComingEventController.index);
+
+router.get("/about", function(req, res, next) {
+  res.render("pages/404");
+});
+router.put(
+  "/editArticle/:id",
+  fileUpload.single("image"),
+  ArticleController.updateById
+);
+router.put(
+  "/editHighlight/:id",
+  fileUpload.single("image"),
+  HighlightController.updateById
+);
+router.put(
+  "/editNews/:id",
+  fileUpload.single("image"),
+  NewsController.updateById
+);
+router.post("/authenticate", UserController.authenticate);
+router.post("/register", UserController.register);
+
+router.get("/adminarticle/:id", ArticleController.expertArticles);
+router.post(
+  "/adminArticle/:id",
+  fileUpload.single("image"),
+  ArticleController.create
+);
+router.get(
+  "/contactus/:id",
+  fileUpload.single("image"),
+  ContactController.index
+);
+router.get(
+  "/admineditArticle/:id",
+  fileUpload.single("image"),
+  ArticleController.byId
+);
+router.get(
+  "/admineditNews/:id",
+  fileUpload.single("image"),
+  NewsController.byId
+);
+router.get(
+  "/adminedithighlight/:id",
+  fileUpload.single("image"),
+  HighlightController.byId
+);
+router.post(
+  "/adminNews/:id",
+  fileUpload.single("image"),
+  NewsController.create
+);
+router.get("/adminnews/:id", NewsController.index);
+router.get("/adminKnowledge/:id", KnowlegdeController.index);
+router.post(
+  "/Knowledge/:id",
+  fileUpload.array("image", 3),
+  KnowlegdeController.create
+);
+router.get("/adminhighlights/:id", HighlightController.index);
+router.post(
+  "/adminHighlights/:id",
+  fileUpload.single("image"),
+  HighlightController.create
+);
+router.delete("/deletenews/:id", NewsController.deleteById);
+router.post(
+  "/adminUpComingEvent/:id",
+  fileUpload.single("image"),
+  UpComingEventController.create
+);
+//till here
 
 module.exports = router;

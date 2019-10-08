@@ -1,15 +1,21 @@
 const UpComingEvent = require("../models/UpComingEvent");
+let eventdata;
 const UpComingEventController = {
   index: async (req, res, next) => {
     const events = await UpComingEvent.find();
-    res.json(events);
+    if (req.params.id == 1) {
+      eventdata = events;
+      res.render("pages/upcomingevent", { data: events });
+    } else {
+      res.json(events);
+    }
   },
 
   create: async (req, res, next) => {
-    let receivedDate = req.body.date || '';
-    let receivedTitle = req.body.title || '';
-    let receivedPlace = req.body.place || '';
-    let receivedDetail = req.body.detail || '';
+    let receivedDate = req.body.date || "";
+    let receivedTitle = req.body.title || "";
+    let receivedPlace = req.body.place || "";
+    let receivedDetail = req.body.detail || "";
     let image = (req.file && req.file.path.replace("\\", "/")) || "";
 
     const event = await UpComingEvent.create({
@@ -22,13 +28,16 @@ const UpComingEventController = {
       dateAdded: Date.now(),
       dateModified: Date.now()
     });
-
-    res.json(event);
+    if (req.params.id == 1) {
+      res.render("pages/upcomingevent", { data: eventdata });
+    } else {
+      res.json(event);
+    }
   },
 
   updateById: async (req, res, next) => {
-    let image = (req.file && req.file.path.replace("\\", "/"));
-    if(image) {
+    let image = req.file && req.file.path.replace("\\", "/");
+    if (image) {
       image = image.replace("\\", "/");
     }
     var event = new UpComingEvent({
@@ -41,36 +50,38 @@ const UpComingEventController = {
       sortOrder: req.body.sortOrder,
       dateModified: Date.now()
     });
-    UpComingEvent.updateOne({ _id: req.params.id }, event).then(result => {
-      console.log(result);
-      if(result.n > 0) {
-        res.status(200).json({ message: "Event updated Successfully!"});
-      }
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: 'Could not update event',
-        error: error
+    UpComingEvent.updateOne({ _id: req.params.id }, event)
+      .then(result => {
+        console.log(result);
+        if (result.n > 0) {
+          res.status(200).json({ message: "Event updated Successfully!" });
+        }
       })
-    }); 
+      .catch(error => {
+        res.status(500).json({
+          message: "Could not update event",
+          error: error
+        });
+      });
   },
 
   deleteById: async (req, res, next) => {
     UpComingEvent.deleteOne({
       _id: req.params.id
-    }).then(result => {
-      console.log(result);
-      if(result.n > 0) {
-        res.status(200).json({
-          message: 'Event Deleted!'
-        });
-      }
     })
-    .catch(error => {
-      res.status(500).json({
-        message: 'Could not delete event'
+      .then(result => {
+        console.log(result);
+        if (result.n > 0) {
+          res.status(200).json({
+            message: "Event Deleted!"
+          });
+        }
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: "Could not delete event"
+        });
       });
-    });
   }
 };
 

@@ -1,15 +1,34 @@
 const Highlight = require("../models/Highlight");
-
+const Article = require("../models/Article");
+const News = require("../models/News");
+let high;
 const HighlightController = {
+  selectdata: async (req, res, next) => {
+    let artid = await Article.find();
+    let newid = await News.find();
+
+    res.render("pages/addhighlight", {
+      data: artid,
+      data2: newid,
+      dat: "",
+      url: "/editHighlight"
+    });
+  },
+
   index: async (req, res, next) => {
     let highlights = await Highlight.find();
-    res.json(highlights);
+    if (req.params.id == 1) {
+      high = highlights;
+      res.render("pages/highlights", { data: highlights });
+    } else {
+      res.json(highlights);
+    }
   },
 
   create: async (req, res, next) => {
     let receivedTitle = req.body.title;
     let receivedLink = req.body.link;
-    let image = (req.file && req.file.path.replace("\\", "/"));
+    let image = (req.file && req.file.path.replace("\\", "/")) || "";
     let receivedSortOrder = req.body.sortOrder || 0;
 
     let highlight = await Highlight.create({
@@ -20,12 +39,25 @@ const HighlightController = {
       dateModified: Date.now(),
       sortOrder: receivedSortOrder
     });
-    res.json(highlight);
+    if (req.params.id == 1) {
+      res.render("pages/highlights", { data: high });
+    } else {
+      res.json(highlight);
+    }
+  },
+  byId: async (req, res, next) => {
+    let highlight = await Highlight.findById(req.params.id);
+
+    res.render("pages/addhighlight", {
+      dat: highlight,
+      data: high,
+      url: "/editHighlight/" + req.params.id + "?_method=PUT"
+    });
   },
 
   updateById: async (req, res, next) => {
-    let image = (req.file && req.file.path.replace("\\", "/"));
-    if(image) {
+    let image = req.file && req.file.path.replace("\\", "/");
+    if (image) {
       image = image.replace("\\", "/");
     }
     var highlight = new Highlight({
@@ -36,18 +68,19 @@ const HighlightController = {
       sortOrder: req.body.sortOrder,
       dateModified: Date.now()
     });
-    Highlight.updateOne({ _id: req.params.id }, highlight).then(result => {
-      console.log(result);
-      if(result.n > 0) {
-        res.status(200).json({ message: "Highlight update Successful!"});
-      }
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: 'Could not update highlight',
-        error: error
+    Highlight.updateOne({ _id: req.params.id }, highlight)
+      .then(result => {
+        console.log(result);
+        if (result.n > 0) {
+          res.status(200).json({ message: "Highlight update Successful!" });
+        }
       })
-    });
+      .catch(error => {
+        res.status(500).json({
+          message: "Could not update highlight",
+          error: error
+        });
+      });
   },
 
   deleteById: async (req, res, next) => {

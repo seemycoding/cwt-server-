@@ -18,25 +18,29 @@ const KnowledgeController = {
 
   create: async (req, res, next) => {
     let imagePath = [];
+    let image = [];
     if (req.files != null) {
       for (let i = 0; i < req.files.length; i++) {
         imagePath.push(req.files[i].path.replace("\\", "/"));
       }
     }
-
+    console.log(imagePath);
     let question = req.body.question || "";
     let responseType = req.body.responseType || "";
     let type = req.body.type || "";
     let count = req.body.count || "";
     let option = req.body.option || "";
     let score = req.body.score || "";
+    for (let i = 0; i < imagePath.length; i++) {
+      image.push(imagePath[i].replace("\\", "/"));
+    }
 
     let knowledge = await Knowledge.create({
       question: question,
       responseType: responseType,
       type: type,
       count: count,
-      image: imagePath,
+      image: image,
       option: option,
       score: score
     });

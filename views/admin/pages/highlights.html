@@ -1,15 +1,14 @@
 <% include ../widgets/layout %>
-
 <div id="page-wrapper">
   <div class="container-fluid">
     <div class="row bg-title">
       <div class="col-lg-12">
-        <h4 class="page-title">News</h4>
+        <h4 class="page-title">Articles</h4>
         <ol class="breadcrumb">
           <li><a href="#">Dashboard</a></li>
-          <li class="active">News posted</li>
+          <li class="active">Highlights Posted</li>
         </ol>
-        <a href="/addnews" class="btn btn-primary">Add News</a>
+        <a href="/addhighlights" class="btn btn-primary">Add Highlight</a>
       </div>
       <!-- /.col-lg-12 -->
     </div>
@@ -17,16 +16,18 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="white-box">
-          <h3>News Posted</h3>
+          <h3>Highlights Posted</h3>
 
           <div class="table-responsive">
             <table class="table">
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>News</th>
+                  <th>Highlights</th>
+                  <th>Linked Article/News</th>
                   <th>Date Added</th>
                   <th>Date modified</th>
+             
                 </tr>
               </thead>
               <tbody>
@@ -34,10 +35,12 @@
                 <tr>
                   <td><%= i+1 %></td>
                   <td><%= dat.title %></td>
+                  <td><%= dat.link %></td>
                   <td><%= dat.dateAdded %></td>
                   <td><%= dat.dateModified %></td>
-                  <td><a href="/deletenews/<%= dat._id %>" class="btn btn-danger del" >Delete</a></td>
-                  <td><a href="/admineditNews/<%= dat._id %>" class="btn btn-primary" >Edit</a></td>
+                  <td><button class="btn btn-danger">Delete</button></td>
+                  <td> <a href="/adminedithighlight/<%= dat._id %>" class="btn btn-primary">Edit</a></td>
+                  
                 </tr>
                 <% }); %>
               </tbody>

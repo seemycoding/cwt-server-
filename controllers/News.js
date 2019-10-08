@@ -13,7 +13,10 @@ const NewsController = {
 
   byId: async (req, res, next) => {
     let news = await News.findById(req.params.id);
-    res.json(news);
+    res.render("pages/addnews", {
+      dat: news,
+      url: "/editNews/" + req.params.id + "?_method=PUT"
+    });
   },
 
   create: async (req, res, next) => {

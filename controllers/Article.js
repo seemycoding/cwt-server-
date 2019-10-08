@@ -20,7 +20,11 @@ const ArticleController = {
 
   byId: async (req, res, next) => {
     let article = await Article.findById(req.params.id);
-    res.json(article);
+
+    res.render("pages/addarticle", {
+      dat: article,
+      url: "/editArticle/" + req.params.id + "?_method=PUT"
+    });
   },
 
   deleteById: async (req, res, next) => {

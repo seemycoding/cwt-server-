@@ -16,7 +16,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="white-box">
-          <form action="/Knowledge/1" method="POST">
+          <form action="/Knowledge/1" method="POST" enctype="multipart/form-data">
             <div class="form-group">
               <label for="title">Questions</label>
               <input
@@ -147,7 +147,9 @@
     console.log(selectele.value);
 
     if (value === "numeric") {
-      // for (let index = 0; index < 2; index++) {}
+      for (let index = 0; index < 2; index++) {
+        // document.getElementById('scr').
+      }
       var select = document.getElementById("cfield");
       select.style.display = "block";
       var select1 = document.getElementById("option1");
