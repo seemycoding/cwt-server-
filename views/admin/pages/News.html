@@ -10,6 +10,9 @@
           <li class="active">News posted</li>
         </ol>
         <a href="/addnews" class="btn btn-primary">Add News</a>
+        <% if (message) { %>
+        <div class="alert alert-success"><%= message %></div>
+        <% } %>
       </div>
       <!-- /.col-lg-12 -->
     </div>
@@ -36,7 +39,11 @@
                   <td><%= dat.title %></td>
                   <td><%= dat.dateAdded %></td>
                   <td><%= dat.dateModified %></td>
-                  <td><a href="/deletenews/<%= dat._id %>" class="btn btn-danger del" >Delete</a></td>
+                  <form action="/News/<%= dat._id %>?_method=DELETE" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="id" value="<%= dat._id %>">
+                  <td><button type="submit" class="btn btn-danger" >Delete</button></td>
+                </form>
                   <td><a href="/admineditNews/<%= dat._id %>" class="btn btn-primary" >Edit</a></td>
                 </tr>
                 <% }); %>

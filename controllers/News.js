@@ -5,7 +5,7 @@ const NewsController = {
     let news = await News.find();
     if (req.params.id == 1) {
       newsdata = news;
-      res.render("pages/News", { data: news });
+      res.render("pages/News", { data: news, message: "" });
     } else {
       res.json(news);
     }
@@ -64,7 +64,11 @@ const NewsController = {
       .then(result => {
         console.log(result);
         if (result.n > 0) {
-          res.status(200).json({ message: "News updated Successfully!" });
+          res.render("pages/News", {
+            message: "News Updated Successfully!",
+            data: newsdata
+          });
+          // res.status(200).json({ message: "News updated Successfully!" });
         }
       })
       .catch(error => {
@@ -79,11 +83,15 @@ const NewsController = {
     News.deleteOne({
       _id: req.params.id
     })
-      .then(result => {
+      .then(async result => {
+        let news = await News.find();
+
         console.log(result);
+
         if (result.n > 0) {
-          res.status(200).json({
-            message: "News Deleted!"
+          res.render("pages/News", {
+            message: "News Deleted!",
+            data: news
           });
         }
       })

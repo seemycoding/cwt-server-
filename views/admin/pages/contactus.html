@@ -8,7 +8,9 @@
           <li><a href="#">Dashboard</a></li>
           <li class="active">Contact</li>
         </ol>
-        
+        <% if (message) { %>
+          <div class="alert alert-success"><%= message %></div>
+          <% } %>
       </div>
       <!-- /.col-lg-12 -->
     </div>
@@ -41,6 +43,11 @@
                   <td><%= dat.subject %></td>
                   <td><%= dat.additional %></td>
                   <td><%= dat.type %></td>
+                  <form action="/contact/<%= dat._id %>?_method=DELETE" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="id" value="<%= dat._id %>">
+                  <td><button type="submit" class="btn btn-danger" >Delete</button></td>
+                </form>
                 
                 </tr>
                 <% }); %>

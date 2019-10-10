@@ -6,7 +6,7 @@ const ArticleController = {
     if (req.params.id == 1) {
       //console.log(articles[0].title);
       art = articles;
-      res.render("pages/Article", { data: articles });
+      res.render("pages/Article", { data: articles, message: "" });
     } else {
       res.json(articles);
     }
@@ -20,22 +20,28 @@ const ArticleController = {
 
   byId: async (req, res, next) => {
     let article = await Article.findById(req.params.id);
-    res.json(article);
-    // res.render("pages/addarticle", {
-    //   dat: article,
-    //   url: "/editArticle/" + req.params.id + "?_method=PUT"
-    // });
+
+    if (req.params.fid == 1) {
+      res.render("pages/addarticle", {
+        dat: article,
+        url: "/editArticle/" + req.params.id + "?_method=PUT"
+      });
+    } else {
+      res.json(article);
+    }
   },
 
   deleteById: async (req, res, next) => {
     Article.deleteOne({
       _id: req.params.id
     })
-      .then(result => {
+      .then(async result => {
+        let articles = await Article.find({ expert: true });
         console.log(result);
         if (result.n > 0) {
-          res.status(200).json({
-            message: "Article Deleted!"
+          res.render("pages/Article", {
+            message: "Article Deleted!",
+            data: articles
           });
         }
       })
@@ -101,7 +107,11 @@ const ArticleController = {
       .then(result => {
         console.log(result);
         if (result.n > 0) {
-          res.status(200).json({ message: "Article updated Successfully!" });
+          res.render("pages/Article", {
+            message: "Article Updated Successfully!",
+            data: art
+          });
+          // res.status(200).json({ message: "Article updated Successfully!" });
         }
       })
       .catch(error => {

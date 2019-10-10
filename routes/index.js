@@ -94,16 +94,19 @@ router.get("/adminpanel", function(req, res, next) {
 router.get("/addarticle", function(req, res, next) {
   res.render("pages/addarticle", { dat: "", url: "/adminArticle/1" });
 });
+router.get("/addgallery", function(req, res, next) {
+  res.render("pages/addgallery", { dat: "", url: "/Gallery" });
+});
 
 router.get("/addquestion", function(req, res, next) {
-  res.render("pages/addquestion");
+  res.render("pages/addquestion", { dat: "", url: "/Knowledge/1" });
 });
 
 router.get("/addnews", function(req, res, next) {
   res.render("pages/addnews", { dat: "", url: "/adminArticle/1" });
 });
 router.get("/addevent", function(req, res, next) {
-  res.render("pages/addevent");
+  res.render("pages/addevent", { dat: "", url: "/adminUpComingEvent/1" });
 });
 router.get("/addhighlights", HighlightController.selectdata);
 
@@ -130,8 +133,19 @@ router.put(
   fileUpload.single("image"),
   NewsController.updateById
 );
+router.put(
+  "/editEvent/:id",
+  fileUpload.single("image"),
+  UpComingEventController.updateById
+);
+router.put(
+  "/editquestion/:id",
+  fileUpload.single("image"),
+  KnowlegdeController.updateById
+);
 router.post("/authenticate", UserController.authenticate);
 router.post("/register", UserController.register);
+router.delete("/userdelete/:id", UserController.delete);
 
 router.get("/adminarticle/:id", ArticleController.expertArticles);
 router.post(
@@ -145,9 +159,25 @@ router.get(
   ContactController.index
 );
 router.get(
-  "/admineditArticle/:id",
+  "/admineditgallery/:id",
+  fileUpload.single("image"),
+  GalleryController.byId
+);
+router.get(
+  "/admineditArticle/:id/:fid",
   fileUpload.single("image"),
   ArticleController.byId
+);
+router.get("/gallery/:id", fileUpload.single("image"), GalleryController.index);
+router.get(
+  "/admineditQuestion/:id",
+  fileUpload.single("image"),
+  KnowlegdeController.byId
+);
+router.get(
+  "/admineditEvent/:id",
+  fileUpload.single("image"),
+  UpComingEventController.byId
 );
 router.get(
   "/admineditNews/:id",
@@ -177,7 +207,8 @@ router.post(
   fileUpload.single("image"),
   HighlightController.create
 );
-router.delete("/deletenews/:id", NewsController.deleteById);
+router.delete("/deletequestion/:id", KnowlegdeController.deleteById);
+router.delete("/contact/:id", ContactController.deleteById);
 router.post(
   "/adminUpComingEvent/:id",
   fileUpload.single("image"),

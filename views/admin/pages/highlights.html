@@ -9,6 +9,9 @@
           <li class="active">Highlights Posted</li>
         </ol>
         <a href="/addhighlights" class="btn btn-primary">Add Highlight</a>
+        <% if (message) { %>
+          <div class="alert alert-success"><%= message %></div>
+          <% } %>
       </div>
       <!-- /.col-lg-12 -->
     </div>
@@ -38,7 +41,11 @@
                   <td><%= dat.link %></td>
                   <td><%= dat.dateAdded %></td>
                   <td><%= dat.dateModified %></td>
-                  <td><button class="btn btn-danger">Delete</button></td>
+                  <form action="/Highlight/<%= dat._id %>?_method=DELETE" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="id" value="<%= dat._id %>">
+                  <td><button type="submit" class="btn btn-danger" >Delete</button></td>
+                </form>
                   <td> <a href="/adminedithighlight/<%= dat._id %>" class="btn btn-primary">Edit</a></td>
                   
                 </tr>

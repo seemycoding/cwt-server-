@@ -11,7 +11,7 @@ const HighlightController = {
       data: artid,
       data2: newid,
       dat: "",
-      url: "/editHighlight"
+      url: "/adminHighlights/1"
     });
   },
 
@@ -19,7 +19,7 @@ const HighlightController = {
     let highlights = await Highlight.find();
     if (req.params.id == 1) {
       high = highlights;
-      res.render("pages/highlights", { data: highlights });
+      res.render("pages/highlights", { data: highlights, message: "" });
     } else {
       res.json(highlights);
     }
@@ -40,7 +40,10 @@ const HighlightController = {
       sortOrder: receivedSortOrder
     });
     if (req.params.id == 1) {
-      res.render("pages/highlights", { data: high });
+      res.render("pages/highlights", {
+        data: high,
+        message: "Highlight Updated successfully!"
+      });
     } else {
       res.json(highlight);
     }
@@ -51,6 +54,7 @@ const HighlightController = {
     res.render("pages/addhighlight", {
       dat: highlight,
       data: high,
+      data2: high,
       url: "/editHighlight/" + req.params.id + "?_method=PUT"
     });
   },
@@ -72,7 +76,11 @@ const HighlightController = {
       .then(result => {
         console.log(result);
         if (result.n > 0) {
-          res.status(200).json({ message: "Highlight update Successful!" });
+          res.render("pages/highlights", {
+            message: "Highlight Updated successfully!",
+            data: high
+          });
+          // res.status(200).json({ message: "Highlight update Successful!" });
         }
       })
       .catch(error => {
@@ -87,11 +95,13 @@ const HighlightController = {
     Highlight.deleteOne({
       _id: req.params.id
     })
-      .then(result => {
+      .then(async result => {
+        let highlights = await Highlight.find();
         console.log(result);
         if (result.n > 0) {
-          res.status(200).json({
-            message: "Highlight Deleted!"
+          res.render("pages/highlights", {
+            message: "Highlight Deleted!",
+            data: highlights
           });
         }
       })

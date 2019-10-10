@@ -36,17 +36,28 @@ const UserController = {
     userService
       .getAll()
       .then(users => {
-        res.render("pages/users", { data: users });
+        res.render("pages/users", { data: users, message: "" });
       })
       .catch(err => next(err));
-  }
+  },
 
-  // function getCurrent(req, res, next) {
-  //   userService
-  //     .getById(req.user.sub)
-  //     .then(user => (user ? res.json(user) : res.sendStatus(404)))
-  //     .catch(err => next(err));
-  // }
+  delete: (req, res, next) => {
+    userService
+      .delete(req.params.id)
+      .then(() =>
+        res.json({
+          message: "User deleted successfully from the system"
+        })
+      )
+      .catch(err => next(err));
+  },
+
+  getCurrent: (req, res, next) => {
+    userService
+      .getById(req.user.sub)
+      .then(user => (user ? res.json(user) : res.sendStatus(404)))
+      .catch(err => next(err));
+  }
 
   // function getById(req, res, next) {
   //   userService
@@ -58,13 +69,6 @@ const UserController = {
   // function update(req, res, next) {
   //   userService
   //     .update(req.params.id, req.body)
-  //     .then(() => res.json({}))
-  //     .catch(err => next(err));
-  // }
-
-  // function _delete(req, res, next) {
-  //   userService
-  //     .delete(req.params.id)
   //     .then(() => res.json({}))
   //     .catch(err => next(err));
   // }

@@ -9,6 +9,9 @@
           <li class="active">User Added</li>
         </ol>
         <a href="/adduser" class="btn btn-primary">Add New User</a>
+        <% if (message) { %>
+          <div class="alert alert-success"><%= message %></div>
+          <% } %>
       </div>
       <!-- /.col-lg-12 -->
     </div>
@@ -37,7 +40,11 @@
                         <td><%= dat.lastName %></td>
                         <td><%= dat.username %></td>
                         <td><%= dat.role %></td>
-                        <td><button class="btn btn-danger">Remove</button></td>
+                        <form action="/userdelete/<%= dat._id %>?_method=DELETE" method="POST">
+                          <input type="hidden" name="_method" value="DELETE">
+                          <input type="hidden" name="id" value="<%= dat._id %>">
+                        <td><button type="submit" class="btn btn-danger" >Remove</button></td>
+                      </form>
                         <td><a href="/profile" class="btn btn-primary">Edit</a></td>
                       </tr>
                       <% }); %>

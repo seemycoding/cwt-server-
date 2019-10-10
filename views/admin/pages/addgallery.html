@@ -3,10 +3,10 @@
   <div class="container-fluid">
     <div class="row bg-title">
       <div class="col-lg-12">
-        <h4 class="page-title">Add Events</h4>
+        <h4 class="page-title">Add Photos/Videos</h4>
         <ol class="breadcrumb">
           <li><a href="#">Dashboard</a></li>
-          <li class="active">Add Events</li>
+          <li class="active">Add Photos/Videos</li>
         </ol>
       </div>
       <!-- /.col-lg-12 -->
@@ -16,8 +16,8 @@
       <div class="col-sm-12">
         <div class="white-box">
           <form action="<%= url  %>" method="POST" enctype="multipart/form-data">
-              <input type="hidden" name="_method" value="PUT">
-              <input type="hidden" name="id" value="<%= dat._id %>">
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="id" value="<%= dat._id %>">
             <div class="form-group">
               <label for="title">Title</label>
               <input
@@ -30,39 +30,41 @@
               />
             </div>
             <div class="form-group">
-                <label for="image">Place</label>
+                <label for="title">Content</label>
                 <input
                   type="text"
+                  name="content"
                   class="form-control"
-                  id="sort"
-                  value="<%= dat.place %>"
-                  name="place"
+                  id="content"
+                  value="<%= dat.content %>"
+                  placeholder="name@example.com"
                 />
               </div>
               <div class="form-group">
-                <label for="image">Event Detail</label>
-                <textarea
+                <label for="title">Video link</label>
+                <input
+                  type="text"
+                  name="videoPath"
                   class="form-control"
-                  id="articledetail"
-                  name="detail"
-                
-                  rows="3"
-                ><%= dat.detail %></textarea>
+                  id="videolink"
+                  value="<%= dat.videoPath %>"
+                  placeholder="name@example.com"
+                />
               </div>
-          
-            <div class="form-group">
-                    <label for="image">Sort Order</label>
+              <div class="form-group">
+                    <label for="image">Thumbnail Image</label>
                     <input
-                      type="number"
+                      type="file"
                       class="form-control-file"
-                      id="sort"
-                      value="<%= dat.sortOrder %>"
-                      name="sortOrder"
+                      id="image"
+                      name="image"
                     />
                   </div>
+           
+         
                  
             <div class="form-group">
-              <label for="image">Image</label>
+              <label for="image">Gallery Image</label>
               <input
                 type="file"
                 class="form-control-file"
@@ -70,9 +72,10 @@
                 name="image"
               />
             </div>
+            <div class="image-show"><img src="\<%= dat.imagePath %>" alt="" width="100px" height="100px"></div>
            
 
-            <input type="submit" class="btn btn-primary" value="Post Highlight" />
+            <input type="submit" class="btn btn-primary" value="Add" />
           </form>
         </div>
       </div>

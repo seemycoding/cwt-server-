@@ -3,10 +3,31 @@ const ContactController = {
   index: async (req, res, next) => {
     let contact = await Contact.find();
     if (req.params.id == 1) {
-      res.render("pages/contactus", { data: contact });
+      res.render("pages/contactus", { data: contact, message: "" });
     } else {
       res.json(contact);
     }
+  },
+  deleteById: async (req, res, next) => {
+    let contact = await Contact.find();
+    Contact.deleteOne({
+      _id: req.params.id
+    })
+      .then(result => {
+        console.log(result);
+        if (result.n > 0) {
+          res.render("pages/contactus", {
+            message: "Contact Deleted!",
+            data: contact
+          });
+        }
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: "Could not delete contact",
+          error: error
+        });
+      });
   },
   create: async (req, res, next) => {
     let name = req.body.name || "";

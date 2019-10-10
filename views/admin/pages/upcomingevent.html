@@ -10,6 +10,9 @@
           <li class="active">Events Posted</li>
         </ol>
         <a href="/addevent" class="btn btn-primary">Add Event</a>
+        <% if (message) { %>
+          <div class="alert alert-success"><%= message %></div>
+          <% } %>
       </div>
       <!-- /.col-lg-12 -->
     </div>
@@ -36,8 +39,12 @@
                   <td><%= dat.title %></td>
                   <td><%= dat.dateAdded %></td>
                   <td><%= dat.dateModified %></td>
-                  <td><a href="/deletenews/<%= dat._id %>" class="btn btn-danger del" >Delete</a></td>
-                  <td><button class="btn btn-primary">Edit</button></td>
+                  <form action="/UpcomingEvent/<%= dat._id %>?_method=DELETE" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="id" value="<%= dat._id %>">
+                  <td><button type="submit" class="btn btn-danger" >Delete</button></td>
+                </form>
+                  <td><a href="/admineditEvent/<%= dat._id %>" class="btn btn-primary" >Edit</a></td>
                 </tr>
                 <% }); %>
               </tbody>

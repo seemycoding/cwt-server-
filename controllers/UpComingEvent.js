@@ -5,7 +5,7 @@ const UpComingEventController = {
     const events = await UpComingEvent.find();
     if (req.params.id == 1) {
       eventdata = events;
-      res.render("pages/upcomingevent", { data: events });
+      res.render("pages/upcomingevent", { data: events, message: "" });
     } else {
       res.json(events);
     }
@@ -29,10 +29,20 @@ const UpComingEventController = {
       dateModified: Date.now()
     });
     if (req.params.id == 1) {
-      res.render("pages/upcomingevent", { data: eventdata });
+      res.render("pages/upcomingevent", {
+        data: eventdata,
+        message: "Event added successfully"
+      });
     } else {
       res.json(event);
     }
+  },
+  byId: async (req, res, next) => {
+    let event = await UpComingEvent.findById(req.params.id);
+    res.render("pages/addevent", {
+      dat: event,
+      url: "/editEvent/" + req.params.id + "?_method=PUT"
+    });
   },
 
   updateById: async (req, res, next) => {
@@ -54,7 +64,11 @@ const UpComingEventController = {
       .then(result => {
         console.log(result);
         if (result.n > 0) {
-          res.status(200).json({ message: "Event updated Successfully!" });
+          res.render("pages/upcomingevent", {
+            message: "Event Updated successfully!",
+            data: eventdata
+          });
+          // res.status(200).json({ message: "Event updated Successfully!" });
         }
       })
       .catch(error => {
@@ -69,11 +83,13 @@ const UpComingEventController = {
     UpComingEvent.deleteOne({
       _id: req.params.id
     })
-      .then(result => {
+      .then(async result => {
+        const events = await UpComingEvent.find();
         console.log(result);
         if (result.n > 0) {
-          res.status(200).json({
-            message: "Event Deleted!"
+          res.render("pages/upcomingevent", {
+            message: "Event Deleted!",
+            data: events
           });
         }
       })

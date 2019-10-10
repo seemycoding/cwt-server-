@@ -1,17 +1,18 @@
 <% include ../widgets/layout %>
+
 <div id="page-wrapper">
   <div class="container-fluid">
     <div class="row bg-title">
       <div class="col-lg-12">
-        <h4 class="page-title">Articles</h4>
+        <h4 class="page-title">Gallery</h4>
         <ol class="breadcrumb">
           <li><a href="#">Dashboard</a></li>
-          <li class="active">Articles posted</li>
+          <li class="active">Photos/Videos Uploaded</li>
         </ol>
-        <a href="/addarticle" class="btn btn-primary">Add Article</a>
+        <a href="/addgallery" class="btn btn-primary">Add Photos/Videos</a>
         <% if (message) { %>
-          <div class="alert alert-success"><%= message %></div>
-          <% } %>
+        <div class="alert alert-success"><%= message %></div>
+        <% } %>
       </div>
       <!-- /.col-lg-12 -->
     </div>
@@ -19,17 +20,16 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="white-box">
-          <h3>Articles Posted</h3>
+          <h3>Photo/Videos Posted</h3>
 
           <div class="table-responsive">
             <table class="table">
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Article</th>
-                  <th>Date Added</th>
-                  <th>Date modified</th>
-                  <th>Type</th>
+                  <th>Title</th>
+                  <th>Image</th>
+                  <th>Video Link</th>
                 </tr>
               </thead>
               <tbody>
@@ -37,16 +37,14 @@
                 <tr>
                   <td><%= i+1 %></td>
                   <td><%= dat.title %></td>
-                  <td><%= dat.dateAdded %></td>
-                  <td><%= dat.dateModified %></td>
-                  <form action="/Article/<%= dat._id %>?_method=DELETE" method="POST">
+                  <td><%= dat.imagePath %></td>
+                  <td><%= dat.videoPath %></td>
+                  <form action="//<%= dat._id %>?_method=DELETE" method="POST">
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="id" value="<%= dat._id %>">
                   <td><button type="submit" class="btn btn-danger" >Delete</button></td>
                 </form>
-                  <form>
-                    <td> <a href="/admineditArticle/<%= dat._id %>/1" class="btn btn-primary">Edit</a></td>
-                  </form>
+                  <td><a href="/admineditgallery/<%= dat._id %>" class="btn btn-primary" >Edit</a></td>
                 </tr>
                 <% }); %>
               </tbody>

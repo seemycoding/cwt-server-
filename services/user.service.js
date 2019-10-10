@@ -3,11 +3,11 @@ const User = require("../models/user.model");
 
 module.exports = {
   authenticate,
+  delete: _delete,
   getAll,
-  // getById,
+  getById,
   create
   // update,
-  // delete: _delete
 };
 
 async function authenticate({ username, password }) {
@@ -25,9 +25,13 @@ async function getAll() {
   return await User.find();
 }
 
-// async function getById(id) {
-//   return await User.findById(id).select("-hash");
-// }
+async function _delete(id) {
+  await User.findByIdAndRemove(id);
+}
+
+async function getById(id) {
+  return await User.findById(id).select("-hash");
+}
 
 async function create(userParam) {
   // validate
@@ -67,8 +71,4 @@ async function create(userParam) {
 //   Object.assign(user, userParam);
 
 //   await user.save();
-// }
-
-// async function _delete(id) {
-//   await User.findByIdAndRemove(id);
 // }
