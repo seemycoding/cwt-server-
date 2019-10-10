@@ -39,7 +39,10 @@ const NewsController = {
       dateModified: Date.now()
     });
     if (req.params.id == 1) {
-      res.render("pages/News", { data: newsdata });
+      res.render("pages/News", {
+        data: newsdata,
+        message: "News added successfully"
+      });
     }
     res.json(news);
   },

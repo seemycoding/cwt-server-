@@ -48,7 +48,7 @@ const KnowledgeController = {
             message: "Question Updated Successfully!",
             data: knowledgeq
           });
-          res.status(200).json({ message: "Question updated Successful!" });
+          //res.status(200).json({ message: "Question updated Successful!" });
         }
       })
       .catch(error => {
@@ -108,7 +108,10 @@ const KnowledgeController = {
       score: score
     });
     if (req.params.id == 1) {
-      res.render("pages/know", { data: knowledgeq });
+      res.render("pages/know", {
+        data: knowledgeq,
+        message: "Question added successfully"
+      });
     }
     res.json(knowledge);
   }

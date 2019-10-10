@@ -74,7 +74,10 @@ const ArticleController = {
       dateModified: Date.now()
     });
     if (req.params.id == 1) {
-      res.render("pages/Article", { data: art });
+      res.render("pages/Article", {
+        data: art,
+        message: "Article added successfully"
+      });
     } else {
       res.json(article);
     }
