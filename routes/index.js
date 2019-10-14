@@ -85,7 +85,7 @@ router.get("/profile", function(req, res, next) {
 });
 router.get("/users", UserController.getAll);
 router.get("/adduser", function(req, res, next) {
-  res.render("pages/adduser");
+  res.render("pages/adduser", { url: "/register", dat: "" });
 });
 router.get("/adminpanel", function(req, res, next) {
   res.render("pages/login", { title: "Clean Water together Admin panel" });
@@ -95,7 +95,7 @@ router.get("/addarticle", function(req, res, next) {
   res.render("pages/addarticle", { dat: "", url: "/adminArticle/1" });
 });
 router.get("/addgallery", function(req, res, next) {
-  res.render("pages/addgallery", { dat: "", url: "/Gallery" });
+  res.render("pages/addgallery", { dat: "", url: "/Gallery/1" });
 });
 
 router.get("/addquestion", function(req, res, next) {
@@ -143,6 +143,12 @@ router.put(
   fileUpload.single("image"),
   KnowlegdeController.updateById
 );
+router.put("/edituser/:id", UserController.update);
+router.post(
+  "/Gallery/:id",
+  fileUpload.single("image"),
+  GalleryController.create
+);
 router.post("/authenticate", UserController.authenticate);
 router.post("/register", UserController.register);
 router.delete("/userdelete/:id", UserController.delete);
@@ -174,11 +180,13 @@ router.get(
   fileUpload.single("image"),
   KnowlegdeController.byId
 );
+router.delete("/gallerydelete/:id", GalleryController.deleteById);
 router.get(
   "/admineditEvent/:id",
   fileUpload.single("image"),
   UpComingEventController.byId
 );
+router.get("/adminedituser/:id", UserController.getById);
 router.get(
   "/admineditNews/:id",
   fileUpload.single("image"),
@@ -214,6 +222,7 @@ router.post(
   fileUpload.single("image"),
   UpComingEventController.create
 );
+
 //till here
 //tilll here
 //till here

@@ -2,7 +2,7 @@ const Knowledge = require("../models/Knowledge");
 let knowledgeq;
 const KnowledgeController = {
   index: async (req, res, next) => {
-    let knowledge = await Knowledge.find();
+    let knowledge = await Knowledge.find().sort( {sortOrder: 1 } );
     if (req.params.id == 1) {
       knowledgeq = knowledge;
       res.render("pages/know", { data: knowledgeq, message: "" });

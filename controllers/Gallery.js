@@ -33,7 +33,15 @@ const GalleryController = {
       thumbimagepath: receivedthumbImagePath,
       videoPath: req.body.videoPath
     });
-    res.json(image);
+    if (req.params.id == 1) {
+      let images = await Gallery.find();
+      res.render("pages/gallery", {
+        data: images,
+        message: "Image/Video added successfully"
+      });
+    } else {
+      res.json(image);
+    }
   },
 
   updateById: async (req, res, next) => {

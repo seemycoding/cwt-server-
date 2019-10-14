@@ -54,10 +54,14 @@ const ArticleController = {
 
   create: async (req, res, next) => {
     let author = req.body.author || "";
+    let author2 = req.body.author2 || "";
     let profession = req.body.profession || "";
+    let profession2 = req.body.profession2 || "";
     let articleTitle = req.body.title || "";
+    let articleTitle2 = req.body.title2 || "";
     let expert = req.body.expert || "";
     let detail = req.body.detail || "";
+    let detail2 = req.body.detail2 || "";
     let image = (req.file && req.file.path.replace("\\", "/")) || "";
 
     let article = await Article.create({
