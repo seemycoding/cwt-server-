@@ -17,10 +17,10 @@ router.use(methodOverride("_method"));
 router.get("/ExpertArticles", ArticleController.expertArticles);
 router.get("/BloggerArticles", ArticleController.bloggerArticles);
 router.get("/Article/:id", ArticleController.byId);
-router.post("/Article", fileUpload.single("image"), ArticleController.create);
+router.post("/Article", fileUpload.array("image",3), ArticleController.create);
 router.put(
   "/Article/:id",
-  fileUpload.single("image"),
+  fileUpload.array("image",3),
   ArticleController.updateById
 );
 router.delete("/Article/:id", ArticleController.deleteById);

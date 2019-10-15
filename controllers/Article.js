@@ -53,23 +53,36 @@ const ArticleController = {
   },
 
   create: async (req, res, next) => {
+    let imagePath = [];
+    let image = [];
+    let image2 = [];
+    if (req.files != null) {
+      for (let i = 0; i < req.files.length; i++) {
+        imagePath.push(req.files[i].path.replace("\\", "/"));
+        image.push(imagePath[i].replace("\\", "/"));
+      }
+    }
+
     let author = req.body.author || "";
-    let author2 = req.body.author2 || "";
     let profession = req.body.profession || "";
-    let profession2 = req.body.profession2 || "";
     let articleTitle = req.body.title || "";
-    let articleTitle2 = req.body.title2 || "";
     let expert = req.body.expert || "";
     let detail = req.body.detail || "";
-    let detail2 = req.body.detail2 || "";
-    let image = (req.file && req.file.path.replace("\\", "/")) || "";
+      if (image!=null) {
+        for (let i = 0; i < image.length; i++) {
+          image2.push(image[i].replace("\\", "/"));
+        }
+      }
+    
+
+    //let image = (req.file && req.file.path.replace("\\", "/")) || "";
 
     let article = await Article.create({
       author: author,
       profession: profession,
       title: articleTitle,
       expert: expert,
-      image: image.replace("\\", "/"),
+      image: image2,
       detail: detail,
       link: req.body.link,
       videoPath: req.body.videoPath,
@@ -88,23 +101,30 @@ const ArticleController = {
   },
 
   updateById: async (req, res, next) => {
-    let image = req.file && req.file.path.replace("\\", "/");
-    if (image) {
-      image = image.replace("\\", "/");
+    let imagePath = [];
+    let image = [];
+    let image2=[];
+    if (req.files != null) {
+      for (let i = 0; i < req.files.length; i++) {
+        imagePath.push(req.files[i].path.replace("\\", "/"));
+        image.push(imagePath[i].replace("\\", "/"));
+      }
+    }
+    if (image != null) {
+      for (let i = 0; i < image.length; i++) {
+      
+        image2.push(image[i].replace("\\", "/"));
+      
+      }
     }
     var article = new Article({
       _id: req.body.id,
       author: req.body.author,
-      author2: req.body.author2,
       profession: req.body.profession,
-      profession2: req.body.profession2,
       title: req.body.title,
-      title2: req.body.title2,
       detail: req.body.detail,
-      detail2: req.body.detail2,
       expert: req.body.expert,
-      image: image,
-      image2: image,
+      image: image2,
       link: req.body.link,
       videoPath: req.body.videoPath,
       sortOrder: req.body.sortOrder,
@@ -114,10 +134,11 @@ const ArticleController = {
       .then(result => {
         console.log(result);
         if (result.n > 0) {
-          res.render("pages/Article", {
-            message: "Article Updated Successfully!",
-            data: art
-          });
+          // res.render("pages/Article", {
+          //   message: "Article Updated Successfully!",
+          //   data: art
+          res.status(200).json({ message: "Article updated Successfully!" });
+          // });
           // res.status(200).json({ message: "Article updated Successfully!" });
         }
       })
