@@ -18,20 +18,26 @@ const GalleryController = {
   },
 
   create: async (req, res, next) => {
+    let himage="";
+    let thumbimage="";
+   
+    if (typeof req.file.image !== "undefined") {
+      himage = req.file["image"][0].path.replace("\\", "/");
+    }
+    if (typeof req.file.image !== "undefined") {
+      thumbimage = req.file["thumbimage"][0].path.replace("\\", "/");
+    }
     let receivedTitle = req.body.title || "";
     let receivedContent = req.body.content || "";
-    let receivedImagePath =
-      (req.file && req.file.path.replace("\\", "/")) || "";
-
-    let receivedthumbImagePath =
-      (req.file && req.file.path.replace("\\", "/")) || "";
+   
 
     let image = await Gallery.create({
       title: receivedTitle,
       content: receivedContent,
-      imagePath: receivedImagePath.replace("\\", "/"),
-      thumbimagepath: receivedthumbImagePath,
-      videoPath: req.body.videoPath
+      imagePath: himage.replace("\\", "/"),
+      thumbimage:thumbimage.replace("\\",'/'),
+      videoPath: req.body.videoPath,
+      sortOrder:req.body.sortOrder
     });
     if (req.params.id == 1) {
       let images = await Gallery.find();
@@ -45,25 +51,41 @@ const GalleryController = {
   },
 
   updateById: async (req, res, next) => {
-    let image = req.file && req.file.path.replace("\\", "/");
-    if (image) {
-      image = image.replace("\\", "/");
+    
+    let himage="";
+    let thumbimage="";
+   
+    if (typeof req.files.image !== "undefined") {
+      himage = req.files["image"][0].path.replace("\\", "/");
     }
-
+    if (typeof req.files.image !== "undefined") {
+      thumbimage = req.files["thumbimage"][0].path.replace("\\", "/");
+    }
     var galleryItem = new Gallery({
       _id: req.body.id,
       title: req.body.title,
       content: req.body.content,
-      imagePath: image,
-      videoPath: req.body.videoPath
+      imagePath: himage,
+      thumbimage:thumbimage,
+      videoPath: req.body.videoPath,
+      sortOrder:req.body.sortOrder
     });
     Gallery.updateOne({ _id: req.params.id }, galleryItem)
-      .then(result => {
+      .then(async result => {
         console.log(result);
         if (result.n > 0) {
-          res
+          if (req.params.val==1) {
+            let images = await Gallery.find();
+            res.render("pages/gallery", {
+              data: images,
+              message: "Image/Video added successfully"
+            });
+          }else{
+            res
             .status(200)
             .json({ message: "Gallery Item updated Successfully!" });
+          }
+         
         }
       })
       .catch(error => {
@@ -82,10 +104,17 @@ const GalleryController = {
         let images = await Gallery.find();
         console.log(result);
         if (result.n > 0) {
-          res.render("pages/gallery", {
-            message: "Gallery item Deleted!",
-            data: images
-          });
+          if (req.params.val==1) {
+            res.render("pages/gallery", {
+              message: "Gallery item Deleted!",
+              data: images
+            });
+          }else{
+            res
+            .status(200)
+            .json({ message: "Gallery Item deleted Successfully!" });
+          }
+          
         }
       })
       .catch(error => {

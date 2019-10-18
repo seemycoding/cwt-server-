@@ -19,7 +19,7 @@ const KnowledgeController = {
     let question = await Knowledge.findById(req.params.id);
     res.render("pages/addquestion", {
       dat: question,
-      url: "/editquestion/" + req.params.id + "?_method=PUT"
+      url: "/editquestion/" + req.params.id+ "?_method=PUT"
     });
   },
   updateById: async (req, res, next) => {
@@ -44,11 +44,15 @@ const KnowledgeController = {
       .then(result => {
         console.log(result);
         if (result.n > 0) {
-          res.render("pages/know", {
-            message: "Question Updated Successfully!",
-            data: knowledgeq
-          });
-          //res.status(200).json({ message: "Question updated Successful!" });
+          if (req.params.val==1) {
+            res.render("pages/know", {
+              message: "Question Updated Successfully!",
+              data: knowledgeq
+            });
+          }else{
+         
+          res.status(200).json({ message: "Question updated Successful!" });
+          }
         }
       })
       .catch(error => {
@@ -66,10 +70,15 @@ const KnowledgeController = {
         let knowledge = await Knowledge.find();
         console.log(result);
         if (result.n > 0) {
-          res.render("pages/know", {
-            message: "Question Deleted!",
-            data: knowledge
-          });
+          if (req.params.val==1) {
+            res.render("pages/know", {
+              message: "Question Deleted!",
+              data: knowledge
+            });
+          }else{
+            res.status(200).json({ message: "Question deleted Successful!" });
+          }
+         
         }
       })
       .catch(error => {

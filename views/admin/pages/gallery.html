@@ -39,12 +39,25 @@
                   <td><%= dat.title %></td>
                   <td><%= dat.imagePath %></td>
                   <td><%= dat.videoPath %></td>
-                  <form action="/gallerydelete/<%= dat._id %>?_method=DELETE" method="POST">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <input type="hidden" name="id" value="<%= dat._id %>">
-                  <td><button type="submit" class="btn btn-danger" >Delete</button></td>
-                </form>
-                  <td><a href="/admineditgallery/<%= dat._id %>" class="btn btn-primary" >Edit</a></td>
+                  <form
+                    action="/gallerydelete/<%= dat._id %>/1?_method=DELETE"
+                    method="POST"
+                  >
+                    <input type="hidden" name="_method" value="DELETE" />
+                    <input type="hidden" name="id" value="<%= dat._id %>" />
+                    <td>
+                      <button type="submit" class="btn btn-danger">
+                        Delete
+                      </button>
+                    </td>
+                  </form>
+                  <td>
+                    <a
+                      href="/admineditgallery/<%= dat._id %>/1"
+                      class="btn btn-primary"
+                      >Edit</a
+                    >
+                  </td>
                 </tr>
                 <% }); %>
               </tbody>

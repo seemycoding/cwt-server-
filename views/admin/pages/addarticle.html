@@ -72,26 +72,29 @@
                   name="detail"
                 
                   rows="3"
-                ></textarea>
+                ><%= dat.detail %></textarea>
               </div>
               <div class="form-group">
                 <label for="image">Image</label>
                 <input
                   type="file"
-                  name="image"
+                  name="dimage"
                   class="form-control-file"
-                  id="image"
+                
+                  id="dimage"
                 />
               </div>
               <div class="form-group">
-                <label for="video">Video</label>
+                <label for="image">Sort Order</label>
                 <input
-                  type="file"
+                  type="number"
                   class="form-control-file"
-                  name="video"
-                  id="video"
+                  id="sort"
+                  value="<%= dat.sortOrder %>"
+                  name="sortOrder"
                 />
               </div>
+            
               <input
                 type="submit"
                 class="btn btn-primary"
@@ -110,7 +113,8 @@
                   type="text"
                   class="form-control"
                   id="title"
-                  name="title2"
+                  name="stitle"
+                  value="<%= dat.stitle %>"
                   placeholder="name@example.com"
                 />
               </div>
@@ -120,7 +124,8 @@
                   type="text"
                   class="form-control"
                   id="profession"
-                  name="profession2"
+                  value="<%= dat.sprofession %>"
+                  name="sprofession"
                   placeholder="name@example.com"
                 />
               </div>
@@ -130,7 +135,8 @@
                   type="text"
                   class="form-control"
                   id="author"
-                  name="author2"
+                  value="<%= dat.sauthor %>"
+                  name="sauthor"
                   placeholder="name@example.com"
                 />
               </div>
@@ -141,17 +147,15 @@
                   class="form-control"
                   id="articledetail"
                   rows="3"
-                  name="detail2"
-                ></textarea>
+                 
+                  name="sdetail"
+                ><%= dat.sdetail %></textarea>
               </div>
               <div class="form-group">
                 <label for="image">Image</label>
-                <input type="file" class="form-control-file" id="image" name="image2" />
+                <input type="file" class="form-control-file" id="simage" name="simage" />
               </div>
-              <!-- <div class="form-group">
-                <label for="video">Video</label>
-                <input type="file" class="form-control-file" id="video" />
-              </div> -->
+             
             </form>
           </div>
         </div>

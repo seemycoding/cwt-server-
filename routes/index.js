@@ -17,10 +17,10 @@ router.use(methodOverride("_method"));
 router.get("/ExpertArticles", ArticleController.expertArticles);
 router.get("/BloggerArticles", ArticleController.bloggerArticles);
 router.get("/Article/:id", ArticleController.byId);
-router.post("/Article", fileUpload.array("image",3), ArticleController.create);
+router.post("/Article", fileUpload.fields([{name:'simage',maxCount:1},{name:'dimage',maxCount:1}]), ArticleController.create);
 router.put(
   "/Article/:id",
-  fileUpload.array("image",3),
+  fileUpload.fields([{name:'simage',maxCount:1},{name:'dimage',maxCount:1}]),
   ArticleController.updateById
 );
 router.delete("/Article/:id", ArticleController.deleteById);
@@ -63,15 +63,18 @@ router.put(
 );
 router.delete("/Highlight/:id", HighlightController.deleteById);
 router.get("/Gallery", GalleryController.index);
-router.post("/Gallery", fileUpload.single("image"), GalleryController.create);
+router.post("/Gallery", fileUpload.fields([{name:'image',maxCount:1},{name:'thumbimage',maxCount:1}]), GalleryController.create);
 router.put(
   "/Gallery/:id",
-  fileUpload.single("image"),
+  fileUpload.fields([{name:'image',maxCount:1},{name:'thumbimage',maxCount:1}]),
   GalleryController.updateById
 );
 router.delete("/Gallery/:id", GalleryController.deleteById);
 
 //adminpanel
+
+router.post("/authenticate", UserController.authenticate);
+router.post("/register", UserController.register);
 router.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
 });
@@ -119,12 +122,12 @@ router.get("/about", function(req, res, next) {
   res.render("pages/404");
 });
 router.put(
-  "/editArticle/:id",
-  fileUpload.single("image"),
+  "/editArticle/:id/:val",
+  fileUpload.fields([{name:'simage',maxCount:1},{name:'dimage',maxCount:1}]),
   ArticleController.updateById
 );
 router.put(
-  "/editHighlight/:id",
+  "/editHighlight/:id/:val",
   fileUpload.single("image"),
   HighlightController.updateById
 );
@@ -146,17 +149,18 @@ router.put(
 router.put("/edituser/:id", UserController.update);
 router.post(
   "/Gallery/:id",
-  fileUpload.single("image"),
+  fileUpload.fields([{name:'image',maxCount:1},{name:'thumbimage',maxCount:1}]),
   GalleryController.create
 );
-router.post("/authenticate", UserController.authenticate);
-router.post("/register", UserController.register);
+
 router.delete("/userdelete/:id", UserController.delete);
+router.delete("/Articledelete/:id/:val", ArticleController.deleteById);
+router.delete("/deleteHighlight/:id/:val", HighlightController.deleteById);
 
 router.get("/adminarticle/:id", ArticleController.expertArticles);
 router.post(
   "/adminArticle/:id",
-  fileUpload.single("image"),
+  fileUpload.fields([{name:'simage',maxCount:1},{name:'dimage',maxCount:1}]),
   ArticleController.create
 );
 router.get(
@@ -165,22 +169,22 @@ router.get(
   ContactController.index
 );
 router.get(
-  "/admineditgallery/:id",
-  fileUpload.single("image"),
+  "/admineditgallery/:id/:val",
+  fileUpload.fields([{name:'image',maxCount:1},{name:'thumbimage',maxCount:1}]),
   GalleryController.byId
 );
 router.get(
-  "/admineditArticle/:id/:fid",
-  fileUpload.single("image"),
+  "/admineditArticle/:id/:val",
+  fileUpload.fields([{name:'simage',maxCount:1},{name:'dimage',maxCount:1}]),
   ArticleController.byId
 );
 router.get("/gallery/:id", fileUpload.single("image"), GalleryController.index);
 router.get(
-  "/admineditQuestion/:id",
+  "/admineditQuestion/:id/:val",
   fileUpload.single("image"),
   KnowlegdeController.byId
 );
-router.delete("/gallerydelete/:id", GalleryController.deleteById);
+router.delete("/gallerydelete/:id/:val", GalleryController.deleteById);
 router.get(
   "/admineditEvent/:id",
   fileUpload.single("image"),
@@ -188,12 +192,12 @@ router.get(
 );
 router.get("/adminedituser/:id", UserController.getById);
 router.get(
-  "/admineditNews/:id",
+  "/admineditNews/:id/:val",
   fileUpload.single("image"),
   NewsController.byId
 );
 router.get(
-  "/adminedithighlight/:id",
+  "/adminedithighlight/:id/:val",
   fileUpload.single("image"),
   HighlightController.byId
 );
@@ -215,7 +219,7 @@ router.post(
   fileUpload.single("image"),
   HighlightController.create
 );
-router.delete("/deletequestion/:id", KnowlegdeController.deleteById);
+router.delete("/deletequestion/:id/:val", KnowlegdeController.deleteById);
 router.delete("/contact/:id", ContactController.deleteById);
 router.post(
   "/adminUpComingEvent/:id",

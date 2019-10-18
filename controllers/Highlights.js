@@ -26,9 +26,14 @@ const HighlightController = {
   },
 
   create: async (req, res, next) => {
+ 
+    let image="";
     let receivedTitle = req.body.title;
     let receivedLink = req.body.link;
-    let image = (req.file && req.file.path.replace("\\", "/")) || "";
+   
+      image =req.file.path.replace("\\", "/") || "";
+    
+     
     let receivedSortOrder = req.body.sortOrder || 0;
 
     let highlight = await Highlight.create({
@@ -55,15 +60,16 @@ const HighlightController = {
       dat: highlight,
       data: high,
       data2: high,
-      url: "/editHighlight/" + req.params.id + "?_method=PUT"
+      url: "/editHighlight/" + req.params.id +"/"+req.params.val+ "?_method=PUT"
     });
   },
 
   updateById: async (req, res, next) => {
-    let image = req.file && req.file.path.replace("\\", "/");
-    if (image) {
-      image = image.replace("\\", "/");
-    }
+    let image="";
+  
+      image =req.file.path.replace("\\", "/") || "";
+    
+   
     var highlight = new Highlight({
       _id: req.body.id,
       title: req.body.title,
@@ -76,11 +82,16 @@ const HighlightController = {
       .then(result => {
         console.log(result);
         if (result.n > 0) {
-          res.render("pages/highlights", {
-            message: "Highlight Updated successfully!",
-            data: high
-          });
-          // res.status(200).json({ message: "Highlight update Successful!" });
+          if (req.params.val==1) {
+            res.render("pages/highlights", {
+              message: "Highlight Updated successfully!",
+              data: high
+            });
+          }else{
+            res.status(200).json({ message: "Highlight update Successful!" });
+          }
+         
+         
         }
       })
       .catch(error => {
@@ -99,10 +110,15 @@ const HighlightController = {
         let highlights = await Highlight.find();
         console.log(result);
         if (result.n > 0) {
-          res.render("pages/highlights", {
-            message: "Highlight Deleted!",
-            data: highlights
-          });
+          if (req.params.val==1) {
+            res.render("pages/highlights", {
+              message: "Highlight Deleted!",
+              data: highlights
+            });
+          }else{
+            res.status(200).json({ message: "Highlight deleted Successful!" });
+          }
+          
         }
       })
       .catch(error => {

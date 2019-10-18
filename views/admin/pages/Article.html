@@ -39,7 +39,7 @@
                   <td><%= dat.title %></td>
                   <td><%= dat.dateAdded %></td>
                   <td><%= dat.dateModified %></td>
-                  <form action="/Article/<%= dat._id %>?_method=DELETE" method="POST">
+                  <form action="/Articledelete/<%= dat._id %>/1?_method=DELETE" method="POST">
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="id" value="<%= dat._id %>">
                   <td><button type="submit" class="btn btn-danger" >Delete</button></td>

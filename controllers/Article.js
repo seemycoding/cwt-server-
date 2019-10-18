@@ -1,4 +1,5 @@
 const Article = require("../models/Article");
+const path = require("path");
 let art;
 const ArticleController = {
   expertArticles: async (req, res, next) => {
@@ -21,10 +22,15 @@ const ArticleController = {
   byId: async (req, res, next) => {
     let article = await Article.findById(req.params.id);
 
-    if (req.params.fid == 1) {
+    if (req.params.val == 1) {
       res.render("pages/addarticle", {
         dat: article,
-        url: "/editArticle/" + req.params.id + "?_method=PUT"
+        url:
+          "/editArticle/" +
+          req.params.id +
+          "/" +
+          req.params.val +
+          "?_method=PUT"
       });
     } else {
       res.json(article);
@@ -36,13 +42,18 @@ const ArticleController = {
       _id: req.params.id
     })
       .then(async result => {
-        let articles = await Article.find({ expert: true });
-        console.log(result);
         if (result.n > 0) {
-          res.render("pages/Article", {
-            message: "Article Deleted!",
-            data: articles
-          });
+          if (req.params.val == 1) {
+            let articles = await Article.find();
+            res.render("pages/Article", {
+              message: "Article Deleted!",
+              data: articles
+            });
+          } else {
+            res
+              .status(200)
+              .json({ message: "article Item deleted Successfully!" });
+          }
         }
       })
       .catch(error => {
@@ -53,37 +64,37 @@ const ArticleController = {
   },
 
   create: async (req, res, next) => {
-    let imagePath = [];
-    let image = [];
-    let image2 = [];
-    if (req.files != null) {
-      for (let i = 0; i < req.files.length; i++) {
-        imagePath.push(req.files[i].path.replace("\\", "/"));
-        image.push(imagePath[i].replace("\\", "/"));
-      }
+    let simage="";
+    let dimage="";
+    if (typeof req.files.image !== "undefined") {
+      simage = req.files["simage"][0].path.replace("\\", "/");
+    }
+    if (typeof req.files.image !== "undefined") {
+      dimage = req.files["dimage"][0].path.replace("\\", "/");
     }
 
     let author = req.body.author || "";
     let profession = req.body.profession || "";
     let articleTitle = req.body.title || "";
-    let expert = req.body.expert || "";
     let detail = req.body.detail || "";
-      if (image!=null) {
-        for (let i = 0; i < image.length; i++) {
-          image2.push(image[i].replace("\\", "/"));
-        }
-      }
-    
-
-    //let image = (req.file && req.file.path.replace("\\", "/")) || "";
+    let sauthor = req.body.sauthor || "";
+    let sprofession = req.body.sprofession || "";
+    let sarticleTitle = req.body.stitle || "";
+    let sdetail = req.body.sdetail || "";
+    let expert = req.body.expert || "";
 
     let article = await Article.create({
       author: author,
       profession: profession,
       title: articleTitle,
+      sauthor: sauthor,
+      sprofession: sprofession,
+      stitle: sarticleTitle,
       expert: expert,
-      image: image2,
+      simage: simage.replace("\\", "/"),
+      dimage: dimage.replace("\\", "/"),
       detail: detail,
+      sdetail: sdetail,
       link: req.body.link,
       videoPath: req.body.videoPath,
       sortOrder: req.body.sortOrder,
@@ -101,45 +112,45 @@ const ArticleController = {
   },
 
   updateById: async (req, res, next) => {
-    let imagePath = [];
-    let image = [];
-    let image2=[];
-    if (req.files != null) {
-      for (let i = 0; i < req.files.length; i++) {
-        imagePath.push(req.files[i].path.replace("\\", "/"));
-        image.push(imagePath[i].replace("\\", "/"));
-      }
+    let simage="";
+    let dimage="";
+    if (typeof req.files.image !== "undefined") {
+      simage = req.files["simage"][0].path.replace("\\", "/");
     }
-    if (image != null) {
-      for (let i = 0; i < image.length; i++) {
-      
-        image2.push(image[i].replace("\\", "/"));
-      
-      }
+    if (typeof req.files.image !== "undefined") {
+      dimage = req.files["dimage"][0].path.replace("\\", "/");
     }
+
     var article = new Article({
       _id: req.body.id,
       author: req.body.author,
       profession: req.body.profession,
       title: req.body.title,
+      sauthor: req.body.sauthor,
+      sprofession: req.body.sprofession,
+      stitle: req.body.stitle,
+      sdetail: req.body.sdetail,
       detail: req.body.detail,
       expert: req.body.expert,
-      image: image2,
+      simage: simage,
+      dimage: dimage,
       link: req.body.link,
       videoPath: req.body.videoPath,
       sortOrder: req.body.sortOrder,
       dateModified: Date.now()
     });
     Article.updateOne({ _id: req.params.id }, article)
-      .then(result => {
-        console.log(result);
+      .then(async result => {
         if (result.n > 0) {
-          // res.render("pages/Article", {
-          //   message: "Article Updated Successfully!",
-          //   data: art
-          res.status(200).json({ message: "Article updated Successfully!" });
-          // });
-          // res.status(200).json({ message: "Article updated Successfully!" });
+          if (req.params.val == 1) {
+            let articles = await Article.find();
+            res.render("pages/Article", {
+              message: "Article Updated Successfully!",
+              data: articles
+            });
+          } else {
+            res.status(200).json({ message: "Article updated Successfully!" });
+          }
         }
       })
       .catch(error => {
