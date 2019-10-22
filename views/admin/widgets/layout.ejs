@@ -21,8 +21,6 @@
     <!-- Custom CSS -->
     <link href="../../../public/stylesheets/css/style.css" rel="stylesheet" />
     <link href="../../../public/stylesheets/css/cwtcss.css" rel="stylesheet" />
-   
-    <script src="../../../public/stylesheets/js/cwtadmin.js"></script>
   </head>
 
   <body>
@@ -63,24 +61,21 @@
           </ul>
           <ul class="nav navbar-top-links navbar-right pull-right">
             <li>
-              <form role="search" class="app-search hidden-xs">
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  class="form-control"
-                />
-                <a href=""><i class="ti-search"></i></a>
-              </form>
-            </li>
-            <li>
-              <a class="profile-pic" href="#">
-                <img
-                  src="images/users/hritik.jpg"
-                  alt="user-img"
-                  width="36"
-                  class="img-circle"
-                /><b class="hidden-xs">Maruti</b>
-              </a>
+              <div class="dropdown">
+                <a class="dropdown-toggle" type="button" data-toggle="dropdown">
+                  <label class="hidden-xs"><%= user %></label>
+                  <img
+                    src="../../../public/uploads/user.png"
+                    alt="user-img"
+                    width="36"
+                    class="img-circle"/><span class="caret"></span
+                ></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/profile/<%= id %>">Profile</a></li>
+                  <li><a href="/logout">Logout</a></li>
+               
+                </ul>
+              </div>
             </li>
           </ul>
         </div>
@@ -132,25 +127,25 @@
               >
             </li>
             <li>
-                <a href="/adminhighlights/1" class="waves-effect"
-                  ><i class="ti-files fa-fw"></i>Highlights</a
-                >
-              </li>
-              <li>
-                <a href="/events/1" class="waves-effect"
-                  ><i class="ti-files fa-fw"></i>Events</a
-                >
-              </li>
-              <li>
-                <a href="/gallery/1" class="waves-effect"
-                  ><i class="ti-files fa-fw"></i>Gallery</a
-                >
-              </li>
-              <li>
-                  <a href="/contactus/1" class="waves-effect"
-                    ><i class="ti-files fa-fw"></i>Contact</a
-                  >
-                </li>
+              <a href="/adminhighlights/1" class="waves-effect"
+                ><i class="ti-files fa-fw"></i>Highlights</a
+              >
+            </li>
+            <li>
+              <a href="/events/1" class="waves-effect"
+                ><i class="ti-files fa-fw"></i>Events</a
+              >
+            </li>
+            <li>
+              <a href="/gallery/1" class="waves-effect"
+                ><i class="ti-files fa-fw"></i>Gallery</a
+              >
+            </li>
+            <li>
+              <a href="/contactus/1" class="waves-effect"
+                ><i class="ti-files fa-fw"></i>Contact</a
+              >
+            </li>
             <!-- <li>
               <a href="/adminbloggerarticle/1" class="waves-effect"
                 ><i class="ti-files fa-fw"></i>Blogger Articles</a

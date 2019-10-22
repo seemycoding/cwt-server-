@@ -13,6 +13,7 @@
   />
 
   <link href="../../../public/stylesheets/css/cwtcss.css" rel="stylesheet" />
+  
     <title>CWT Admin | Login</title>
   </head>
 
@@ -21,7 +22,12 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3 login-form-2">
                 <h3>Clean Water Together Admin</h3>
+               
                 <form action="/authenticate" method="POST">
+                  <% if (message) { %>
+                    <div class="alert alert-danger"><%= message %></div>
+                    <% } %>
+                 
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Your Email *" value="" name="username" />
                     </div>

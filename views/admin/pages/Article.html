@@ -24,7 +24,7 @@
           <div class="table-responsive">
             <table class="table">
               <thead>
-                <tr>
+                <tr> 
                   <th>#</th>
                   <th>Article</th>
                   <th>Date Added</th>
@@ -39,6 +39,11 @@
                   <td><%= dat.title %></td>
                   <td><%= dat.dateAdded %></td>
                   <td><%= dat.dateModified %></td>
+                  <% if (dat.expert) { %>
+                  <td>Expert</td>
+                  <% }else{ %>
+                    <td>Blogger</td>
+                    <%} %>
                   <form action="/Articledelete/<%= dat._id %>/1?_method=DELETE" method="POST">
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="id" value="<%= dat._id %>">

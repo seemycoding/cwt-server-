@@ -12,6 +12,14 @@ const ArticleController = {
       res.json(articles);
     }
   },
+  index: async (req, res, next) => {
+    let articles = await Article.find();
+    if (req.params.id == 1) {
+      res.render("pages/Article", { data: articles, message: "" });
+    } else {
+      res.json(articles);
+    }
+  },
 
   bloggerArticles: async (req, res, next) => {
     let articles = await Article.find({ expert: false });
@@ -64,10 +72,10 @@ const ArticleController = {
   },
 
   create: async (req, res, next) => {
-    let simage="";
-    let dimage="";
+    let simage = "";
+    let dimage = "";
     if (typeof req.files.image !== "undefined") {
-      simage = req.files["simage"][0].path.replace("\\", "/");
+      simage = req.files["image"][0].path.replace("\\", "/");
     }
     if (typeof req.files.image !== "undefined") {
       dimage = req.files["dimage"][0].path.replace("\\", "/");
@@ -91,7 +99,7 @@ const ArticleController = {
       sprofession: sprofession,
       stitle: sarticleTitle,
       expert: expert,
-      simage: simage.replace("\\", "/"),
+      image: simage.replace("\\", "/"),
       dimage: dimage.replace("\\", "/"),
       detail: detail,
       sdetail: sdetail,
@@ -102,8 +110,9 @@ const ArticleController = {
       dateModified: Date.now()
     });
     if (req.params.id == 1) {
+      let articles = await Article.find();
       res.render("pages/Article", {
-        data: art,
+        data: articles,
         message: "Article added successfully"
       });
     } else {
@@ -112,10 +121,10 @@ const ArticleController = {
   },
 
   updateById: async (req, res, next) => {
-    let simage="";
-    let dimage="";
+    let simage = "";
+    let dimage = "";
     if (typeof req.files.image !== "undefined") {
-      simage = req.files["simage"][0].path.replace("\\", "/");
+      simage = req.files["image"][0].path.replace("\\", "/");
     }
     if (typeof req.files.image !== "undefined") {
       dimage = req.files["dimage"][0].path.replace("\\", "/");
@@ -132,7 +141,7 @@ const ArticleController = {
       sdetail: req.body.sdetail,
       detail: req.body.detail,
       expert: req.body.expert,
-      simage: simage,
+      image: simage,
       dimage: dimage,
       link: req.body.link,
       videoPath: req.body.videoPath,

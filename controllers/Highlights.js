@@ -26,14 +26,13 @@ const HighlightController = {
   },
 
   create: async (req, res, next) => {
- 
-    let image="";
+    let image = "";
     let receivedTitle = req.body.title;
     let receivedLink = req.body.link;
-   
-      image =req.file.path.replace("\\", "/") || "";
-    
-     
+    if (req.file) {
+      image = req.file.path.replace("\\", "/") || "";
+    }
+
     let receivedSortOrder = req.body.sortOrder || 0;
 
     let highlight = await Highlight.create({
@@ -45,8 +44,9 @@ const HighlightController = {
       sortOrder: receivedSortOrder
     });
     if (req.params.id == 1) {
+      let highlights = await Highlight.find();
       res.render("pages/highlights", {
-        data: high,
+        data: highlights,
         message: "Highlight Updated successfully!"
       });
     } else {
@@ -60,16 +60,22 @@ const HighlightController = {
       dat: highlight,
       data: high,
       data2: high,
-      url: "/editHighlight/" + req.params.id +"/"+req.params.val+ "?_method=PUT"
+      url:
+        "/editHighlight/" +
+        req.params.id +
+        "/" +
+        req.params.val +
+        "?_method=PUT"
     });
   },
 
   updateById: async (req, res, next) => {
-    let image="";
-  
-      image =req.file.path.replace("\\", "/") || "";
-    
-   
+    let image = "";
+
+    if (req.file) {
+      image = req.file.path.replace("\\", "/") || "";
+    }
+
     var highlight = new Highlight({
       _id: req.body.id,
       title: req.body.title,
@@ -79,19 +85,18 @@ const HighlightController = {
       dateModified: Date.now()
     });
     Highlight.updateOne({ _id: req.params.id }, highlight)
-      .then(result => {
+      .then(async result => {
         console.log(result);
         if (result.n > 0) {
-          if (req.params.val==1) {
+          if (req.params.val == 1) {
+            let highlights = await Highlight.find();
             res.render("pages/highlights", {
               message: "Highlight Updated successfully!",
-              data: high
+              data: highlights
             });
-          }else{
+          } else {
             res.status(200).json({ message: "Highlight update Successful!" });
           }
-         
-         
         }
       })
       .catch(error => {
@@ -110,15 +115,14 @@ const HighlightController = {
         let highlights = await Highlight.find();
         console.log(result);
         if (result.n > 0) {
-          if (req.params.val==1) {
+          if (req.params.val == 1) {
             res.render("pages/highlights", {
               message: "Highlight Deleted!",
               data: highlights
             });
-          }else{
+          } else {
             res.status(200).json({ message: "Highlight deleted Successful!" });
           }
-          
         }
       })
       .catch(error => {

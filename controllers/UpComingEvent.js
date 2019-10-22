@@ -29,8 +29,9 @@ const UpComingEventController = {
       dateModified: Date.now()
     });
     if (req.params.id == 1) {
+      const events = await UpComingEvent.find();
       res.render("pages/upcomingevent", {
-        data: eventdata,
+        data: events,
         message: "Event added successfully"
       });
     } else {
@@ -41,7 +42,7 @@ const UpComingEventController = {
     let event = await UpComingEvent.findById(req.params.id);
     res.render("pages/addevent", {
       dat: event,
-      url: "/editEvent/" + req.params.id + "?_method=PUT"
+      url: "/editEvent/" + req.params.id + "/" + req.params.val + "?_method=PUT"
     });
   },
 
@@ -61,14 +62,20 @@ const UpComingEventController = {
       dateModified: Date.now()
     });
     UpComingEvent.updateOne({ _id: req.params.id }, event)
-      .then(result => {
+      .then(async result => {
         console.log(result);
         if (result.n > 0) {
-          res.render("pages/upcomingevent", {
-            message: "Event Updated successfully!",
-            data: eventdata
-          });
-          // res.status(200).json({ message: "Event updated Successfully!" });
+          if (req.params.val == 1) {
+            const events = await UpComingEvent.find();
+            res.render("pages/upcomingevent", {
+              message: "Event Updated successfully!",
+              data: events
+            });
+          } else {
+            res.status(200).json({ message: "Event updated Successfully!" });
+          }
+
+          //
         }
       })
       .catch(error => {
@@ -84,13 +91,17 @@ const UpComingEventController = {
       _id: req.params.id
     })
       .then(async result => {
-        const events = await UpComingEvent.find();
         console.log(result);
         if (result.n > 0) {
-          res.render("pages/upcomingevent", {
-            message: "Event Deleted!",
-            data: events
-          });
+          if (req.params.val == 1) {
+            const events = await UpComingEvent.find();
+            res.render("pages/upcomingevent", {
+              message: "Event Deleted!",
+              data: events
+            });
+          } else {
+            res.status(200).json({ message: "Event deleted Successfully!" });
+          }
         }
       })
       .catch(error => {

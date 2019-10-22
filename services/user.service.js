@@ -18,6 +18,7 @@ async function authenticate({ username, password }) {
     return {
       ...userWithoutHash
     };
+  
   }
 }
 

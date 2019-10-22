@@ -1,5 +1,13 @@
 ﻿const userService = require("../services/user.service");
 const user = require("../models/user.model");
+var express = require("express");
+var cookieParser = require("cookie-parser");
+var session = require("express-session");
+
+var app = express();
+
+app.use(cookieParser());
+app.use(session({ secret: "Shh, its a secret!" }));
 
 // routes
 // router.post("/authenticate", authenticate);
@@ -16,14 +24,33 @@ const UserController = {
       .authenticate(req.body)
       .then(user => {
         if (user) {
-          res.render("pages/home");
+          //res.status(200).json({user})
+          req.session.user = user.username;
+          req.session.idd = user._id;
+          req.session.cookie.expires = new Date(Date.now() + 6000000);
+          res.locals.user = req.session.user;
+          res.locals.id = req.session.idd;
+
+          res.render("pages/home", { id: user._id });
         } else {
-          res
-            .status(400)
-            .json({ message: "Username or password is incorrect" });
+          res.render("pages/login", {
+            message: "Username and password do not match !!"
+          });
         }
       })
       .catch(err => next(err));
+  },
+
+  checksignin: (req, res, next) => {
+    if (req.session.user) {
+      res.locals.user = req.session.user;
+      res.locals.id = req.session.idd;
+      next(); //If session exists, proceed to page
+    } else {
+      var err = new Error("Not logged in!");
+      console.log(req.session.user);
+      next(err); //Error, trying to access unauthorized page!
+    }
   },
 
   register: (req, res, next) => {
@@ -54,18 +81,28 @@ const UserController = {
     userService
       .delete(req.params.id)
       .then(() =>
+      userService.getAll().then((user)=>{
         res.render("pages/users", {
           message: "User deleted successfully",
-          data: userd
+          data: user
         })
+      })
+       
       )
       .catch(err => next(err));
   },
 
   getCurrent: (req, res, next) => {
     userService
-      .getById(req.user.sub)
-      .then(user => (user ? res.json(user) : res.sendStatus(404)))
+      .getById(req.params.id)
+      .then(user =>
+        user
+          ? res.render("pages/profile", {
+              dat: user,
+              url: "/edituser/" + req.params.id + "?_method=PUT"
+            })
+          : res.sendStatus(404)
+      )
       .catch(err => next(err));
   },
 
@@ -86,12 +123,25 @@ const UserController = {
     userService
       .update(req.params.id, req.body)
       .then(() =>
+      userService.getAll().then((user)=>
+      {
         res.render("pages/users", {
           message: "User Details Updated Successfully",
-          data: userd
-        })
+          data: user
+        }) 
+      })
       )
+      
       .catch(err => next(err));
-  }
-};
+  },
+logout:(req,res,next)=>{
+  req.session.destroy(function(err) {
+    res.render("pages/login", {
+      message: ""
+    });
+  })
+
+}
+}
+
 module.exports = UserController;

@@ -15,7 +15,7 @@ const NewsController = {
     let news = await News.findById(req.params.id);
     res.render("pages/addnews", {
       dat: news,
-      url: "/editNews/" + req.params.id + "?_method=PUT"
+      url: "/editNews/" + req.params.id +"/"+req.params.val+"?_method=PUT"
     });
   },
 
@@ -39,6 +39,7 @@ const NewsController = {
       dateModified: Date.now()
     });
     if (req.params.id == 1) {
+      let news = await News.find();
       res.render("pages/News", {
         data: newsdata,
         message: "News added successfully"
@@ -64,14 +65,20 @@ const NewsController = {
       dateModified: Date.now()
     });
     News.updateOne({ _id: req.params.id }, news)
-      .then(result => {
+      .then(async result => {
         console.log(result);
         if (result.n > 0) {
-          res.render("pages/News", {
-            message: "News Updated Successfully!",
-            data: newsdata
-          });
-          // res.status(200).json({ message: "News updated Successfully!" });
+          if (req.params.val) {
+            let news = await News.find();
+            res.render("pages/News", {
+              message: "News Updated Successfully!",
+              data: news
+            });
+          }else{
+            res.status(200).json({ message: "News updated Successfully!" });
+          }
+         
+          //
         }
       })
       .catch(error => {
@@ -92,10 +99,15 @@ const NewsController = {
         console.log(result);
 
         if (result.n > 0) {
-          res.render("pages/News", {
-            message: "News Deleted!",
-            data: news
-          });
+          if (req.params.val==1) {
+            res.render("pages/News", {
+              message: "News Deleted!",
+              data: news
+            });
+          }else{
+            res.status(200).json({ message: "News deleted Successfully!" });
+          }
+         
         }
       })
       .catch(error => {

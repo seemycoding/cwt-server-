@@ -6,10 +6,11 @@ const logger = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const indexRouter = require("./routes/index");
-const session = require("express-session");
+var session = require('express-session');
+
 
 const app = express();
-app.use(session({ secret: "ssshhhhh" }));
+app.use(session({secret: "Shh, its a secret!"}));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
