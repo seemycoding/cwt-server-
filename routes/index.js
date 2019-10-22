@@ -205,7 +205,7 @@ router.put(
   UpComingEventController.updateById
 );
 router.put(
-  "/editquestion/:id",
+  "/editquestion/:id/:val",
   UserController.checksignin,
   fileUpload.single("image"),
   KnowlegdeController.updateById

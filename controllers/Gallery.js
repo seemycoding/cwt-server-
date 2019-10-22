@@ -4,7 +4,8 @@ const GalleryController = {
   index: async (req, res, next) => {
     let images = await Gallery.find();
     if (req.params.id == 1) {
-      res.render("pages/gallery", { data: images, message: "" });
+      var passedVariable = req.query.message;
+      res.render("pages/gallery", { data: images, message:passedVariable });
     } else {
       res.json(images);
     }
@@ -40,11 +41,7 @@ const GalleryController = {
       sortOrder: req.body.sortOrder
     });
     if (req.params.id == 1) {
-      let images = await Gallery.find();
-      res.render("pages/gallery", {
-        data: images,
-        message: "Image/Video added successfully"
-      });
+     res.redirect('/gallery/1/?message=Gallery item added successfully');
     } else {
       res.json(image);
     }
@@ -74,11 +71,7 @@ const GalleryController = {
         console.log(result);
         if (result.n > 0) {
           if (req.params.val == 1) {
-            let images = await Gallery.find();
-            res.render("pages/gallery", {
-              data: images,
-              message: "Image/Video Updated successfully"
-            });
+            res.redirect('/gallery/1/?message=Gallery item updated successfully');
           } else {
             res
               .status(200)
@@ -99,14 +92,11 @@ const GalleryController = {
       _id: req.params.id
     })
       .then(async result => {
-        let images = await Gallery.find();
+      
         console.log(result);
         if (result.n > 0) {
           if (req.params.val == 1) {
-            res.render("pages/gallery", {
-              message: "Gallery item Deleted!",
-              data: images
-            });
+            res.redirect('/gallery/1/?message=Gallery item deleted successfully');
           } else {
             res
               .status(200)

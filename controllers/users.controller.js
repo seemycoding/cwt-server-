@@ -136,9 +136,8 @@ const UserController = {
   },
 logout:(req,res,next)=>{
   req.session.destroy(function(err) {
-    res.render("pages/login", {
-      message: ""
-    });
+   res.redirect('/adminpanel');
+   
   })
 
 }

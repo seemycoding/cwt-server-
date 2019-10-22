@@ -4,8 +4,9 @@ const KnowledgeController = {
   index: async (req, res, next) => {
     let knowledge = await Knowledge.find().sort( {sortOrder: 1 } );
     if (req.params.id == 1) {
+      var passedVariable = req.query.message;
       knowledgeq = knowledge;
-      res.render("pages/know", { data: knowledgeq, message: "" });
+      res.render("pages/know", { data: knowledgeq, message:passedVariable });
     } else {
       res.json(knowledgeq);
     }
@@ -19,7 +20,8 @@ const KnowledgeController = {
     let question = await Knowledge.findById(req.params.id);
     res.render("pages/addquestion", {
       dat: question,
-      url: "/editquestion/" + req.params.id+ "?_method=PUT"
+      url: "/editquestion/" + req.params.id+ "/" +
+      req.params.val + "?_method=PUT"
     });
   },
   updateById: async (req, res, next) => {
@@ -45,10 +47,7 @@ const KnowledgeController = {
         console.log(result);
         if (result.n > 0) {
           if (req.params.val==1) {
-            res.render("pages/know", {
-              message: "Question Updated Successfully!",
-              data: knowledgeq
-            });
+            res.redirect('/adminKnowledge/1/?message=Question added successfully');
           }else{
          
           res.status(200).json({ message: "Question updated Successful!" });
@@ -71,10 +70,7 @@ const KnowledgeController = {
         console.log(result);
         if (result.n > 0) {
           if (req.params.val==1) {
-            res.render("pages/know", {
-              message: "Question Deleted!",
-              data: knowledge
-            });
+            res.redirect('/adminKnowledge/1/?message=Question deleted successfully');
           }else{
             res.status(200).json({ message: "Question deleted Successful!" });
           }
@@ -117,10 +113,7 @@ const KnowledgeController = {
       score: score
     });
     if (req.params.id == 1) {
-      res.render("pages/know", {
-        data: knowledgeq,
-        message: "Question added successfully"
-      });
+      res.redirect('/adminKnowledge/1/?message=Question added successfully');
     }
     res.json(knowledge);
   }

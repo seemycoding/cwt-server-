@@ -39,11 +39,8 @@ const NewsController = {
       dateModified: Date.now()
     });
     if (req.params.id == 1) {
-      let news = await News.find();
-      res.render("pages/News", {
-        data: newsdata,
-        message: "News added successfully"
-      });
+      res.redirect('/adminnews/1');
+     
     }
     res.json(news);
   },
@@ -69,11 +66,7 @@ const NewsController = {
         console.log(result);
         if (result.n > 0) {
           if (req.params.val) {
-            let news = await News.find();
-            res.render("pages/News", {
-              message: "News Updated Successfully!",
-              data: news
-            });
+            res.redirect('/adminnews/1');
           }else{
             res.status(200).json({ message: "News updated Successfully!" });
           }
@@ -94,16 +87,13 @@ const NewsController = {
       _id: req.params.id
     })
       .then(async result => {
-        let news = await News.find();
+      
 
         console.log(result);
 
         if (result.n > 0) {
           if (req.params.val==1) {
-            res.render("pages/News", {
-              message: "News Deleted!",
-              data: news
-            });
+            res.redirect('/adminnews/1');
           }else{
             res.status(200).json({ message: "News deleted Successfully!" });
           }

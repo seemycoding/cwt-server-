@@ -18,8 +18,9 @@ const HighlightController = {
   index: async (req, res, next) => {
     let highlights = await Highlight.find();
     if (req.params.id == 1) {
+      var passedVariable = req.query.message;
       high = highlights;
-      res.render("pages/highlights", { data: highlights, message: "" });
+      res.render("pages/highlights", { data: highlights, message:passedVariable });
     } else {
       res.json(highlights);
     }
@@ -44,11 +45,7 @@ const HighlightController = {
       sortOrder: receivedSortOrder
     });
     if (req.params.id == 1) {
-      let highlights = await Highlight.find();
-      res.render("pages/highlights", {
-        data: highlights,
-        message: "Highlight Updated successfully!"
-      });
+     res.redirect('/adminhighlights/1/?message=Highlight item added successfully');
     } else {
       res.json(highlight);
     }
@@ -89,11 +86,7 @@ const HighlightController = {
         console.log(result);
         if (result.n > 0) {
           if (req.params.val == 1) {
-            let highlights = await Highlight.find();
-            res.render("pages/highlights", {
-              message: "Highlight Updated successfully!",
-              data: highlights
-            });
+            res.redirect('/adminhighlights/1/?message=Highlight item updated successfully');
           } else {
             res.status(200).json({ message: "Highlight update Successful!" });
           }
@@ -112,14 +105,11 @@ const HighlightController = {
       _id: req.params.id
     })
       .then(async result => {
-        let highlights = await Highlight.find();
+       
         console.log(result);
         if (result.n > 0) {
           if (req.params.val == 1) {
-            res.render("pages/highlights", {
-              message: "Highlight Deleted!",
-              data: highlights
-            });
+            res.redirect('/adminhighlights/1/?message=Highlight item deleted successfully');
           } else {
             res.status(200).json({ message: "Highlight deleted Successful!" });
           }

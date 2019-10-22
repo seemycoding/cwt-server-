@@ -15,7 +15,9 @@ const ArticleController = {
   index: async (req, res, next) => {
     let articles = await Article.find();
     if (req.params.id == 1) {
-      res.render("pages/Article", { data: articles, message: "" });
+      var passedVariable = req.query.message;
+    
+      res.render("pages/Article", { data: articles, message: passedVariable });
     } else {
       res.json(articles);
     }
@@ -52,11 +54,7 @@ const ArticleController = {
       .then(async result => {
         if (result.n > 0) {
           if (req.params.val == 1) {
-            let articles = await Article.find();
-            res.render("pages/Article", {
-              message: "Article Deleted!",
-              data: articles
-            });
+            res.redirect('/adminarticle/1/?message=Articles deleted successfully');
           } else {
             res
               .status(200)
@@ -110,11 +108,7 @@ const ArticleController = {
       dateModified: Date.now()
     });
     if (req.params.id == 1) {
-      let articles = await Article.find();
-      res.render("pages/Article", {
-        data: articles,
-        message: "Article added successfully"
-      });
+     res.redirect('/adminarticle/1/?message=Articles added successfully');
     } else {
       res.json(article);
     }
@@ -152,11 +146,7 @@ const ArticleController = {
       .then(async result => {
         if (result.n > 0) {
           if (req.params.val == 1) {
-            let articles = await Article.find();
-            res.render("pages/Article", {
-              message: "Article Updated Successfully!",
-              data: articles
-            });
+            res.redirect('/adminarticle/1/?message=Articles updated successfully');
           } else {
             res.status(200).json({ message: "Article updated Successfully!" });
           }
