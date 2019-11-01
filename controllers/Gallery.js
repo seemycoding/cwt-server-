@@ -5,7 +5,7 @@ const GalleryController = {
     let images = await Gallery.find();
     if (req.params.id == 1) {
       var passedVariable = req.query.message;
-      res.render("pages/gallery", { data: images, message:passedVariable });
+      res.render("pages/gallery", { data: images, message: passedVariable });
     } else {
       res.json(images);
     }
@@ -23,12 +23,17 @@ const GalleryController = {
     let himage = "";
     let thumbimage = "";
 
-    if (typeof req.files.image !== "undefined") {
-      himage = req.files["image"][0].path.replace("\\", "/");
+    if (typeof req.files != null) {
+      if (req.files["image"] != null) {
+        himage = req.files["image"][0].path.replace("\\", "/");
+      }
     }
-    // if (typeof req.file.image !== "undefined") {
-    //   thumbimage = req.file["thumbimage"][0].path.replace("\\", "/");
-    // }
+    if (typeof req.files != null) {
+      if (req.files["thumbimage"] != null) {
+        thumbimage = req.files["thumbimage"][0].path.replace("\\", "/");
+      }
+      
+    }
     let receivedTitle = req.body.title || "";
     let receivedContent = req.body.content || "";
 
@@ -41,7 +46,7 @@ const GalleryController = {
       sortOrder: req.body.sortOrder
     });
     if (req.params.id == 1) {
-     res.redirect('/gallery/1/?message=Gallery item added successfully');
+      res.redirect("/gallery/1/?message=Gallery item added successfully");
     } else {
       res.json(image);
     }
@@ -51,12 +56,22 @@ const GalleryController = {
     let himage = "";
     let thumbimage = "";
 
-    if (typeof req.files.image != "undefined") {
-      himage = req.files["image"][0].path.replace("\\", "/");
+    if (typeof req.files != null) {
+      if (req.files["image"] != null) {
+        himage = req.files["image"][0].path.replace("\\", "/");
+        himage = himage.replace("\\", "/");
+      } else {
+        simage = await Gallery.find({ _id: req.params.id }, { imagePath: 1 });
+      }
     }
-    // if (typeof req.files.image !== "undefined") {
-    //   thumbimage = req.files["thumbimage"][0].path.replace("\\", "/");
-    // }
+    if (typeof req.files != null) {
+      if (req.files["thumbimage"] != null) {
+        thumbimage = req.files["thumbimage"][0].path.replace("\\", "/");
+        thumbimage = thumbimage.replace("\\", "/");
+      } else {
+        dimage = await Gallery.find({ _id: req.params.id }, { thumbimage: 1 });
+      }
+    }
     var galleryItem = new Gallery({
       _id: req.body.id,
       title: req.body.title,
@@ -71,7 +86,9 @@ const GalleryController = {
         console.log(result);
         if (result.n > 0) {
           if (req.params.val == 1) {
-            res.redirect('/gallery/1/?message=Gallery item updated successfully');
+            res.redirect(
+              "/gallery/1/?message=Gallery item updated successfully"
+            );
           } else {
             res
               .status(200)
@@ -92,11 +109,12 @@ const GalleryController = {
       _id: req.params.id
     })
       .then(async result => {
-      
         console.log(result);
         if (result.n > 0) {
           if (req.params.val == 1) {
-            res.redirect('/gallery/1/?message=Gallery item deleted successfully');
+            res.redirect(
+              "/gallery/1/?message=Gallery item deleted successfully"
+            );
           } else {
             res
               .status(200)

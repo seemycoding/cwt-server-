@@ -16,7 +16,7 @@ const ArticleController = {
     let articles = await Article.find();
     if (req.params.id == 1) {
       var passedVariable = req.query.message;
-    
+
       res.render("pages/Article", { data: articles, message: passedVariable });
     } else {
       res.json(articles);
@@ -54,7 +54,9 @@ const ArticleController = {
       .then(async result => {
         if (result.n > 0) {
           if (req.params.val == 1) {
-            res.redirect('/adminarticle/1/?message=Articles deleted successfully');
+            res.redirect(
+              "/adminarticle/1/?message=Articles deleted successfully"
+            );
           } else {
             res
               .status(200)
@@ -72,11 +74,15 @@ const ArticleController = {
   create: async (req, res, next) => {
     let simage = "";
     let dimage = "";
-    if (typeof req.files.image !== "undefined") {
-      simage = req.files["image"][0].path.replace("\\", "/");
+    if (typeof req.files != null) {
+      if (req.files["image"] != null) {
+        simage = req.files["image"][0].path.replace("\\", "/");
+      }
     }
-    if (typeof req.files.image !== "undefined") {
-      dimage = req.files["dimage"][0].path.replace("\\", "/");
+    if (typeof req.files != null) {
+      if (req.files["dimage"] != null) {
+        dimage = req.files["dimage"][0].path.replace("\\", "/");
+      }
     }
 
     let author = req.body.author || "";
@@ -108,7 +114,7 @@ const ArticleController = {
       dateModified: Date.now()
     });
     if (req.params.id == 1) {
-     res.redirect('/adminarticle/1/?message=Articles added successfully');
+      res.redirect("/adminarticle/1/?message=Articles added successfully");
     } else {
       res.json(article);
     }
@@ -117,12 +123,24 @@ const ArticleController = {
   updateById: async (req, res, next) => {
     let simage = "";
     let dimage = "";
-    if (typeof req.files.image !== "undefined") {
-      simage = req.files["image"][0].path.replace("\\", "/");
+
+    if (typeof req.files != null) {
+      if (req.files["image"] != null) {
+        simage = req.files["image"][0].path.replace("\\", "/");
+        simage = simage.replace("\\", "/");
+      } else {
+        simage = await Article.find({ _id: req.params.id }, { image: 1 });
+      }
     }
-    if (typeof req.files.image !== "undefined") {
-      dimage = req.files["dimage"][0].path.replace("\\", "/");
+    if (typeof req.files != null) {
+      if (req.files["dimage"] != null) {
+        dimage = req.files["dimage"][0].path.replace("\\", "/");
+        dimage = dimage.replace("\\", "/");
+      } else {
+        dimage = await Article.find({ _id: req.params.id }, { dimage: 1 });
+      }
     }
+    //console.log(req.files['dimage'][0].path);
 
     var article = new Article({
       _id: req.body.id,
@@ -146,7 +164,9 @@ const ArticleController = {
       .then(async result => {
         if (result.n > 0) {
           if (req.params.val == 1) {
-            res.redirect('/adminarticle/1/?message=Articles updated successfully');
+            res.redirect(
+              "/adminarticle/1/?message=Articles updated successfully"
+            );
           } else {
             res.status(200).json({ message: "Article updated Successfully!" });
           }

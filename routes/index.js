@@ -26,7 +26,7 @@ router.get("/Article/:id", ArticleController.byId);
 router.post(
   "/Article",
   fileUpload.fields([
-    { name: "simage", maxCount: 1 },
+    { name: "image", maxCount: 1 },
     { name: "dimage", maxCount: 1 }
   ]),
   ArticleController.create
@@ -34,7 +34,7 @@ router.post(
 router.put(
   "/Article/:id",
   fileUpload.fields([
-    { name: "simage", maxCount: 1 },
+    { name: "image", maxCount: 1 },
     { name: "dimage", maxCount: 1 }
   ]),
   ArticleController.updateById
@@ -181,7 +181,7 @@ router.put(
   "/editArticle/:id/:val",
   UserController.checksignin,
   fileUpload.fields([
-    { name: "simage", maxCount: 1 },
+    { name: "image", maxCount: 1 },
     { name: "dimage", maxCount: 1 }
   ]),
   ArticleController.updateById
@@ -288,7 +288,7 @@ router.get(
   "/admineditArticle/:id/:val",
   UserController.checksignin,
   fileUpload.fields([
-    { name: "simage", maxCount: 1 },
+    { name: "image", maxCount: 1 },
     { name: "dimage", maxCount: 1 }
   ]),
   ArticleController.byId
