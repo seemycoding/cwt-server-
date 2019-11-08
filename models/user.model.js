@@ -9,5 +9,6 @@ const schema = new Schema({
   createdDate: { type: Date, default: Date.now },
   role: { type: String }
 });
+//comment
 
 module.exports = dbConnection.model("User", schema);
