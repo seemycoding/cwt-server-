@@ -207,7 +207,7 @@ router.put(
 router.put(
   "/editquestion/:id/:val",
   UserController.checksignin,
-  fileUpload.single("image"),
+  fileUpload.array("image",3),
   KnowlegdeController.updateById
 );
 router.put("/edituser/:id", UserController.checksignin, UserController.update);
