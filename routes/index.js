@@ -378,6 +378,7 @@ router.post(
   fileUpload.single("image"),
   UpComingEventController.create
 );
+router.put("/isEnabled/:id",UserController.checksignin,ArticleController.isEnabled);
 
 //till here
 //tilll here

@@ -19,8 +19,8 @@
           <div class="white-box">
             <form action="<%= url  %>" method="POST" enctype="multipart/form-data">
               <div class="form-group">
-                  <input type="hidden" name="_method" value="PUT">
-                  <input type="hidden" name="id" value="<%= dat._id %>">
+                  <input type="hidden" name="_method" value="PUT"/>
+                  <input type="hidden" name="id" value="<%= dat._id %>"/>
                   
                 <label for="title">Title</label>
                 <input
@@ -94,6 +94,11 @@
                 
                   id="dimage"
                 />
+              </div>
+              <div class="form-group form-check">
+                  
+                <input type="checkbox" class="form-check-input" name="isVideo" id="isVideo" value="true"/>
+                <label class="form-check-label" for="isVideo">Show Video</label>
               </div>
               <div class="image-show"><img src="\<%= dat.dimage %>" alt="" width="100px" height="100px"></div>
               <div class="form-group">
@@ -177,4 +182,12 @@
   </div>
   <!-- /.container-fluid -->
 </div>
+<script type="text/javascript">
+  let isVid='<%= dat.isVideo %>';
+ 
+  if (isVid=="true") {
+  
+    document.getElementById('isVideo').checked=true;
+  }
+</script>
 <% include ../widgets/footer %>

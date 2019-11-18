@@ -12,6 +12,8 @@ const articleSchema = new Schema({
   expert: { type: Boolean },
   image: { type: String },
   dimage:{type:String},
+  isEnabled:{type:Boolean},
+  isVideo:{type:String},
   link: { type: String },
   videoPath: { type: String }, // path to the video, if any
   sortOrder: { type: Number },

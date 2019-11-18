@@ -94,6 +94,7 @@ const ArticleController = {
     let sarticleTitle = req.body.stitle || "";
     let sdetail = req.body.sdetail || "";
     let expert = req.body.expert || "";
+    let isVideo = req.body.isVideo || "false";
 
     let article = await Article.create({
       author: author,
@@ -107,6 +108,8 @@ const ArticleController = {
       dimage: dimage.replace("\\", "/"),
       detail: detail,
       sdetail: sdetail,
+      isVideo: isVideo,
+      isEnabled: true,
       link: req.body.link,
       videoPath: req.body.videoPath,
       sortOrder: req.body.sortOrder,
@@ -123,6 +126,7 @@ const ArticleController = {
   updateById: async (req, res, next) => {
     let simage = "";
     let dimage = "";
+    let isEnabled = true;
 
     if (typeof req.files != null) {
       if (req.files["image"] != null) {
@@ -140,6 +144,7 @@ const ArticleController = {
         dimage = await Article.find({ _id: req.params.id }, { dimage: 1 });
       }
     }
+
     //console.log(req.files['dimage'][0].path);
 
     var article = new Article({
@@ -154,6 +159,7 @@ const ArticleController = {
       detail: req.body.detail,
       expert: req.body.expert,
       image: simage,
+      isVideo: req.body.isVideo || "false",
       dimage: dimage,
       link: req.body.link,
       videoPath: req.body.videoPath,
@@ -177,6 +183,30 @@ const ArticleController = {
           message: "Could not update article",
           error: error
         });
+      });
+  },
+
+  isEnabled: async (req, res, next) => {
+    let isEnabled = false;
+
+    if (req.body.isEnabled) {
+      isEnabled = false;
+    } else {
+      isEnabled = true;
+    }
+    Article.updateOne(
+      { _id: req.params.id },
+      {
+        $set: {
+          isEnabled: isEnabled
+        }
+      }
+    )
+      .then(message => {
+        res.status(200).json({ message });
+      })
+      .catch(err => {
+        res.status(500).json({ err });
       });
   }
 };

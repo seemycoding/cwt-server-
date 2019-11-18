@@ -10,8 +10,8 @@
         </ol>
         <a href="/addarticle" class="btn btn-primary">Add Article</a>
         <% if (message) { %>
-          <div class="alert alert-success"><%= message %></div>
-          <% } %>
+        <div class="alert alert-success"><%= message %></div>
+        <% } %>
       </div>
       <!-- /.col-lg-12 -->
     </div>
@@ -24,33 +24,65 @@
           <div class="table-responsive">
             <table class="table">
               <thead>
-                <tr> 
+                <tr>
                   <th>#</th>
                   <th>Article</th>
                   <th>Date Added</th>
-                  <th>Date modified</th>
+                  <th>Enabled</th>
                   <th>Type</th>
                 </tr>
               </thead>
               <tbody>
                 <% data.forEach(function(dat,i) { %>
+                <script type="text/javascript">
+                  data = "<%= dat.isEnabled %>";
+
+                  if (data == "true") {
+                    window.onload = function() {
+                      document.getElementById("<%= dat._id %>").checked = true;
+                    };
+                  }
+                </script>
                 <tr>
                   <td><%= i+1 %></td>
                   <td><%= dat.title %></td>
                   <td><%= dat.dateAdded %></td>
-                  <td><%= dat.dateModified %></td>
+                  <td>
+                    <div class="form-group form-check">
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        name="isEnabled"
+                        id="<%= dat._id %>"
+                        onclick="EnableCheck('<%= dat._id %>','<%= dat.isEnabled %>');"
+                      />
+                    </div>
+                  </td>
                   <% if (dat.expert) { %>
                   <td>Expert</td>
                   <% }else{ %>
-                    <td>Blogger</td>
-                    <%} %>
-                  <form action="/Articledelete/<%= dat._id %>/1?_method=DELETE" method="POST">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <input type="hidden" name="id" value="<%= dat._id %>">
-                  <td><button type="submit" class="btn btn-danger" >Delete</button></td>
-                </form>
+                  <td>Blogger</td>
+                  <%} %>
+                  <form
+                    action="/Articledelete/<%= dat._id %>/1?_method=DELETE"
+                    method="POST"
+                  >
+                    <input type="hidden" name="_method" value="DELETE" />
+                    <input type="hidden" name="id" value="<%= dat._id %>" />
+                    <td>
+                      <button type="submit" class="btn btn-danger">
+                        Delete
+                      </button>
+                    </td>
+                  </form>
                   <form>
-                    <td> <a href="/admineditArticle/<%= dat._id %>/1" class="btn btn-primary">Edit</a></td>
+                    <td>
+                      <a
+                        href="/admineditArticle/<%= dat._id %>/1"
+                        class="btn btn-primary"
+                        >Edit</a
+                      >
+                    </td>
                   </form>
                 </tr>
                 <% }); %>
@@ -63,4 +95,24 @@
   </div>
   <!-- /.container-fluid -->
 </div>
+<script type="text/javascript">
+  async function EnableCheck(id, isEnabled) {
+    if (isEnabled=="true") {
+      isEnabled=true;
+    }else{
+      isEnabled=false;
+    }
+    await fetch(`http://localhost:3000/isEnabled/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        isEnabled: isEnabled
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    })
+      .then(response => response.json())
+      .then(json => console.log(json));
+  }
+</script>
 <% include ../widgets/footer %>
