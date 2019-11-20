@@ -57,3 +57,10 @@
   font-weight: 600;
   text-decoration: none;
 }
+
+@media only screen and (max-width: 1000px) {
+  .img{
+    width: 40%;
+  }
+ 
+}

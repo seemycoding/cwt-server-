@@ -5,8 +5,9 @@ const NewsController = {
     let news = await News.find();
     if (req.params.id == 1) {
       newsdata = news;
+    
       var passedVariable = req.query.message;
-      res.render("pages/News", { data: news, message: passedVariable });
+      res.render("pages/News", { data: news,message: passedVariable });
     } else {
       res.json(news);
     }
@@ -14,8 +15,10 @@ const NewsController = {
 
   byId: async (req, res, next) => {
     let news = await News.findById(req.params.id);
+    let link=news.link;
     res.render("pages/addnews", {
       dat: news,
+      newslink:link,
       url: "/editNews/" + req.params.id +"/"+req.params.val+"?_method=PUT"
     });
   },

@@ -8,7 +8,7 @@ const articleSchema = new Schema({
   sauthor: { type: String },
   sprofession: { type: String },
   stitle: { type: String },
-  detail: { type: String },
+  sdetail: { type: String },
   expert: { type: Boolean },
   image: { type: String },
   dimage:{type:String},

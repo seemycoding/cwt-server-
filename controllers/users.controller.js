@@ -30,8 +30,8 @@ const UserController = {
           req.session.cookie.expires = new Date(Date.now() + 6000000);
           res.locals.user = req.session.user;
           res.locals.id = req.session.idd;
-
-          res.render("pages/home", { id: user._id });
+            res.redirect("/home");
+          // res.render("pages/home", {data:"", id: user._id });
         } else {
           res.render("pages/login", {
             message: "Username and password do not match !!"

@@ -19,6 +19,7 @@ const KnowlegdeController = require("../controllers/Knowledge");
 const UpComingEventController = require("../controllers/UpComingEvent");
 const HighlightController = require("../controllers/Highlights");
 const GalleryController = require("../controllers/Gallery");
+const homeController=require("../controllers/homeController");
 router.use(methodOverride("_method"));
 router.get("/ExpertArticles", ArticleController.expertArticles);
 router.get("/BloggerArticles", ArticleController.bloggerArticles);
@@ -106,9 +107,7 @@ router.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
 });
 
-router.get("/home", UserController.checksignin, function(req, res, next) {
-  res.render("pages/home");
-});
+router.get("/home", UserController.checksignin,homeController.getCount);
 
 router.get(
   "/profile/:id",
@@ -154,7 +153,7 @@ router.get("/addquestion", UserController.checksignin, function(
 });
 
 router.get("/addnews", UserController.checksignin, function(req, res, next) {
-  res.render("pages/addnews", { dat: "", url: "/adminNews/1" });
+  res.render("pages/addnews", { dat: "",newslink:"", url: "/adminNews/1" });
 });
 router.get("/addevent", UserController.checksignin, function(req, res, next) {
   res.render("pages/addevent", { dat: "", url: "/adminUpComingEvent/1" });

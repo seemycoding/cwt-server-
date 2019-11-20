@@ -145,7 +145,7 @@ const ArticleController = {
       }
     }
 
-    //console.log(req.files['dimage'][0].path);
+    console.log(req.body.sdetail);
 
     var article = new Article({
       _id: req.body.id,

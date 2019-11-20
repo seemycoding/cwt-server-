@@ -29,7 +29,7 @@
                   class="form-control"
                   id="title"
                   value="<%= dat.title %>"
-                  placeholder="name@example.com"
+                  placeholder="Enter Title"
                 />
               </div>
               <div class="form-group">
@@ -40,7 +40,7 @@
                   class="form-control"
                   id="profession"
                   value="<%= dat.profession %>"
-                  placeholder="name@example.com"
+                  placeholder="Enter Profession"
                 />
               </div>
               <div class="form-group">
@@ -52,7 +52,7 @@
                   name="author"
                   
                   value="<%= dat.author %>"
-                  placeholder="name@example.com"
+                  placeholder="Enter Author Name"
                 />
               </div>
               <div class="form-group">
@@ -63,16 +63,11 @@
                   <option value="false">Blogger</option>
                 </select>
               </div>
-
+            
               <div class="form-group">
                 <label for="articledetail">Article Detail</label>
-                <textarea
-                  class="form-control"
-                  id="articledetail"
-                  name="detail"
-                
-                  rows="3"
-                ><%= dat.detail %></textarea>
+                <textarea id="articledetail"  name="detail"><%= dat.detail %></textarea>
+                <!-- <div id="articledetail" name="detail"><%= dat.detail %></div> -->
               </div>
               <div class="form-group">
                 <label for="title">Video link</label>
@@ -82,7 +77,7 @@
                   class="form-control"
                   id="videolink"
                   value="<%= dat.videoPath %>"
-                  placeholder="name@example.com"
+                  placeholder="Enter Video Link"
                 />
               </div>
               <div class="form-group">
@@ -91,7 +86,7 @@
                   type="file"
                   name="dimage"
                   class="form-control-file"
-                
+
                   id="dimage"
                 />
               </div>
@@ -108,6 +103,7 @@
                   class="form-control-file"
                   id="sort"
                   value="<%= dat.sortOrder %>"
+                  placeholder="Enter Sort Order"
                   name="sortOrder"
                 />
               </div>
@@ -132,7 +128,7 @@
                   id="title"
                   name="stitle"
                   value="<%= dat.stitle %>"
-                  placeholder="name@example.com"
+                  placeholder="Enter Title"
                 />
               </div>
               <div class="form-group">
@@ -143,7 +139,7 @@
                   id="profession"
                   value="<%= dat.sprofession %>"
                   name="sprofession"
-                  placeholder="name@example.com"
+                  placeholder="Enter Profession"
                 />
               </div>
               <div class="form-group">
@@ -154,19 +150,13 @@
                   id="author"
                   value="<%= dat.sauthor %>"
                   name="sauthor"
-                  placeholder="name@example.com"
+                  placeholder="Enter Author"
                 />
               </div>
 
               <div class="form-group">
                 <label for="articledetail">Article Detail</label>
-                <textarea
-                  class="form-control"
-                  id="articledetail"
-                  rows="3"
-                 
-                  name="sdetail"
-                ><%= dat.sdetail %></textarea>
+                <textarea id="articledetail2"  name="sdetail"><%= dat.sdetail %></textarea>
               </div>
               <div class="form-group">
                 <label for="image">Image</label>
@@ -183,6 +173,26 @@
   <!-- /.container-fluid -->
 </div>
 <script type="text/javascript">
+
+
+  var editor=new FroalaEditor('textarea#articledetail', {
+    heightMin: 200,
+    heightMax: 200,
+    placeholderText: 'Article detail here...',
+  
+   
+  })
+  var editor=new FroalaEditor('textarea#articledetail2', {
+    heightMin: 200,
+    heightMax: 200,
+    placeholderText: 'Article detail here....',
+  
+   
+  })
+
+
+
+
   let isVid='<%= dat.isVideo %>';
  
   if (isVid=="true") {

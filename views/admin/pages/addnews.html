@@ -26,7 +26,7 @@
                 class="form-control"
                 id="title"
                 value="<%= dat.title %>"
-                placeholder="name@example.com"
+                placeholder="Enter News Title"
               />
             </div>
             <div class="form-group">
@@ -37,7 +37,7 @@
                 class="form-control"
                 id="source"
                 value="<%= dat.source %>"
-                placeholder="name@example.com"
+                placeholder="Enter Source of News"
               />
             </div>
 
@@ -48,8 +48,10 @@
                 name="link"
                 class="form-control"
                 id="link"
-                value="<%= dat.link %>"
-                placeholder="name@example.com"
+         
+                value="<%= newslink %>"
+           
+                placeholder="Enter News Link"
               />
             </div>
 
@@ -68,6 +70,7 @@
                 class="form-control"
                 name="detail"
                 id="newsdetail"
+                placeholder="Enter News Detail"
                 rows="7"
               ><%= dat.detail %></textarea>
             </div>
@@ -87,6 +90,7 @@
                 class="form-control-file"
                 id="sort"
                 value="<%= dat.sortOrder %>"
+                placeholder="Sort Order"
                 name="sortOrder"
               />
             </div>
@@ -99,4 +103,18 @@
   </div>
   <!-- /.container-fluid -->
 </div>
+<script type="text/javascript">
+
+
+  var editor=new FroalaEditor('textarea#newsdetail', {
+    heightMin: 200,
+    heightMax: 200,
+    placeholderText: 'Article detail here...',
+  
+   
+  })
+
+
+
+</script>
 <% include ../widgets/footer %>
