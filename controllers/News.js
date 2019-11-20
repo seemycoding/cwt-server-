@@ -4,8 +4,8 @@ const NewsController = {
   index: async (req, res, next) => {
     let news = await News.find();
     if (req.params.id == 1) {
-      newsdata = news;
-    
+      newsdata = news
+   
       var passedVariable = req.query.message;
       res.render("pages/News", { data: news,message: passedVariable });
     } else {

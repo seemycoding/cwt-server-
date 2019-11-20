@@ -2,7 +2,7 @@ const UpComingEvent = require("../models/UpComingEvent");
 let eventdata;
 const UpComingEventController = {
   index: async (req, res, next) => {
-    const events = await UpComingEvent.find();
+    const events = await UpComingEvent.find().sort({_id:-1});
     if (req.params.id == 1) {
       var passedVariable = req.query.message;
       eventdata = events;
