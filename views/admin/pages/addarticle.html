@@ -175,20 +175,23 @@
 <script type="text/javascript">
 
 
-  var editor=new FroalaEditor('textarea#articledetail', {
-    heightMin: 200,
-    heightMax: 200,
-    placeholderText: 'Article detail here...',
+  // var editor=new FroalaEditor('textarea#articledetail', {
+  //   heightMin: 200,
+  //   heightMax: 200,
+  //   placeholderText: 'Article detail here...',
   
    
-  })
-  var editor=new FroalaEditor('textarea#articledetail2', {
-    heightMin: 200,
-    heightMax: 200,
-    placeholderText: 'Article detail here....',
+  // })
+  // var editor=new FroalaEditor('textarea#articledetail2', {
+  //   heightMin: 200,
+  //   heightMax: 200,
+  //   placeholderText: 'Article detail here....',
   
    
-  })
+  // })
+  var RichTextEditor = new ej.richtexteditor.RichTextEditor();
+                // Render initialized RichTextEditor.
+                RichTextEditor.appendTo('#articledetail')
 
 
 
