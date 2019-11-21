@@ -8,39 +8,69 @@
     <meta name="author" content="" />
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png" />
     <link
-    href="../../../public/stylesheets/bower_components/bootstrap/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
+      href="../../../public/stylesheets/bower_components/bootstrap/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
-  <link href="../../../public/stylesheets/css/cwtcss.css" rel="stylesheet" />
-  
+    <link href="../../../public/stylesheets/css/cwtcss2.css" rel="stylesheet" />
+
     <title>CWT Admin | Login</title>
   </head>
 
   <body>
     <div class="container login-container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3 login-form-2">
-                <h3>Clean Water Together Admin</h3>
-               
-                <form action="/authenticate" method="POST">
-                  <% if (message)  { %>
-                    <div class="alert alert-danger"><%= message %></div>
-                    <% } %>
-                 
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Your Email *" value="" name="username" />
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Your Password *" value="" name="password" />
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" class="btnSubmit" value="Login" />
-                    </div>
-                   
-                </form>
+      <div class="row">
+        <div
+          class="col-sm-5 login-form-1"
+          style="padding-right: 0;padding-left: 0;"
+        >
+          <img src="../../../public/uploads/water_img.png" alt="" class="img" />
+        </div>
+        <div class="col-sm-5 login-form-2">
+          <img src="../../../public/uploads/logo3.png" alt="" class="img2" />
+          <h4>
+            CLEAN WATER<br />
+            TOGETHER ADMIN
+          </h4>
+          <form action="/authenticate" method="POST">
+            <% if (message) { %>
+            <div class="alert alert-danger"><%= message %></div>
+            <% } %>
+
+            <div class="form-group">
+              <div class="inlin"></div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Your Email *"
+                value=""
+                name="username"
+                id="username-input"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Your Password *"
+                value=""
+                name="password"
+                id="username-input"
+              />
+            </div>
+
+            <div class="form-group">
+              <br>
+              <span><a href="#" class="ForgetPwd" value="Login" >Forgot Password ?</a></span>
+              <input type="submit" class="btnSubmit" value="Log In" />
             </div>
             
+          </form>
+        
+             
+          
+        </div>
+      </div>
+    </div>
   </body>
 </html>
-
