@@ -65,12 +65,15 @@ const HighlightController = {
         "?_method=PUT"
     });
   },
+ 
 
   updateById: async (req, res, next) => {
     let image = "";
 
     if (req.file) {
       image = req.file.path.replace("\\", "/") || "";
+      
+
     }
 
     var highlight = new Highlight({

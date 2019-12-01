@@ -15,9 +15,13 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="white-box">
-          <form action="<%= url  %>" method="POST" enctype="multipart/form-data">
-              <input type="hidden" name="_method" value="PUT">
-              <input type="hidden" name="id" value="<%= dat._id %>">
+          <form
+            action="<%= url  %>"
+            method="POST"
+            enctype="multipart/form-data"
+          >
+            <input type="hidden" name="_method" value="PUT" />
+            <input type="hidden" name="id" value="<%= dat._id %>" />
             <div class="form-group">
               <label for="title">Title</label>
               <input
@@ -31,28 +35,27 @@
             </div>
             <div class="form-group">
               <label for="link">Link Article or News</label>
-                <select class="form-control form-control-sm" name="link">
-                    <option>Select Type</option>
-                    <% data.forEach(function(dat,i) { %>
-                    <option value="<%= dat._id %>"><%= dat.title %></option>
-                    <% }); %>
-                    <% data2.forEach(function(dat,i) { %>
-                        <option value="<%= dat._id %>"><%= dat.title %></option>
-                        <% }); %>
-                </select>
+              <select class="form-control form-control-sm" name="link">
+                <option>Select Type</option>
+                <% data.forEach(function(dat,i) { %>
+                <option value="<%= dat._id %>"><%= dat.title %></option>
+                <% }); %> <% data2.forEach(function(dat,i) { %>
+                <option value="<%= dat._id %>"><%= dat.title %></option>
+                <% }); %>
+              </select>
             </div>
             <div class="form-group">
-                    <label for="image">Sort Order</label>
-                    <input
-                      type="number"
-                      class="form-control-file"
-                      id="sort"
-                      value="<%= dat.sortOrder %>"
-                      placeholder="Sort Order"
-                      name="sortOrder"
-                    />
-                  </div>
-                 
+              <label for="image">Sort Order</label>
+              <input
+                type="number"
+                class="form-control-file"
+                id="sort"
+                value="<%= dat.sortOrder %>"
+                placeholder="Sort Order"
+                name="sortOrder"
+              />
+            </div>
+
             <div class="form-group">
               <label for="image">Image</label>
               <input
@@ -60,12 +63,25 @@
                 class="form-control-file"
                 id="image"
                 name="image"
+                onchange="readURL(this)"
+                ;
               />
             </div>
-           
-            <div class="image-show"><img src="\<%= dat.image %>" alt="" width="100px" height="100px"></div>
 
-            <input type="submit" class="btn btn-primary" value="Post Highlight" />
+            <div class="image-show">
+              <img
+                src="\<%= dat.image %>"
+                alt=""
+                width="100px"
+                height="100px"
+              />
+            </div>
+
+            <input
+              type="submit"
+              class="btn btn-primary"
+              value="Post Highlight"
+            />
           </form>
         </div>
       </div>
@@ -74,17 +90,24 @@
   <!-- /.container-fluid -->
 </div>
 
-
-
 <script type="text/javascript">
-let src='<%= dat.image %>';
+  let src = "<%= dat.image %>";
 
-const ImageEditor = new FilerobotImageEditor();
-let url='http://www.cleanwatertogether.com:3000/'+src+'';
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
 
- ImageEditor.open(url);
+      reader.onload = function(e) {
+        console.log(e.target.result);
+        const ImageEditor = new FilerobotImageEditor();
+        let url = "http://www.cleanwatertogether.com:3000/" + src + "";
 
+        ImageEditor.open(e.target.result);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
 </script>
-  
 
 <% include ../widgets/footer %>
