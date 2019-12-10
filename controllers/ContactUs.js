@@ -30,6 +30,7 @@ const ContactController = {
       });
   },
   create: async (req, res, next) => {
+    
     let name = req.body.name || "";
     let mail = req.body.mail || "";
     let subject = req.body.subject || "";
@@ -46,7 +47,8 @@ const ContactController = {
       type: type
     });
     res.json(ContactData);
-  }
+  },
+  //send mail function
 };
 
 module.exports = ContactController;
