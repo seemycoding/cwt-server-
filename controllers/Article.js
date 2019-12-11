@@ -145,8 +145,8 @@ const ArticleController = {
       }
     }
 
-    console.log(req.body.sdetail);
-
+ 
+  
     var article = new Article({
       _id: req.body.id,
       author: req.body.author,
