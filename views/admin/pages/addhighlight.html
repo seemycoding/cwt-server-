@@ -37,11 +37,9 @@
               <label for="link">Link Article or News</label>
               <select class="form-control form-control-sm" name="link">
                 <option>Select Type</option>
-                <% data.forEach(function(dat,i) { %>
-                <option value="<%= dat._id %>"><%= dat.title %></option>
-                <% }); %> <% data2.forEach(function(dat,i) { %>
-                <option value="<%= dat._id %>"><%= dat.title %></option>
-                <% }); %>
+                <option>water-talk</option>
+                <option>water-buzz</option>
+                
               </select>
             </div>
             <div class="form-group">
