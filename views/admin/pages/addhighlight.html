@@ -37,8 +37,8 @@
               <label for="link">Link Article or News</label>
               <select class="form-control form-control-sm" name="link">
                 <option>Select Type</option>
-                <option>water-talk</option>
-                <option>water-buzz</option>
+                <option value="water-talks">Article</option>
+                <option value="water-buzz">News</option>
                 
               </select>
             </div>
@@ -53,7 +53,7 @@
                 name="sortOrder"
               />
             </div>
-
+              <input type="hidden" value="\<%= dat.image %>" name="imagelink">
             <div class="form-group">
               <label for="image">Image</label>
               <input
