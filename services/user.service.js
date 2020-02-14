@@ -12,7 +12,8 @@ module.exports = {
 
 async function authenticate({ username, password }) {
   const user = await User.findOne({ username });
-  if (user && bcrypt.compareSync(password, user.password)) {
+  console.log(user);
+  if (user.password == password) {
     const { password, ...userWithoutHash } = user.toObject();
 
     return {
@@ -69,6 +70,7 @@ async function update(id, userParam) {
   }
 
   // copy userParam properties to user
+  //user
   Object.assign(user, userParam);
 
   await user.save();

@@ -24,6 +24,7 @@ const UserController = {
       .authenticate(req.body)
       .then(user => {
         if (user) {
+          console.log(user);
           //res.status(200).json({user})
           req.session.user = user.username;
           req.session.idd = user._id;
