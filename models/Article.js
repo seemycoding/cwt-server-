@@ -18,7 +18,8 @@ const articleSchema = new Schema({
   videoPath: { type: String }, // path to the video, if any
   sortOrder: { type: Number },
   dateAdded: { type: Date },
-  dateModified: { type: Date }
+  dateModified: { type: Date },
+  metaTag:{type:String}
 });
 
 module.exports = dbConnection.model("Article", articleSchema);

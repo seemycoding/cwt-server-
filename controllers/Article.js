@@ -95,6 +95,7 @@ const ArticleController = {
     let sdetail = req.body.sdetail || "";
     let expert = req.body.expert || "";
     let isVideo = req.body.isVideo || "false";
+    let metaTag=req.body.metaTag || ""
 
     let article = await Article.create({
       author: author,
@@ -114,7 +115,8 @@ const ArticleController = {
       videoPath: req.body.videoPath,
       sortOrder: req.body.sortOrder,
       dateAdded: Date.now(),
-      dateModified: Date.now()
+      dateModified: Date.now(),
+      metaTag:metaTag
     });
     if (req.params.id == 1) {
       res.redirect("/adminarticle/1/?message=Articles added successfully");
@@ -164,7 +166,8 @@ const ArticleController = {
       link: req.body.link,
       videoPath: req.body.videoPath,
       sortOrder: req.body.sortOrder,
-      dateModified: Date.now()
+      dateModified: Date.now(),
+      metaTag:req.body.metaTag
     });
     Article.updateOne({ _id: req.params.id }, article)
       .then(async result => {
