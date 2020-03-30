@@ -13,14 +13,19 @@ module.exports = {
 async function authenticate({ username, password }) {
   const user = await User.findOne({ username });
   console.log(user);
-  if (user.password == password) {
-    const { password, ...userWithoutHash } = user.toObject();
-
-    return {
-      ...userWithoutHash
-    };
+  if (user) {
+    if (user.password == password) {
+      const { password, ...userWithoutHash } = user.toObject();
   
+      return {
+        ...userWithoutHash
+      };
+    
+    }
+  } else {
+    return false;
   }
+  
 }
 
 async function getAll() {

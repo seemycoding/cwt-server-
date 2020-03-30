@@ -48,9 +48,12 @@ const UserController = {
       res.locals.id = req.session.idd;
       next(); //If session exists, proceed to page
     } else {
-      var err = new Error("Not logged in!");
-      console.log(req.session.user);
-      next(err); //Error, trying to access unauthorized page!
+      res.render("pages/login", {
+        message: "You have been logged out  !!"
+      });
+      // var err = new Error("Not logged in!");
+      // console.log(req.session.user);
+      // next(err); //Error, trying to access unauthorized page!
     }
   },
 
