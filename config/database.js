@@ -1,3 +1,3 @@
 const mongoose = require('mongoose')
-const dbConnetion = mongoose.createConnection('mongodb://localhost/cwt')
+const dbConnetion = mongoose.createConnection('mongodb://cwtUser:cleanwatertogether@localhost:27017/cwt?authSource=cwt')
 module.exports = dbConnetion;
