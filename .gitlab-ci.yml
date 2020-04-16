@@ -1,0 +1,50 @@
+stages:
+    - build
+    - deploy
+    - deploy-prod
+  
+cwt-server-build:
+  stage: build
+  script:
+    - mkdir -p /tmp/builds/cwt-server/${CI_COMMIT_SHA}
+    - tar -czf /tmp/builds/cwt-server/${CI_COMMIT_SHA}/cwt-server.tgz  .
+    - aws s3 cp /tmp/builds/cwt-server/${CI_COMMIT_SHA}/cwt-server.tgz s3://arach-builds/test/cwt-server/${CI_COMMIT_SHA}/
+    - aws s3 cp /tmp/builds/cwt-server/${CI_COMMIT_SHA}/cwt-server.tgz s3://arach-builds/prod/cwt-server/${CI_COMMIT_SHA}/
+    - rm -rf /tmp/builds/cwt-server/${CI_COMMIT_SHA}
+  only:
+    - master
+  tags:
+    -  aws-cd
+
+cwt-server-deploy-test:
+  stage: deploy
+  script:
+    - mkdir -p /tmp/builds/cwt-server.test/${CI_COMMIT_SHA}
+    - aws s3 cp s3://arach-builds/test/cwt-server/${CI_COMMIT_SHA}/cwt-server.tgz /tmp/builds/cwt-server.test/${CI_COMMIT_SHA}/ 
+    - ssh -i ~/.ssh/arach-test-mumbai.pem ec2-user@172.31.45.69 'mkdir -p /tmp/cwt-server.test/'
+    - scp -i ~/.ssh/arach-test-mumbai.pem /tmp/builds/cwt-server.test/${CI_COMMIT_SHA}/cwt-server.tgz ec2-user@172.31.45.69:/tmp/cwt-server.test/
+    - ssh -i ~/.ssh/arach-test-mumbai.pem ec2-user@172.31.45.69 'rm -rf /opt/node_apps/cwt-server.bak'
+    - ssh -i ~/.ssh/arach-test-mumbai.pem ec2-user@172.31.45.69 'mv /opt/node_apps/cwt-server /opt/node_apps/cwt-server.bak || true'
+    - ssh -i ~/.ssh/arach-test-mumbai.pem ec2-user@172.31.45.69 'mkdir /opt/node_apps/cwt-server; tar -xzf /tmp/cwt-server.test/cwt-server.tgz -C /opt/node_apps/cwt-server/'
+    - ssh -i ~/.ssh/arach-test-mumbai.pem ec2-user@172.31.45.69 'cd /opt/node_apps/cwt-server; npm install;'
+    - ssh -i ~/.ssh/arach-test-mumbai.pem ec2-user@172.31.45.69 'pm2 restart cwt-server;'
+    - rm -rf /tmp/builds/cwt-test/${CI_COMMIT_SHA}
+  when: manual
+  only:
+    - master
+  tags:
+    - aws-cd
+  
+cwt-server-deploy-prod:
+  stage: deploy-prod
+  script:
+    - cd /var/www/cleanwatertogether
+    - rm -rf *
+    - tar -xzf /opt/builds/cwt-prod/${CI_COMMIT_SHA}/cleanwatertogether.tgz -C /var/www/cleanwatertogether/
+  when: manual
+  only:
+    - master
+  tags:
+    - aws-cd
+  environment:
+    name: production
