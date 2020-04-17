@@ -101,7 +101,7 @@ router.delete("/Gallery/:id", GalleryController.deleteById);
 //adminpanel
 
 router.post("/authenticate", UserController.authenticate);
-router.post("/register",UserController.register);
+router.post("/register", UserController.checksignin, UserController.register);
 
 router.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
