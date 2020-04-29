@@ -378,7 +378,18 @@ router.post(
   UpComingEventController.create
 );
 router.put("/isEnabled/:id",UserController.checksignin,ArticleController.isEnabled);
-
+router.get("/waterData",UserController.checksignin, WaterDataController.getAllWaterData);
+router.delete(
+  "/waterdelete/:id/:val",
+  UserController.checksignin,
+  WaterDataController.delete
+);
+router.get("/editWaterData/:state/:district",UserController.checksignin,WaterDataController.byStateAndDistrict);
+router.put(
+  "/editWaterData/:id",
+  UserController.checksignin,
+  WaterDataController.updateById
+);
 //till here
 //tilll here
 //till here
