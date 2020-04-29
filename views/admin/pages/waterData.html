@@ -1,0 +1,108 @@
+<% include ../widgets/layout %>
+<!-- change -->
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-12">
+        <h4 class="page-title">State's Management</h4>
+        <ol class="breadcrumb">
+          <li><a href="#">Dashboard</a></li>
+          <li class="active">State's Added</li>
+        </ol>
+        <a href="#" class="btn btn-primary" disabled>Add New State</a>
+        <% if (message) { %>
+          <div class="alert alert-success"><%= message %></div>
+          <% } %>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+    <!-- row -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="white-box">
+          <h3>State</h3>
+         
+          <div class="table-responsive">
+              <table class="table" id="myTable">
+                  <thead>
+                      <tr>
+                          <th>#</th>
+                          <th>District
+                          <br><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for District.." title="Type in a District">
+                          </th>
+                          <th>State Code
+                            <br><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search for State by code.." title="Type in a State code">
+                        
+                          </th>
+                           
+                          <th>Latitude</th>
+                          <th>Longitude</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <% data.forEach(function(dat,i) { %>
+                      <tr>
+                        <td><%= i+1 %></td>
+                        <td><%= dat.district %></td>
+                        <td><%= dat.state %></td>
+                        <td><%= dat.cordinates.latitude %></td>
+                        <td><%= dat.cordinates.longitude %></td>
+                        <form action="/waterdelete/<%= dat._id %>/1?_method=DELETE" method="POST">
+                          <input type="hidden" name="_method" value="DELETE">
+                          <input type="hidden" name="id" value="<%= dat._id %>">
+                        <td><button type="submit" class="btn btn-danger" >Remove</button></td>
+                      </form>
+                        <td><a href="/editWaterData/<%= dat.state %>/<%= dat.district %>" class="btn btn-primary">Edit</a></td>
+                      </tr>
+                      <% }); %>
+                     
+                      
+                  </tbody>
+              </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+</div>
+<script>
+  function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+function myFunction2() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput2");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+<% include ../widgets/footer %>
