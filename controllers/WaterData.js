@@ -51,7 +51,7 @@ const WaterDataController = {
         console.log(result);
         if (result.n > 0) {
           if (req.params.val == 1) {
-            res.redirect('/waterData/?message=State deleted successfully');
+            res.redirect('/waterdata/?message=State deleted successfully');
           } else {
             res.status(200).json({ message: "State deleted Successfully!" });
           }
@@ -87,7 +87,7 @@ const WaterDataController = {
       .then(async result => {
         console.log(result);
         if (result.n > 0) {
-         res.redirect('/waterData/?message=Water Data updated successfully');
+         res.redirect('/waterdata/?message=Water Data updated successfully');
          
 
           //
@@ -109,7 +109,7 @@ const WaterDataController = {
     let waterData = await WaterData.find({ state: state,district:district });
     console.log(waterData);
     
-    res.render("pages/addWaterData", { dat: waterData[0], message: "" ,url:"/editWaterData/"+waterData[0]._id+"?_method=PUT"});
+    res.render("pages/addwaterdata", { dat: waterData[0], message: "" ,url:"/editWaterData/"+waterData[0]._id+"?_method=PUT"});
     
   }
 
