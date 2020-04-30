@@ -39,7 +39,7 @@ const WaterDataController = {
     var passedVariable = req.query.message;
     // console.log(data);
     
-    res.render("pages/WaterData", { data: data, message: passedVariable });
+    res.render("pages/waterdata", { data: data, message: passedVariable });
     
   },
   delete:async(req,res,next)=>{
