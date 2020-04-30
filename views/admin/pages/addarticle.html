@@ -169,6 +169,7 @@
                 <label for="image">Image</label>
                 <input type="file" class="form-control-file" id="simage" name="image" />
               </div>
+              <!-- image -->
               <div class="image-show"><img src="<%= dat.image %>" alt="" width="100px" height="100px"></div>
              
             </form>
@@ -262,7 +263,7 @@ tinymce.init({
 
 
   let isVid='<%= dat.isVideo %>';
- 
+ //comment
   if (isVid=="true") {
   
     document.getElementById('isVideo').checked=true;
