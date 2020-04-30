@@ -65,7 +65,7 @@ const WaterDataController = {
   },
   updateById:async(req,res,next)=>{
     console.log(req.params.id);
-    console.log(req);
+    console.log(typeof req.body.longitude);
     
     var waterData = new WaterData({
       _id:req.params.id,
@@ -78,8 +78,8 @@ const WaterDataController = {
         flouride: req.body.Flouride
       },
       cordinates:{
-        longitute:req.body.longitute,
-        latitute:req.body.latitute
+        longitude:req.body.longitude,
+        latitude:req.body.latitude
       }
      
     });

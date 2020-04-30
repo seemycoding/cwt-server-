@@ -10,8 +10,8 @@ const waterDataSchema = new Schema({
     flouride: { type: String }
   },
   cordinates: {
-    longitude: { type: Number },
-    latitude: { type: Number }
+    longitude: { type: String },
+    latitude: { type: String }
   }
 });
 module.exports = dbConnection.model("waterData", waterDataSchema);
