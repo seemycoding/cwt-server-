@@ -8,13 +8,13 @@ const WaterDataController = {
 
   create: async (req, res, next) => {
     let stateCode = req.body.state || "";
-    let city = req.body.city || "";
+    let city = req.body.district || "";
     let TDS = req.body.TDS || "";
     let NO3 = req.body.NO3 || "";
     let Flouride = req.body.Flouride || "";
     let PHValue = req.body.PHValue || "";
-    let latitute = req.body.latitute || "";
-    let longitute = req.body.longitute || "";
+    let latitude = req.body.latitude || "";
+    let longitude = req.body.longitude || "";
 
     let waterData = await WaterData.create({
       state: stateCode,
@@ -26,12 +26,12 @@ const WaterDataController = {
         flouride: Flouride
       },
       cordinates:{
-        longitute:longitute,
-        latitute:latitute
+        longitude:longitude,
+        latitude:latitude
       }
      
     });
-    res.json(waterData);
+    res.redirect('/waterdata/?message=Data added successfully');
   },
 
   getAllWaterData:async(req,res,next)=>{
@@ -111,7 +111,9 @@ const WaterDataController = {
     
     res.render("pages/addwaterdata", { dat: waterData[0], message: "" ,url:"/editWaterData/"+waterData[0]._id+"?_method=PUT"});
     
-  }
+  },
+
+
 
  
 };
