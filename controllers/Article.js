@@ -131,6 +131,8 @@ const ArticleController = {
     let isEnabled = true;
 
     if (typeof req.files != null) {
+      console.log(req.files);
+      
       if (req.files["image"] != null) {
         simage = req.files["image"][0].path.replace("\\", "/");
         simage = simage.replace("\\", "/");
