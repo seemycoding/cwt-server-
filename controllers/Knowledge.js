@@ -29,7 +29,7 @@ const KnowledgeController = {
     let image = [];
     if (req.files != null) {
       for (let i = 0; i < req.files.length; i++) {
-        imagePath.push(req.files[i].path.replace("\\", "/"));
+        imagePath.push("/public/uploads/"+req.files[i].filename);
       }
     }
     var know = new Knowledge({
@@ -89,7 +89,7 @@ const KnowledgeController = {
     let image = [];
     if (req.files != null) {
       for (let i = 0; i < req.files.length; i++) {
-        imagePath.push(req.files[i].path.replace("\\", "/"));
+        imagePath.push("/public/uploads/"+req.files[i].filename);
       }
     }
     console.log(imagePath);
@@ -99,16 +99,16 @@ const KnowledgeController = {
     let count = req.body.count || "";
     let option = req.body.option || "";
     let score = req.body.score || "";
-    for (let i = 0; i < imagePath.length; i++) {
-      image.push(imagePath[i].replace("\\", "/"));
-    }
+    // for (let i = 0; i < imagePath.length; i++) {
+    //   image.push(imagePath[i].replace("\\", "/"));
+    // }
 
     let knowledge = await Knowledge.create({
       question: question,
       responseType: responseType,
       type: type,
       count: count,
-      image: image,
+      image: imagePath,
       option: option,
       score: score
     });

@@ -17,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 // app.use(jwt());
+
 //app.use("/public", express.static("public"));
 app.use(express.json({ limit: "50mb" }));
 app.use(

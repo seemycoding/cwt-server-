@@ -31,7 +31,7 @@ const HighlightController = {
     let receivedTitle = req.body.title;
     let receivedLink = req.body.link;
     if (req.file) {
-      image = req.file.path.replace("\\", "/") || "";
+      image = "/public/uploads/"+req.file.filename || "";
     }
 
     let receivedSortOrder = req.body.sortOrder || 0;
@@ -39,7 +39,7 @@ const HighlightController = {
     let highlight = await Highlight.create({
       title: receivedTitle,
       link: receivedLink,
-      image: image.replace("\\", "/"),
+      image: image,
       dateAdded: Date.now(),
       dateModified: Date.now(),
       sortOrder: receivedSortOrder
@@ -71,7 +71,7 @@ const HighlightController = {
     let image = "";
 
     if (req.file) {
-      image = req.file.path.replace("\\", "/") || "";
+      image ="/public/uploads/"+req.file.filename || "";
       
 
     }
