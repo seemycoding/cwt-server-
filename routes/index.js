@@ -390,6 +390,14 @@ router.put(
   UserController.checksignin,
   WaterDataController.updateById
 );
+router.get("/addwaterdata", UserController.checksignin, function(req, res, next) {
+  data={
+    parameter:{},
+    cordinates:{}
+  }
+  res.render("pages/addwaterdata", { dat: data, url: "/WaterData" });
+});
+router.post("/WaterData",UserController.checksignin,WaterDataController.create);
 //till here
 //tilll here
 //till here
