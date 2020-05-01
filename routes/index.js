@@ -104,7 +104,8 @@ router.post("/authenticate", UserController.authenticate);
 router.post("/register", UserController.checksignin, UserController.register);
 
 router.get("/", function(req, res, next) {
-  res.render("index", { title: "Express" });
+  // res.render("index", { title: "Express" });
+  res.redirect('/adminpanel');
 });
 
 router.get("/home", UserController.checksignin,homeController.getCount);

@@ -7,11 +7,13 @@ const storage = multer.diskStorage({
   },
   //filename
   filename: function (req, file, callback) {
+    var filename=new Date().toISOString().replace(/:/g, "-") + file.originalname;
     callback(
       null,
-      new Date().toISOString().replace(/:/g, "-") + file.originalname
+      filename
     );
-  }
+  },
+  
 });
 
 const fileFilter = async (req, file, callback) => {

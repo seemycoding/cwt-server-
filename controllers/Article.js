@@ -13,6 +13,8 @@ const ArticleController = {
     }
   },
   index: async (req, res, next) => {
+   console.log(__dirname);
+   
     let articles = await Article.find();
     if (req.params.id == 1) {
       var passedVariable = req.query.message;
@@ -76,12 +78,12 @@ const ArticleController = {
     let dimage = "";
     if (typeof req.files != null) {
       if (req.files["image"] != null) {
-        simage = req.files["image"][0].path.replace("\\", "/");
+        simage = "/public/uploads/"+req.files["image"][0].filename;
       }
     }
     if (typeof req.files != null) {
       if (req.files["dimage"] != null) {
-        dimage = req.files["dimage"][0].path.replace("\\", "/");
+        dimage = "/public/uploads/"+req.files["dimage"][0].filename;
       }
     }
 
@@ -105,8 +107,8 @@ const ArticleController = {
       sprofession: sprofession,
       stitle: sarticleTitle,
       expert: expert,
-      image: simage.replace("\\", "/"),
-      dimage: dimage.replace("\\", "/"),
+      image: simage,
+      dimage: dimage,
       detail: detail,
       sdetail: sdetail,
       isVideo: isVideo,
@@ -134,16 +136,20 @@ const ArticleController = {
       console.log(req.files);
       
       if (req.files["image"] != null) {
-        simage = req.files["image"][0].path.replace("\\", "/");
-        simage = simage.replace("\\", "/");
+        simage = "/public/uploads/"+req.files["image"][0].filename;
+       
+        
+        // simage = simage.replace("\\", "/");
       } else {
         simage = await Article.find({ _id: req.params.id }, { image: 1 });
       }
     }
     if (typeof req.files != null) {
       if (req.files["dimage"] != null) {
-        dimage = req.files["dimage"][0].path.replace("\\", "/");
-        dimage = dimage.replace("\\", "/");
+        dimage = "/public/uploads/"+req.files["dimage"][0].filename;
+       
+        
+        // dimage = dimage.replace("\\", "/");
       } else {
         dimage = await Article.find({ _id: req.params.id }, { dimage: 1 });
       }

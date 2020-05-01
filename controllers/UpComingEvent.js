@@ -13,18 +13,27 @@ const UpComingEventController = {
   },
 
   create: async (req, res, next) => {
+    let imagepath="";
+    if (req.file) {
+     imagepath = "/public/uploads/"+req.file.filename;
+    // if (image) {
+    //   image = image.replace("\\", "/");
+    // }
+    
+      
+    }
     let receivedDate = req.body.date || "";
     let receivedTitle = req.body.title || "";
     let receivedPlace = req.body.place || "";
     let receivedDetail = req.body.detail || "";
-    let image = (req.file && req.file.path.replace("\\", "/")) || "";
+    let image = imagepath || "";
 
     const event = await UpComingEvent.create({
       date: receivedDate,
       title: receivedTitle,
       place: receivedPlace,
       detail: receivedDetail,
-      image: image.replace("\\", "/"),
+      image: image,
       sortOrder: req.body.sortOrder,
       dateAdded: Date.now(),
       dateModified: Date.now()
@@ -44,9 +53,15 @@ const UpComingEventController = {
   },
 
   updateById: async (req, res, next) => {
-    let image = req.file && req.file.path.replace("\\", "/");
-    if (image) {
-      image = image.replace("\\", "/");
+
+    let imagepath="";
+    if (req.file) {
+     imagepath = "/public/uploads/"+req.file.filename;
+    // if (image) {
+    //   image = image.replace("\\", "/");
+    // }
+    
+      
     }
     var event = new UpComingEvent({
       _id: req.body.id,
@@ -54,7 +69,7 @@ const UpComingEventController = {
       title: req.body.title,
       place: req.body.place,
       detail: req.body.detail,
-      image: image,
+      image: imagepath,
       sortOrder: req.body.sortOrder,
       dateModified: Date.now()
     });

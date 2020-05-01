@@ -25,12 +25,12 @@ const GalleryController = {
 
     if (typeof req.files != null) {
       if (req.files["image"] != null) {
-        himage = req.files["image"][0].path.replace("\\", "/");
+        himage = "/public/uploads/"+req.files["image"][0].filename;
       }
     }
     if (typeof req.files != null) {
       if (req.files["thumbimage"] != null) {
-        thumbimage = req.files["thumbimage"][0].path.replace("\\", "/");
+        thumbimage ="/public/uploads/"+req.files["thumbimage"][0].filename;
       }
       
     }
@@ -40,8 +40,8 @@ const GalleryController = {
     let image = await Gallery.create({
       title: receivedTitle,
       content: receivedContent,
-      imagePath: himage.replace("\\", "/"),
-      thumbimage: thumbimage.replace("\\", "/"),
+      imagePath: himage,
+      thumbimage: thumbimage,
       videoPath: req.body.videoPath,
       sortOrder: req.body.sortOrder
     });
@@ -58,16 +58,16 @@ const GalleryController = {
 
     if (typeof req.files != null) {
       if (req.files["image"] != null) {
-        himage = req.files["image"][0].path.replace("\\", "/");
-        himage = himage.replace("\\", "/");
+        himage = "/public/uploads/"+req.files["image"][0].filename;
+        // himage = himage.replace("\\", "/");
       } else {
         simage = await Gallery.find({ _id: req.params.id }, { imagePath: 1 });
       }
     }
     if (typeof req.files != null) {
       if (req.files["thumbimage"] != null) {
-        thumbimage = req.files["thumbimage"][0].path.replace("\\", "/");
-        thumbimage = thumbimage.replace("\\", "/");
+        thumbimage ="/public/uploads/"+req.files["thumbimage"][0].filename;
+        // thumbimage = thumbimage.replace("\\", "/");
       } else {
         dimage = await Gallery.find({ _id: req.params.id }, { thumbimage: 1 });
       }

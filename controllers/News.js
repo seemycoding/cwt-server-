@@ -24,12 +24,21 @@ const NewsController = {
   },
 
   create: async (req, res, next) => {
+    let imagepath="";
+    if (req.file) {
+     imagepath = "/public/uploads/"+req.file.filename;
+    // if (image) {
+    //   image = image.replace("\\", "/");
+    // }
+    
+      
+    }
     let source = req.body.source || "";
     let date = req.body.date || "";
     let title = req.body.title || "";
     let detail = req.body.detail || "";
     let receivedLink = req.body.link || "";
-    let image = (req.file && req.file.path.replace("\\", "/")) || "";
+    let image =imagepath;
     let link = req.body.link || "";
     let news = await News.create({
       source: source,
@@ -37,7 +46,7 @@ const NewsController = {
       title: title,
       detail: detail,
       link: receivedLink,
-      image: image.replace("\\", "/"),
+      image: image,
       sortOrder: req.body.sortOrder,
       dateAdded: Date.now(),
       dateModified: Date.now()
@@ -50,9 +59,14 @@ const NewsController = {
   },
 
   updateById: async (req, res, next) => {
-    let image = req.file && req.file.path.replace("\\", "/");
-    if (image) {
-      image = image.replace("\\", "/");
+    let imagepath="";
+    if (req.file) {
+     imagepath = "/public/uploads/"+req.file.filename;
+    // if (image) {
+    //   image = image.replace("\\", "/");
+    // }
+    
+      
     }
     var news = new News({
       _id: req.body.id,
@@ -61,7 +75,7 @@ const NewsController = {
       title: req.body.title,
       detail: req.body.detail,
       link: req.body.link,
-      image: image,
+      image: imagepath,
       sortOrder: req.body.sortOrder,
       dateModified: Date.now()
     });
