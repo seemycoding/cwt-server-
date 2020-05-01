@@ -29,7 +29,7 @@ app.engine("html", require("ejs").renderFile);
 app.set("view engine", "html");
 
 app.use("/public", express.static(path.join(__dirname, "public")));
-//  app.use("/var", express.static(path.join(__dirname, +"/var/uploads/cwt")));
+  // app.use("/public/uploads", express.static(path.join(__dirname, "public")));
 
 app.set("views", path.join(__dirname, "views/admin"));
 // app.set("view engine", "jade");
