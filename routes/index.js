@@ -139,7 +139,7 @@ router.get("/adminpanel", function(req, res, next) {
 });
 
 router.get("/addarticle", UserController.checksignin, function(req, res, next) {
-  res.render("pages/addarticle", { dat: "", url: "/adminArticle/1" });
+  res.render("pages/addarticle", { dat: {}, url: "/adminArticle/1" });
 });
 router.get("/addgallery", UserController.checksignin, function(req, res, next) {
   res.render("pages/addgallery", { dat: "", url: "/Gallery/1" });

@@ -135,9 +135,11 @@
                 multiple="multiple"
               />
             </div>
+            <% if(dat.image)  { %>
             <% for (var i =0; i <=dat.image.length;  i++ ) { %>
               <div class="image-show"><img src="<%= dat.image[i] %>" alt="" width="100px" height="100px"></div>
              
+              <% } %>
               <% } %>
            
             <input type="submit" class="btn btn-primary" value="Add question" />
