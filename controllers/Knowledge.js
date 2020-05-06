@@ -40,7 +40,8 @@ const KnowledgeController = {
       count: req.body.count,
       option: req.body.option,
       image: imagePath,
-      score: req.body.score
+      score: req.body.score,
+     
     });
     Knowledge.updateOne({ _id: req.params.id }, know)
       .then(result => {
@@ -99,6 +100,7 @@ const KnowledgeController = {
     let count = req.body.count || "";
     let option = req.body.option || "";
     let score = req.body.score || "";
+  
     // for (let i = 0; i < imagePath.length; i++) {
     //   image.push(imagePath[i].replace("\\", "/"));
     // }
@@ -110,7 +112,8 @@ const KnowledgeController = {
       count: count,
       image: imagePath,
       option: option,
-      score: score
+      score: score,
+    
     });
     if (req.params.id == 1) {
       res.redirect('/adminKnowledge/1/?message=Question added successfully');

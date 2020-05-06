@@ -4,10 +4,11 @@ const knwoledgeSchema = new Schema({
   question: { type: String },
   responseType: { type: String },
   type: { type: String },
-  count: { type: Number },
+  count: [{ type: Number }],
   option: [{ type: String }],
   image: [{ type: String }],
-  score: [{ type: Number }]
+  score: [{ type: Number }],
+ 
 });
 
 module.exports = dbConnection.model("Knowledge", knwoledgeSchema);

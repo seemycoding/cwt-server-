@@ -40,79 +40,26 @@
                 <option value="text">Text</option>
                 <option value="numeric">Number</option>
                 <option value="image">Image</option>
-                <option value="yes/no">Yes/No</option>
+                <!-- <option value="yes/no">Yes/No</option> -->
               </select>
             </div>
             <div class="form-group" id="cfield">
-              <label for="title">Count</label>
-              <input
-                type="number"
-                name="count"
-                class="form-control"
-                id="count"
-                value="<%= dat.count %>"
-                placeholder="Enter Option Count"
-              />
-            </div>
-            <div class="form-group " id="option1">
-              <div class="row">
-                <div class="col-sm-6">
-                  <label for="title">Option 1</label>
-                  <input
-                    type="text"
-                    name="option"
-                    class="form-control"
-       
-                    placeholder="Enter First Option"
-                  />
-                  <label for="title">Option 2</label>
-                  <input
-                    type="text"
-                    name="option"
-                    class="form-control"
-                 
-                    placeholder="Enter Second Option"
-                  />
-                  <label for="title">Option 3</label>
-                  <input
-                    type="text"
-                    name="option"
-                    class="form-control"
-               
-                    placeholder="Enter Third Option"
-                  />
-                </div>
-                <div class="col-sm-6" id="scr"></div>
-                <div class="col-sm-6">
-                  <label for="score">Score 1</label>
-                  <input
-                    type="number"
-                    name="score"
-                    class="form-control"
-               
-                    placeholder="Score to be Given on this option"
-                  />
-                  <label for="score">Score 2</label>
-                  <input
-                    type="number"
-                    name="score"
-                    class="form-control"
-                
-                    placeholder="Score to be Given on this option"
-                  />
-                  <label for="score">Score 3</label>
-                  <input
-                    type="number"
-                    name="score"
-                    class="form-control"
-                  
-                    placeholder="Score to be Given on this option"
-                  />
-                </div>
-              </div>
+             
             </div>
 
-            <button type="button" onclick="getOption();">Enter options</button>
+
+            <div class="form-group " id="option1">
+              
+            </div>
+
+            <div class="form-group" id="image-score">
+             
+            </div>
+            <div class="form-group" id="yes-no">
+             
+            </div>
+            <button type="button" onclick="insertHtml();">Add Field</button>
+            <!-- <button type="button" onclick="getOption();">Enter options</button> -->
 
             <div class="form-group">
               <label for="qtype">Question type</label>
@@ -125,16 +72,7 @@
               </select>
             </div>
 
-            <div class="form-group">
-              <label for="image">Image</label>
-              <input
-                type="file"
-                name="image"
-                class="form-control-file"
-                id="image"
-                multiple="multiple"
-              />
-            </div>
+            
             <% if(dat.image)  { %>
             <% for (var i =0; i <=dat.image.length;  i++ ) { %>
               <div class="image-show"><img src="<%= dat.image[i] %>" alt="" width="100px" height="100px"></div>
@@ -152,40 +90,42 @@
 </div>
 <script>
   let value;
+  let elementValue=0;
 
   // let data = selectele.options[selectele.selectedIndex];
-  function getOption() {
-    var html =
-      "<label for='score'>Score 1</label><input type='number'name='score'class='form-control'placeholder='name@example.com'/>";
-    var selectele = document.querySelector("#exp");
+function insertHtml(){
+  var selectele = document.querySelector("#exp");
     value = selectele.value;
 
     console.log(selectele.value);
+  elementValue=elementValue+1;
+  var div=document.createElement("div");
 
-    if (value === "numeric") {
-      for (let index = 0; index < 2; index++) {
-        // document.getElementById('scr').
-      }
-      var select = document.getElementById("cfield");
-      select.style.display = "block";
-      var select1 = document.getElementById("option1");
+  var html =
+      `<div class='row'><div class='col-sm-6'><label for='title'>Option ${elementValue}</label><input type='text' name='option' class='form-control' placeholder='Enter First Option'/></div>`;
+        html+=`<div class='col-sm-6'><label for='score'>Score ${elementValue}</label><input type='number' name='score' class='form-control'  placeholder='Score to be Given on this option'/></div></div>`;
+        div.innerHTML=html;
+        if (value=="text") {
+          document.getElementById('option1').append(div);   
+        }else{
+          if (value=="numeric") {
+            document.getElementById('cfield').append(div); 
+          }else{
+            if (value=='image') {
+              var div=document.createElement("div");
 
-      select1.style.display = "none";
-    }
-    if (value === "text") {
-      var select1 = document.getElementById("option1");
+var html =
+    `<div class='row'><div class='col-sm-6'><label for='title'>Image ${elementValue}</label><input type='file' name='image' class='form-control-file' id='image' multiple='multiple'/></div>`;
+      html+=`<div class='col-sm-6'><label for='score'>Score ${elementValue}</label><input type='number' name='score' class='form-control'  placeholder='Score to be Given on this option'/></div></div>`;
+      div.innerHTML=html;
+      document.getElementById('image-score').append(div); 
+            }
+          }
+        }
+       
+}
 
-      select1.style.display = "block";
-      var select = document.getElementById("cfield");
-      select.style.display = "none";
-    }
-  }
-  // if (value == "numeric") {
-  //   console.log("daf");
-  //   // var select = document.getElementById("cfield");
-  //   // select.style.display = "block";
-  // }
-  // var ele = document.getElementById("cfield");
-  // ele.style.display = "none";
+
+ 
 </script>
 <% include ../widgets/footer %>
