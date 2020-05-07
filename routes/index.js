@@ -20,6 +20,7 @@ const UpComingEventController = require("../controllers/UpComingEvent");
 const HighlightController = require("../controllers/Highlights");
 const GalleryController = require("../controllers/Gallery");
 const homeController=require("../controllers/homeController");
+
 router.use(methodOverride("_method"));
 router.get("/ExpertArticles", ArticleController.expertArticles);
 router.get("/BloggerArticles", ArticleController.bloggerArticles);
@@ -399,9 +400,12 @@ router.get("/addwaterdata", UserController.checksignin, function(req, res, next)
   res.render("pages/addwaterdata", { dat: data, url: "/WaterData" });
 });
 router.post("/WaterData",UserController.checksignin,WaterDataController.create);
+
+// router.get("/convertAllImages",UserController.checksignin,ImageController.convertAllImages);
 //till here
 //tilll here
 //till here
 //till here
+//
 
 module.exports = router;
