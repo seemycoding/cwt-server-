@@ -1,6 +1,8 @@
 const Highlight = require("../models/Highlight");
 const Article = require("../models/Article");
 const News = require("../models/News");
+const imageService =require("../services/image.service");
+
 let high;
 const HighlightController = {
   selectdata: async (req, res, next) => {
@@ -32,6 +34,7 @@ const HighlightController = {
     let receivedLink = req.body.link;
     if (req.file) {
       image = "/public/uploads/"+req.file.filename || "";
+      imageService.convertAllImage(req.file.path);
     }
 
     let receivedSortOrder = req.body.sortOrder || 0;
@@ -72,6 +75,7 @@ const HighlightController = {
 
     if (req.file) {
       image ="/public/uploads/"+req.file.filename || "";
+      imageService.convertAllImage(req.file.path);
       
 
     }
