@@ -1,7 +1,5 @@
 const Article = require("../models/Article");
-const path = require("path");
-var webp = require("webp-converter");
-var fs = require("fs");
+const imageService =require("../services/image.service");
 let art;
 const ArticleController = {
   expertArticles: async (req, res, next) => {
@@ -82,24 +80,26 @@ const ArticleController = {
       if (req.files["image"] != null) {
         simage = "/public/uploads/" + req.files["image"][0].filename;
         console.log(req.files["image"]);
-        webp.cwebp(req.files["image"][0].path,`${req.files["image"][0].path}.webp`,"-q 80", function (status,error) {
-          fs.unlinkSync(req.files["image"][0].path);
-          //if conversion successful status will be '100'
-          //if conversion fails status will be '101'
-          console.log(status, error);
-        });
+        imageService.convertAllImage(req.files["image"][0].path);
+        // webp.cwebp(req.files["image"][0].path,`${req.files["image"][0].path}.webp`,"-q 80", function (status,error) {
+        //   fs.unlinkSync(req.files["image"][0].path);
+        //   //if conversion successful status will be '100'
+        //   //if conversion fails status will be '101'
+        //   console.log(status, error);
+        // });
       }
     }
     if (typeof req.files != null) {
       if (req.files["dimage"] != null) {
         dimage = "/public/uploads/" + req.files["dimage"][0].filename;
         console.log(req.files["dimage"]);
-        webp.cwebp(req.files["dimage"][0].path,`${req.files["dimage"][0].path}.webp`,"-q 80", function (status,error) {
-          fs.unlinkSync(req.files["dimage"][0].path)
-          //if conversion successful status will be '100'
-          //if conversion fails status will be '101'
-          console.log(status, error);
-        });
+        imageService.convertAllImage(req.files["dimage"][0].path);
+        // webp.cwebp(req.files["dimage"][0].path,`${req.files["dimage"][0].path}.webp`,"-q 80", function (status,error) {
+        //   fs.unlinkSync(req.files["dimage"][0].path)
+        //   //if conversion successful status will be '100'
+        //   //if conversion fails status will be '101'
+        //   console.log(status, error);
+        // });
       }
     }
 
@@ -153,7 +153,7 @@ const ArticleController = {
 
       if (req.files["image"] != null) {
         simage = "/public/uploads/" + req.files["image"][0].filename;
-
+        imageService.convertAllImage(req.files["image"][0].path);
         // simage = simage.replace("\\", "/");
       } else {
         simage = await Article.find({ _id: req.params.id }, { image: 1 });
@@ -162,7 +162,7 @@ const ArticleController = {
     if (typeof req.files != null) {
       if (req.files["dimage"] != null) {
         dimage = "/public/uploads/" + req.files["dimage"][0].filename;
-
+        imageService.convertAllImage(req.files["dimage"][0].path);
         // dimage = dimage.replace("\\", "/");
       } else {
         dimage = await Article.find({ _id: req.params.id }, { dimage: 1 });

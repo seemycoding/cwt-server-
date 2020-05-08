@@ -1,4 +1,5 @@
 const Gallery = require("../models/Gallery");
+const imageService =require("../services/image.service");
 
 const GalleryController = {
   index: async (req, res, next) => {
@@ -26,11 +27,13 @@ const GalleryController = {
     if (typeof req.files != null) {
       if (req.files["image"] != null) {
         himage = "/public/uploads/"+req.files["image"][0].filename;
+        imageService.convertAllImage(req.files["image"][0].path)
       }
     }
     if (typeof req.files != null) {
       if (req.files["thumbimage"] != null) {
         thumbimage ="/public/uploads/"+req.files["thumbimage"][0].filename;
+        imageService.convertAllImage(req.files["thumbimage"][0].path)
       }
       
     }
@@ -59,6 +62,7 @@ const GalleryController = {
     if (typeof req.files != null) {
       if (req.files["image"] != null) {
         himage = "/public/uploads/"+req.files["image"][0].filename;
+        imageService.convertAllImage(req.files["image"][0].path);
         // himage = himage.replace("\\", "/");
       } else {
         simage = await Gallery.find({ _id: req.params.id }, { imagePath: 1 });
@@ -67,6 +71,7 @@ const GalleryController = {
     if (typeof req.files != null) {
       if (req.files["thumbimage"] != null) {
         thumbimage ="/public/uploads/"+req.files["thumbimage"][0].filename;
+        imageService.convertAllImage(req.files["thumbimage"][0].path);
         // thumbimage = thumbimage.replace("\\", "/");
       } else {
         dimage = await Gallery.find({ _id: req.params.id }, { thumbimage: 1 });

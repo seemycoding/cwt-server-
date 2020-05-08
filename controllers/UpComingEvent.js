@@ -1,4 +1,6 @@
 const UpComingEvent = require("../models/UpComingEvent");
+const imageService =require("../services/image.service");
+
 let eventdata;
 const UpComingEventController = {
   index: async (req, res, next) => {
@@ -16,6 +18,7 @@ const UpComingEventController = {
     let imagepath="";
     if (req.file) {
      imagepath = "/public/uploads/"+req.file.filename;
+     imageService.convertAllImage(req.file.path);
     // if (image) {
     //   image = image.replace("\\", "/");
     // }
@@ -57,6 +60,7 @@ const UpComingEventController = {
     let imagepath="";
     if (req.file) {
      imagepath = "/public/uploads/"+req.file.filename;
+     imageService.convertAllImage(req.file.path);
     // if (image) {
     //   image = image.replace("\\", "/");
     // }
