@@ -38,9 +38,16 @@ cwt-server-deploy-test:
 cwt-server-deploy-prod:
   stage: deploy-prod
   script:
-    - cd /var/www/cleanwatertogether
-    - rm -rf *
-    - tar -xzf /opt/builds/cwt-prod/${CI_COMMIT_SHA}/cleanwatertogether.tgz -C /var/www/cleanwatertogether/
+    - mkdir -p /tmp/builds/cwt-server.prod/${CI_COMMIT_SHA}
+    - aws s3 cp s3://arach-builds/prod/cwt-server/${CI_COMMIT_SHA}/cwt-server.tgz /tmp/builds/cwt-server.prod/${CI_COMMIT_SHA}/ 
+    - ssh -i ~/.ssh/arach-prod-mumbai.pem ec2-user@172.31.47.216 'mkdir -p /tmp/cwt-server.prod/'
+    - scp -i ~/.ssh/arach-prod-mumbai.pem /tmp/builds/cwt-server.prod/${CI_COMMIT_SHA}/cwt-server.tgz ec2-user@172.31.47.216:/tmp/cwt-server.prod/
+    - ssh -i ~/.ssh/arach-prod-mumbai.pem ec2-user@172.31.47.216 'rm -rf /opt/node_apps/cwt-server.bak'
+    - ssh -i ~/.ssh/arach-prod-mumbai.pem ec2-user@172.31.47.216 'mv /opt/node_apps/cwt-server /opt/node_apps/cwt-server.bak || true'
+    - ssh -i ~/.ssh/arach-prod-mumbai.pem ec2-user@172.31.47.216 'mkdir /opt/node_apps/cwt-server; tar -xzf /tmp/cwt-server.prod/cwt-server.tgz -C /opt/node_apps/cwt-server/'
+    - ssh -i ~/.ssh/arach-prod-mumbai.pem ec2-user@172.31.47.216 'cd /opt/node_apps/cwt-server; npm install;'
+    - ssh -i ~/.ssh/arach-prod-mumbai.pem ec2-user@172.31.47.216 'pm2 restart cwt-server;'
+    - rm -rf /tmp/builds/cwt-prod/${CI_COMMIT_SHA}
   when: manual
   only:
     - master
