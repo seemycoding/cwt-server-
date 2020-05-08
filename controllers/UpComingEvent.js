@@ -17,7 +17,7 @@ const UpComingEventController = {
   create: async (req, res, next) => {
     let imagepath="";
     if (req.file) {
-     imagepath = "/public/uploads/"+req.file.filename;
+     imagepath = "/public/uploads/"+req.file.filename+".webp";
      imageService.convertAllImage(req.file.path);
     // if (image) {
     //   image = image.replace("\\", "/");
@@ -59,7 +59,7 @@ const UpComingEventController = {
 
     let imagepath="";
     if (req.file) {
-     imagepath = "/public/uploads/"+req.file.filename;
+     imagepath = "/public/uploads/"+req.file.filename+".webp";
      imageService.convertAllImage(req.file.path);
     // if (image) {
     //   image = image.replace("\\", "/");

@@ -26,13 +26,13 @@ const GalleryController = {
 
     if (typeof req.files != null) {
       if (req.files["image"] != null) {
-        himage = "/public/uploads/"+req.files["image"][0].filename;
+        himage = "/public/uploads/"+req.files["image"][0].filename+".webp";
         imageService.convertAllImage(req.files["image"][0].path)
       }
     }
     if (typeof req.files != null) {
       if (req.files["thumbimage"] != null) {
-        thumbimage ="/public/uploads/"+req.files["thumbimage"][0].filename;
+        thumbimage ="/public/uploads/"+req.files["thumbimage"][0].filename+".webp";
         imageService.convertAllImage(req.files["thumbimage"][0].path)
       }
       
@@ -61,7 +61,7 @@ const GalleryController = {
 
     if (typeof req.files != null) {
       if (req.files["image"] != null) {
-        himage = "/public/uploads/"+req.files["image"][0].filename;
+        himage = "/public/uploads/"+req.files["image"][0].filename+".webp";
         imageService.convertAllImage(req.files["image"][0].path);
         // himage = himage.replace("\\", "/");
       } else {
@@ -70,7 +70,7 @@ const GalleryController = {
     }
     if (typeof req.files != null) {
       if (req.files["thumbimage"] != null) {
-        thumbimage ="/public/uploads/"+req.files["thumbimage"][0].filename;
+        thumbimage ="/public/uploads/"+req.files["thumbimage"][0].filename+".webp";
         imageService.convertAllImage(req.files["thumbimage"][0].path);
         // thumbimage = thumbimage.replace("\\", "/");
       } else {
