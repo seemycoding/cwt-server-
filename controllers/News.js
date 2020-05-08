@@ -28,7 +28,7 @@ const NewsController = {
   create: async (req, res, next) => {
     let imagepath="";
     if (req.file) {
-     imagepath = "/public/uploads/"+req.file.filename;
+     imagepath = "/public/uploads/"+req.file.filename+"webp";
      imageService.convertAllImage(req.file.path);
     // if (image) {
     //   image = image.replace("\\", "/");
@@ -64,7 +64,7 @@ const NewsController = {
   updateById: async (req, res, next) => {
     let imagepath="";
     if (req.file) {
-     imagepath = "/public/uploads/"+req.file.filename;
+     imagepath = "/public/uploads/"+req.file.filename+".webp";
      imageService.convertAllImage(req.file.path);
     // if (image) {
     //   image = image.replace("\\", "/");

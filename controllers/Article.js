@@ -78,7 +78,7 @@ const ArticleController = {
     let dimage = "";
     if (typeof req.files != null) {
       if (req.files["image"] != null) {
-        simage = "/public/uploads/" + req.files["image"][0].filename;
+        simage = "/public/uploads/" + req.files["image"][0].filename+".webp";
         console.log(req.files["image"]);
         imageService.convertAllImage(req.files["image"][0].path);
         // webp.cwebp(req.files["image"][0].path,`${req.files["image"][0].path}.webp`,"-q 80", function (status,error) {
@@ -91,7 +91,7 @@ const ArticleController = {
     }
     if (typeof req.files != null) {
       if (req.files["dimage"] != null) {
-        dimage = "/public/uploads/" + req.files["dimage"][0].filename;
+        dimage = "/public/uploads/" + req.files["dimage"][0].filename+".webp";
         console.log(req.files["dimage"]);
         imageService.convertAllImage(req.files["dimage"][0].path);
         // webp.cwebp(req.files["dimage"][0].path,`${req.files["dimage"][0].path}.webp`,"-q 80", function (status,error) {
@@ -152,7 +152,7 @@ const ArticleController = {
       console.log(req.files);
 
       if (req.files["image"] != null) {
-        simage = "/public/uploads/" + req.files["image"][0].filename;
+        simage = "/public/uploads/" + req.files["image"][0].filename+".webp";
         imageService.convertAllImage(req.files["image"][0].path);
         // simage = simage.replace("\\", "/");
       } else {
@@ -161,7 +161,7 @@ const ArticleController = {
     }
     if (typeof req.files != null) {
       if (req.files["dimage"] != null) {
-        dimage = "/public/uploads/" + req.files["dimage"][0].filename;
+        dimage = "/public/uploads/" + req.files["dimage"][0].filename+".webp";
         imageService.convertAllImage(req.files["dimage"][0].path);
         // dimage = dimage.replace("\\", "/");
       } else {

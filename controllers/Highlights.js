@@ -33,7 +33,7 @@ const HighlightController = {
     let receivedTitle = req.body.title;
     let receivedLink = req.body.link;
     if (req.file) {
-      image = "/public/uploads/"+req.file.filename || "";
+      image = "/public/uploads/"+req.file.filename+".webp" || "";
       imageService.convertAllImage(req.file.path);
     }
 
@@ -74,7 +74,7 @@ const HighlightController = {
     let image = "";
 
     if (req.file) {
-      image ="/public/uploads/"+req.file.filename || "";
+      image ="/public/uploads/"+req.file.filename+".webp" || "";
       imageService.convertAllImage(req.file.path);
       
 
