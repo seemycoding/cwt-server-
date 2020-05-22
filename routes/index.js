@@ -401,6 +401,13 @@ router.get("/addwaterdata", UserController.checksignin, function(req, res, next)
 });
 router.post("/WaterData",UserController.checksignin,WaterDataController.create);
 
+router.post("/articleImage",UserController.checksignin,fileUpload.any(),(req,res,next)=>{
+  console.log(req.files[0].filename);
+  res.json({"location":`/public/uploads/${req.files[0].filename}`});
+  
+  
+})
+
 // router.get("/convertAllImages",UserController.checksignin,ImageController.convertAllImages);
 //till here
 //tilll here
