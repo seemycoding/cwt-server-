@@ -18,6 +18,8 @@ app.use(bodyParser.json());
 app.use(cors());
 // app.use(jwt());
 
+console.log(process.env);
+
 //app.use("/public", express.static("public"));
 app.use(express.json({ limit: "50mb" }));
 app.use(

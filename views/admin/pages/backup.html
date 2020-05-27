@@ -1,0 +1,154 @@
+<% include ../widgets/layout %>
+<style>
+  .right {
+    float: right;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  p {
+    line-height: 30px;
+  }
+</style>
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-12">
+        <h4 class="page-title">Backup / Restore</h4>
+        <ol class="breadcrumb">
+          <li><a href="#">Dashboard</a></li>
+          <li class="active">Backup</li>
+        </ol>
+        <% if (message) { %>
+          <div class="alert alert-success"><%= message %></div>
+          <% } %>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+    <!-- row -->
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="white-box">
+          <form action="/setbackup" method="POST" id="form">
+            <label class="bold">Immediate Backup/Restore</label>
+            <p>
+              <input type="checkbox" name="backupnow">
+              Create And Save a new snapshot file
+              <span class="right">
+
+
+                <input type="submit" class="btn btn-primary" value="Backup Now" />
+              </span>
+            </p>
+            <p>
+              <input type="checkbox" name="restore">
+              Restore existing snapshot file
+              <span class="right">
+
+                <button type="button" onclick="getSnapshot()" class="btn btn-primary" data-toggle="modal"
+                  data-target="#exampleModal">Restore Now</button>
+              </span>
+            </p>
+            <label class="bold">Schedule Backup Setting</label>
+            <p>
+              Backup Schedule
+              <span class="right">Daily At&nbsp;&nbsp;
+                <input type="time" name="daily-time" id="daily-time" />
+              </span>
+            </p>
+            <p>
+              Backup Schedule
+              <span class="right">
+                <select name="week-frequency" id="week-frequency">
+                  <option value=""></option>
+                  <option value="fortnight">Fortnightly</option>
+                  <option value="monthly">Monthly</option>
+                </select>
+                At&nbsp;&nbsp;
+                <input type="time" name="fm-time" id="fm-time" />
+              </span>
+            </p>
+            <p>
+              Backup Schedule
+              <span class="right">
+                <select name="week-date" id="week-date">
+                  <option value=""></option>
+                  <option value="weekly">Weekly</option>
+                </select>
+
+                On
+                <span>
+                  <select name="week-day" id="week">
+                    <option value=""></option>
+                    <option value="1">Monday</option>
+                    <option value="2">Tuesday</option>
+                    <option value="3">Wednesday</option>
+                    <option value="4">Thursday</option>
+                    <option value="5">Friday</option>
+                    <option value="6">Saturday</option>
+                  </select>
+                </span>
+                At&nbsp;&nbsp;<input type="time" name="week-time" id="time" />
+              </span>
+            </p>
+        </div>
+        <input type="submit" class="btn btn-primary right" value="Set Schedule Backup" />
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Restore</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Snapshot List</p>
+        <select name="snapshot" id="snap">
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" value="Restore" />
+      </div>
+    </div>
+  </div>
+</div>
+      </form>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->
+
+
+
+<script>
+  async function getSnapshot() {
+    let html = `<option value="">Select an snapshot date</option>`;
+    let select;
+    await fetch(`http://localhost:3000/getbackup`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    })
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        
+        for (let index = 0; index < json.Data.length; index++) {
+         
+            html += `<option value="${json.Data[index]}">${json.Data[index]}</option>`;
+          
+        }
+        document.getElementById('snap').innerHTML = html;
+      });
+  }
+</script>
+<% include ../widgets/footer %>

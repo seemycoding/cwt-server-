@@ -20,6 +20,7 @@ const UpComingEventController = require("../controllers/UpComingEvent");
 const HighlightController = require("../controllers/Highlights");
 const GalleryController = require("../controllers/Gallery");
 const homeController=require("../controllers/homeController");
+const backupController=require("../controllers/Backup");
 
 router.use(methodOverride("_method"));
 router.get("/ExpertArticles", ArticleController.expertArticles);
@@ -400,6 +401,17 @@ router.get("/addwaterdata", UserController.checksignin, function(req, res, next)
   res.render("pages/addwaterdata", { dat: data, url: "/WaterData" });
 });
 router.post("/WaterData",UserController.checksignin,WaterDataController.create);
+
+router.post("/articleImage",UserController.checksignin,fileUpload.any(),(req,res,next)=>{
+  console.log(req.files[0].filename);
+  res.json({"location":`/public/uploads/${req.files[0].filename}`});
+  })
+
+router.get('/backup',UserController.checksignin, function(req,res,next) {
+  res.render("pages/backup",{ message: req.query.message });
+})
+router.post('/setbackup',UserController.checksignin,backupController.setBackup);
+router.get('/getbackup',UserController.checksignin,backupController.getBackup);
 
 // router.get("/convertAllImages",UserController.checksignin,ImageController.convertAllImages);
 //till here

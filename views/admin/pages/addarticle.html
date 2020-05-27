@@ -185,6 +185,16 @@
 
 
 
+var url="/articleImage";
+
+
+
+
+
+
+
+
+
 
 
 
@@ -193,6 +203,9 @@ tinymce.init({
   selector: 'textarea#articledetail',
   height: 500,
   menubar: false,
+  image_uploadtab: true,
+  images_upload_url:url,
+ 
   plugins: [
     'advlist autolink lists link image charmap print preview anchor',
     'searchreplace visualblocks code fullscreen',
@@ -201,16 +214,23 @@ tinymce.init({
   toolbar: 'undo redo | formatselect | ' +
   ' bold italic backcolor | alignleft aligncenter ' +
   ' alignright alignjustify | bullist numlist outdent indent |' +
-  ' removeformat | help',
+  ' removeformat image| help',
   content_css: [
     '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
     '//www.tiny.cloud/css/codepen.min.css'
+  ],
+  image_list: [
+    {title: 'My image 1', value: 'https://www.example.com/my1.gif'},
+    {title: 'My image 2', value: 'http://www.moxiecode.com/my2.gif'}
   ]
 });
+
 tinymce.init({
   selector: 'textarea#articledetail2',
   height: 500,
   menubar: false,
+  image_uploadtab: true,
+  images_upload_url:url,
   plugins: [
     'advlist autolink lists link image charmap print preview anchor',
     'searchreplace visualblocks code fullscreen',
@@ -219,10 +239,14 @@ tinymce.init({
   toolbar: 'undo redo | formatselect | ' +
   ' bold italic backcolor | alignleft aligncenter ' +
   ' alignright alignjustify | bullist numlist outdent indent |' +
-  ' removeformat | help',
+  ' removeformat image | help',
   content_css: [
     '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
     '//www.tiny.cloud/css/codepen.min.css'
+  ],
+  image_list: [
+    {title: 'My image 1', value: 'https://www.example.com/my1.gif'},
+    {title: 'My image 2', value: 'http://www.moxiecode.com/my2.gif'}
   ]
 });
 
