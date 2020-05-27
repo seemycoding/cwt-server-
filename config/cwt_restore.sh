@@ -2,7 +2,7 @@
 
 set -e
 DB=cwt
-SPACE_NAME=/var/uploads/cwt
+SPACE_NAME=/var/uploads/backup
 FILE="$@"
 date
 echo "Restoring MongoDB database"

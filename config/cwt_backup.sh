@@ -24,7 +24,7 @@
 
 set -e
 
-SPACE_NAME=/var/uploads/cwt
+SPACE_NAME=/var/uploads/backup
 BACKUP_NAME=$(date +%d_%m_%y__%H_%M_%S).gz
 DB=cwt
 
