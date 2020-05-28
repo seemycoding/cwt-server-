@@ -23,19 +23,29 @@ const BackupController = {
       cp.exec(
         '"./config/cwt_restore.sh" ' + req.body.snapshot + ".gz",
         function (err, stdout, stderr) {
-          console.log("Immediate Backup Complete", err, stdout, stderr);
+          if (err) {
+              console.log(err);
+              
+          } else {
+            res.redirect('/backup/?message=Data Restoration Completed');
+
+          }
         }
       );
-      res.redirect('/backup/?message=Data Restoration Completed');
     }
 
     //Immediate backup
     if (req.body.backupnow == "on") {
       cp.exec('"./config/cwt_backup.sh"', function (err, stdout, stderr) {
         // handle err, stdout, stderr
-        console.log("Immediate Backup Complete", err);
+        if (err) {
+            console.log(err);
+            
+        } else {
+            res.redirect('/backup/?message=Immediate Backup Completed');
+ 
+        }
       });
-      res.redirect('/backup/?message=Immediate Backup Completed');
 
     }
 
@@ -49,10 +59,15 @@ const BackupController = {
         console.log("Backup Complete");
         cp.exec('"./config/cwt_backup.sh"', function (err, stdout, stderr) {
           // handle err, stdout, stderr
-          console.log("Daily Backup Complete");
+          if (err) {
+              console.log(err);
+              
+          } else {
+            res.redirect('/backup/?message=Backup Operation Scheduled Successfully');
+
+          }
         });
       });
-      res.redirect('/backup/?message=Backup Operation Scheduled Successfully');
 
     }
 
@@ -74,10 +89,15 @@ const BackupController = {
         console.log("Backup Complete");
         cp.exec('"./config/cwt_backup.sh"', function (err, stdout, stderr) {
           // handle err, stdout, stderr
-          console.log("Monthly/Fortnightly Backup Complete");
+          if (err) {
+              console.log(err);
+              
+          } else {
+            res.redirect('/backup/?message=Backup Operation Scheduled Successfully');
+
+          }
         });
       });
-      res.redirect('/backup/?message=Backup Operation Scheduled Successfully');
 
     }
 
@@ -97,10 +117,15 @@ const BackupController = {
         console.log("Backup Complete");
         cp.exec('"./config/cwt_backup.sh"', function (err, stdout, stderr) {
           // handle err, stdout, stderr
-          console.log(" Weekly Backup Complete");
+          if (err) {
+              console.log(err);
+              
+          } else {
+            res.redirect('/backup/?message=Backup Operation Scheduled Successfully');
+
+          }
         });
       });
-      res.redirect('/backup/?message=Backup Operation Scheduled Successfully');
 
     }
 
