@@ -40,7 +40,7 @@ const BackupController = {
     if (req.body.backupnow == "on") {
      
         
-      cp.exec('"../config/cwt_backup.sh"', function (err, stdout, stderr) {
+      cp.exec('"./cwt_backup.sh"', function (err, stdout, stderr) {
         // handle err, stdout, stderr
         if (err) {
             console.log(err);
