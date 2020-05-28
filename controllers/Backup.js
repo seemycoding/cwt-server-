@@ -25,7 +25,8 @@ const BackupController = {
         function (err, stdout, stderr) {
           if (err) {
               console.log(err);
-              
+              res.redirect(`/backup/?message=${err}`);
+
           } else {
             res.redirect('/backup/?message=Data Restoration Completed');
 
@@ -40,7 +41,7 @@ const BackupController = {
         // handle err, stdout, stderr
         if (err) {
             console.log(err);
-            
+            res.redirect(`/backup/?message=${err}`);
         } else {
             res.redirect('/backup/?message=Immediate Backup Completed');
  
