@@ -7,7 +7,7 @@ const path=require('path');
 const BackupController = {
   getBackup: async (req, res, next) => {
     let data = [];
-    fs.readdir("./backup/", (err, files) => {
+    fs.readdir("/var/uploads/backup/", (err, files) => {
       files.forEach((file) => {
         const date = file.split(".");
         data.push(date[0]);
@@ -23,7 +23,7 @@ const BackupController = {
     // restore
     if (req.body.restore == "on") {
       cp.exec(
-        '"./config/cwt_restore.sh" ' + req.body.snapshot + ".gz",
+        '"/var/uploads/backup/cwt_restore.sh" ' + req.body.snapshot + ".gz",
         function (err, stdout, stderr) {
           if (err) {
               console.log(err);
@@ -62,7 +62,7 @@ const BackupController = {
 
       cron.schedule(`${minute} ${hour} * * 1-6`, () => {
         console.log("Backup Complete");
-        cp.exec('"./config/cwt_backup.sh"', function (err, stdout, stderr) {
+        cp.exec('"/var/uploads/backup/cwt_backup.sh"', function (err, stdout, stderr) {
           // handle err, stdout, stderr
           if (err) {
               console.log(err);
@@ -92,7 +92,7 @@ const BackupController = {
 
       cron.schedule(ScheduleFrequency, () => {
         console.log("Backup Complete");
-        cp.exec('"./config/cwt_backup.sh"', function (err, stdout, stderr) {
+        cp.exec('"/var/uploads/backup/cwt_backup.sh"', function (err, stdout, stderr) {
           // handle err, stdout, stderr
           if (err) {
               console.log(err);
@@ -120,7 +120,7 @@ const BackupController = {
 
       cron.schedule(ScheduleFrequency, () => {
         console.log("Backup Complete");
-        cp.exec('"./config/cwt_backup.sh"', function (err, stdout, stderr) {
+        cp.exec('"/var/uploads/backup/cwt_backup.sh"', function (err, stdout, stderr) {
           // handle err, stdout, stderr
           if (err) {
               console.log(err);
