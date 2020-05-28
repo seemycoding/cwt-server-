@@ -23,17 +23,11 @@
 #!/bin/bash
 
 set -e
-
 SPACE_NAME=/var/uploads/backup
 BACKUP_NAME=$(date +%d_%m_%y__%H_%M_%S).gz
 DB=cwt
-
 date
 echo "Backing up MongoDB database to Specified Space: $SPACE_NAME"
-
 echo "Dumping MongoDB $DB database to compressed archive"
 mongodump --username "cwtuser" --password "VegasDreams##1" --authenticationDatabase cwt --authenticationMechanism SCRAM-SHA-256 --archive=$SPACE_NAME/$BACKUP_NAME --gzip
-
-
-
 echo 'Backup complete!'

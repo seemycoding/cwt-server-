@@ -3,6 +3,7 @@ var cron = require("node-cron");
 const fs = require("fs");
 const path=require('path');
 
+
 const BackupController = {
   getBackup: async (req, res, next) => {
     let data = [];
@@ -40,7 +41,7 @@ const BackupController = {
     if (req.body.backupnow == "on") {
      
         
-      cp.exec('"cwt_backup.sh"', function (err, stdout, stderr) {
+      cp.exec(' "/var/uploads/backup/cwt_backup.sh" ', function (err, stdout, stderr) {
         // handle err, stdout, stderr
         if (err) {
             console.log(err);
