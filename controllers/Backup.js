@@ -65,7 +65,8 @@ const BackupController = {
         cp.exec('"/var/uploads/backup/cwt_backup.sh"', function (err, stdout, stderr) {
           // handle err, stdout, stderr
           if (err) {
-              console.log(err);
+            res.redirect(`/backup/?message=${err}`);
+
               
           } else {
             console.log("Backup Completed");
