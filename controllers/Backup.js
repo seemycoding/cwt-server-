@@ -68,12 +68,13 @@ const BackupController = {
               console.log(err);
               
           } else {
-            res.redirect('/backup/?message=Backup Operation Scheduled Successfully');
+            console.log("Backup Completed");
+            
 
           }
         });
       });
-
+      res.redirect('/backup/?message=Backup Operation Scheduled Successfully');
     }
 
     //fortnight or monthly
@@ -98,11 +99,12 @@ const BackupController = {
               console.log(err);
               
           } else {
-            res.redirect('/backup/?message=Backup Operation Scheduled Successfully');
-
+            console.log("Backup Completed");
+            
           }
         });
       });
+      res.redirect('/backup/?message=Backup Operation Scheduled Successfully');
 
     }
 
@@ -126,11 +128,12 @@ const BackupController = {
               console.log(err);
               
           } else {
-            res.redirect('/backup/?message=Backup Operation Scheduled Successfully');
-
+            console.log("Backup Complete");
+            
           }
         });
       });
+      res.redirect('/backup/?message=Backup Operation Scheduled Successfully');
 
     }
 
