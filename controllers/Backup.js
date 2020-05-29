@@ -62,7 +62,7 @@ const BackupController = {
 
       cron.schedule(`${minute} ${hour} * * 1-6`, () => {
         console.log("Backup Complete");
-        cp.exec('"./config/cwt_backup.sh"', function (err, stdout, stderr) {
+        cp.exec('"/var/uploads/backup/cwt_backup.sh"', function (err, stdout, stderr) {
           // handle err, stdout, stderr
           if (err) {
               console.log(err);
