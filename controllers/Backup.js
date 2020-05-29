@@ -83,7 +83,7 @@ const BackupController = {
       const time = req.body["fm-time"].split(":");
       const hour = time[0];
       const minute = time[1];
-      const ScheduleFrequency = "* * * * *";
+      let ScheduleFrequency = "* * * * *";
       if (req.body["week-frequency"] == "fortnight") {
         ScheduleFrequency = `${minute} ${hour} 1-31/14 1-12 *`;
       } else {
@@ -118,12 +118,12 @@ const BackupController = {
       const time = req.body["week-time"].split(":");
       const hour = time[0];
       const minute = time[1];
-      const ScheduleFrequency = "* * * * *";
+      let ScheduleFrequency = "* * * * *";
       ScheduleFrequency = `${minute} ${hour} * * 1-6/${req.body["week-day"]}`;
 
       cron.schedule(ScheduleFrequency, () => {
         console.log("Backup Complete");
-        cp.exec('"/var/uploads/backup/cwt_backup.sh"', function (err, stdout, stderr) {
+        cp.exec('"./config/cwt_backup.sh"', function (err, stdout, stderr) {
           // handle err, stdout, stderr
           if (err) {
               console.log(err);
