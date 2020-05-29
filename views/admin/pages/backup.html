@@ -140,8 +140,10 @@
         console.log(json);
         
         for (let index = 0; index < json.Data.length; index++) {
-         
-            html += `<option value="${json.Data[index]}">${json.Data[index]}</option>`;
+              if (json.Data[index] != "cwt_backup" && json.Data[index] != "cwt_restore" ) {
+                html += `<option value="${json.Data[index]}">${json.Data[index]}</option>`;
+
+              } 
           
         }
         document.getElementById('snap').innerHTML = html;
