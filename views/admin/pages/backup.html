@@ -132,11 +132,8 @@
   async function getSnapshot() {
     let html = `<option value="">Select an snapshot date</option>`;
     let select;
-    await fetch(`http://localhost:3000/getbackup`, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8"
-      }
+    await fetch(`http://cwt-test-admin.arachnomesh.com//getbackup`, {
+     
     })
       .then(response => response.json())
       .then(json => {
