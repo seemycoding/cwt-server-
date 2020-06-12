@@ -3,7 +3,8 @@ const ContactController = {
   index: async (req, res, next) => {
     let contact = await Contact.find();
     if (req.params.id == 1) {
-      res.render("pages/contactus", { data: contact, message: "" });
+      let mess=req.query.message;
+      res.render("pages/contactus", { data: contact, message: mess});
     } else {
       res.json(contact);
     }
@@ -16,10 +17,12 @@ const ContactController = {
       .then(result => {
         console.log(result);
         if (result.n > 0) {
-          res.render("pages/contactus", {
-            message: "Contact Deleted!",
-            data: contact
-          });
+          res.redirect('/contactus/1/?message=Contact deleted successfully')
+          //mess;
+          // res.render("pages/contactus", {
+          //   message: "Contact Deleted!",
+          //   data: contact
+          // });
         }
       })
       .catch(error => {
