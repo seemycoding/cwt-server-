@@ -123,7 +123,7 @@
     }else{
       isEnabled=false;
     }
-    await fetch(`http://cwt-test-admin.arachnomesh.com/isEnabled/${id}`, {
+    await fetch(`http://cwt-prod-admin.arachnomesh.com/isEnabled/${id}`, {
       method: "PUT",
       body: JSON.stringify({
         isEnabled: isEnabled
