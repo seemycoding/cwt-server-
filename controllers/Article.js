@@ -3,7 +3,7 @@ const imageService =require("../services/image.service");
 let art;
 const ArticleController = {
   expertArticles: async (req, res, next) => {
-    let articles = await Article.find({ expert: true })._addSpecial( "$orderby", { dateAdded : -1 } );
+    let articles = await Article.find({ expert: true }).sort({dateAdded:-1});
     if (req.params.id == 1) {
       //console.log(articles[0].title);
       art = articles;
@@ -15,7 +15,7 @@ const ArticleController = {
   index: async (req, res, next) => {
     console.log(__dirname);
 
-    let articles = await Article.find()._addSpecial( "$orderby", { dateAdded : -1 } );
+    let articles = await Article.find().sort({dateAdded:-1});
     if (req.params.id == 1) {
       var passedVariable = req.query.message;
 
@@ -26,7 +26,7 @@ const ArticleController = {
   },
 
   bloggerArticles: async (req, res, next) => {
-    let articles = await Article.find({ expert: false })._addSpecial( "$orderby", { dateAdded : -1 } );
+    let articles = await Article.find({ expert: false }).sort({dateAdded:-1});
 
     res.json(articles);
   },
