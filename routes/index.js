@@ -100,7 +100,7 @@ router.put(
 );
 router.delete("/Gallery/:id", GalleryController.deleteById);
 
-//adminpanel
+//adminpanel 01
 
 router.post("/authenticate", UserController.authenticate);
 router.post("/register", UserController.checksignin, UserController.register);
