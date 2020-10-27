@@ -102,7 +102,7 @@ router.delete("/Gallery/:id", GalleryController.deleteById);
 
 //adminpanel 01
 
-router.post("/authenticate", UserController.authenticate);
+router.post("/authenticate", UserController.authenticate);//comment
 router.post("/register", UserController.checksignin, UserController.register);
 
 router.get("/", function(req, res, next) {
