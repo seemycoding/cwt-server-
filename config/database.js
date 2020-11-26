@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-const dbUrl = 'mongodb://cwtUser:4SCUzryXPu2VDD@localhost:27017/cwt?authSource=cwt';
-// const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/cwt';
+//const dbUrl = process.env.DB_URL || 'mongodb://cwtUser:cleanwatertogether@localhost:27017/cwt?authSource=cwt'
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/cwt';
 var options =  {
     useMongoClient: true,
     keepAlive: 1,
