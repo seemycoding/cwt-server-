@@ -31,6 +31,8 @@ app.use(
 client.then((res) => {
   console.log(res);
   console.log("Connected to mongodb");
+}).catch((err)=>{
+console.log(err);
 });
 // app.use(errorHandler);
 app.use(cookieParser());
