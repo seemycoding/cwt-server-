@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const indexRouter = require("./routes/index");
 var session = require('express-session');
+var client=require("./config/database");
 
 
 const app = express();
@@ -26,6 +27,11 @@ app.use(
   express.urlencoded({ limit: "50mb", parameterLimit: 50000, extended: true })
 );
 
+//db connected
+client.then((res) => {
+  console.log(res);
+  console.log("Connected to mongodb");
+});
 // app.use(errorHandler);
 app.use(cookieParser());
 app.engine("html", require("ejs").renderFile);
