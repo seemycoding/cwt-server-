@@ -5,8 +5,5 @@ const client = mongoose.connect(dbUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-//db connected
-client.then((res) => {
-  console.log(res);
-  console.log("Connected to mongodb");
-});
+
+module.exports = client;
