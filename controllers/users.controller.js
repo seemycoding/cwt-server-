@@ -48,7 +48,7 @@ const UserController = {
       res.locals.id = req.session.idd;
       next(); //If session exists, proceed to page
     } else {
-      res.sendStatus(404);
+      res.sendStatus(401);
       // res.render("pages/login", {
       //   message: "You have been logged out  !!"
       // });
