@@ -1,4 +1,4 @@
-﻿const userService = require("../services/user.service");
+const userService = require("../services/user.service");
 const user = require("../models/user.model");
 var express = require("express");
 var cookieParser = require("cookie-parser");
@@ -48,9 +48,10 @@ const UserController = {
       res.locals.id = req.session.idd;
       next(); //If session exists, proceed to page
     } else {
-      res.render("pages/login", {
-        message: "You have been logged out  !!"
-      });
+      res.sendStatus(404);
+      // res.render("pages/login", {
+      //   message: "You have been logged out  !!"
+      // });
       // var err = new Error("Not logged in!");
       // console.log(req.session.user);
       // next(err); //Error, trying to access unauthorized page!
